@@ -1,0 +1,4 @@
+plugins/
+.zsh_sessions/
+.zcompdump
+.zsh_history

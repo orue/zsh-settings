@@ -1,0 +1,69 @@
+#!/bin/sh
+
+alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
+
+# Generate Password
+alias pw='openssl rand -base64 16 | colrm 17'
+
+
+# NPM
+alias npmgl="npm ls -g --depth 0"
+alias nkiller='rm -rf node_modules/ && npm install'
+
+# Yarn
+alias ykiller='rm -rf node_modules/ && yarn install'
+
+# git aliases
+alias github="gh repo view --web"
+
+# Poetry Alias
+alias ps="poetry shell"
+alias pss="poetry show --tree"
+alias pi="poetry install"
+
+# Markdown files
+alias -s md='cot -n'
+
+# JSON files
+alias -s json=code
+
+# bulk association
+alias -s {cs,ts,html}=code
+
+alias gitconfig='cot ~/.gitconfig'
+
+#  Search terminal history
+alias hs='history | grep -i'
+
+# Acitvate Python virtual env
+alias activate='source venv/bin/activate'
+
+# App lauchers
+alias vim='nvim'
+alias charm="open -b com.jetbrains.pycharm ."
+
+# Remote Servers
+alias ssh='TERM="xterm-256color" ssh'
+
+# Colorize grep output (good for log files)
+alias grep='grep --color=auto'
+
+# confirm before overwriting something
+alias mv='mv -iv'
+alias cp='cp -iv'
+alias rm='rm -i'
+
+# easier to read disk
+alias df='df -h'     # human-readable sizes
+
+# Directory views
+alias lS='eza -1'			             # one column, just names
+alias tree='eza --tree --git-ignore --icons'                      # tree
+alias l="eza -ghlH --git --icons"
+alias ll="eza -aghlH --git --icons --sort=type"
+
+
+#Brew 
+alias brewup='brew update && brew upgrade && brew cleanup && brew doctor'
+alias caskup='brew upgrade --cask'
+

@@ -1,0 +1,52 @@
+# python venv - auto activate / deactivate logic
+
+# Initialize ZSH_VIRTUAL_ENV  to ensure it starts in a known state
+export ZSH_VIRTUAL_ENV=""
+
+# Enable debug mode if DEBUG_MODE is set
+DEBUG_MODE=${DEBUG_MODE:-0}
+
+# Debug logging function
+debug_log() {
+  if [[ $DEBUG_MODE -eq 1 ]]; then
+    echo "DEBUG: $@"
+  fi
+}
+
+# Python venv auto activate/deactivate,
+# - activate only if venv is in the current directory or any parent directory
+# - deactivate if no venv is found in the current directory or any parent directory
+python_venv() {
+  local dir=$(pwd)
+  local found_venv=0
+  debug_log "python_venv $dir"
+
+  while [[ $dir != "/" ]]; do
+    debug_log "$dir/venv"
+    if [[ -d "$dir/venv" ]]; then
+      debug_log "found $dir/venv"
+      found_venv=1
+      break
+    fi
+    dir=$(dirname "$dir")
+  done
+
+  if [[ $found_venv -eq 1 ]]; then
+    debug_log "found_venv -eq $found_venv"
+    if [[ -z "$ZSH_VIRTUAL_ENV" ]]; then
+      echo "🚀 activating"
+      source "$dir/venv/bin/activate"
+    fi
+  else
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+      echo "☠️ deactivating"
+      deactivate
+    fi
+  fi
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook chpwd python_venv
+
+# Run python_venv initially to set the correct state
+python_venv

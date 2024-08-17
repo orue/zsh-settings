@@ -1,0 +1,33 @@
+# Navigation alias
+alias dev='cd ~/Development'
+alias dot='cd ~/.dotfiles'
+alias conf='cd ~/.config'
+alias doc='cd ~/Dropbox/Documents'
+
+# AWS Profile
+alias clearprofile='export AWS_PROFILE='
+setprofile() {
+  if [ $(cat ~/.aws/config | grep "\[profile $1\]" | wc -l) == 0 ]; then
+    echo "Invalid profile name"
+  else
+    export AWS_PROFILE=$1
+  fi
+}
+
+# Git
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gcm='git commit -m'
+alias gp='git push'
+alias gpl='git pull'
+alias gb='git branch'
+alias gco='git checkout'
+alias gd='git diff'
+alias gl='git log'
+alias gr='git remote -v'
+alias gcl='git clone'
+
+
+# Home Local Servers
+alias azul="ssh orue@azul" # home server
