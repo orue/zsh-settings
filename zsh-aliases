@@ -39,7 +39,7 @@ alias hs='history | grep -i'
 alias activate='source venv/bin/activate'
 
 # App lauchers
-alias vim='nvim'
+alias vim='/opt/homebrew/bin/nvim'
 alias charm="open -b com.jetbrains.pycharm ."
 
 # Remote Servers
@@ -52,6 +52,7 @@ alias grep='grep --color=auto'
 alias mv='mv -iv'
 alias cp='cp -iv'
 alias rm='rm -i'
+alias rmrf='rm -rf'
 
 # easier to read disk
 alias df='df -h'     # human-readable sizes
