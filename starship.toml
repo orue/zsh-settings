@@ -15,6 +15,7 @@ $cmd_duration\
     $nodejs\
     $python\
     $golang\
+    $docker_context
 )
 [╰─](fg:arrow)$character\
 """
@@ -157,5 +158,7 @@ format = '[ $symbol($version )($mod_version )]($style)'
 style = "bg:golang fg:text_light"
 symbol = " "
 
+[docker_context]
+format = '[ $symbol$context](blue bold)'
 # [aws]
 # format = '[($profile)(\($region\))(\[$duration\])]($style)'

@@ -58,13 +58,14 @@ alias rmrf='rm -rf'
 alias df='df -h'     # human-readable sizes
 
 # Directory views
+alias ls='eza --icons -F -H --group-directories-first --git -1'
 alias lS='eza -1'			             # one column, just names
 alias tree='eza --tree --git-ignore --icons'                      # tree
 alias l="eza -ghlH --git --icons"
 alias ll="eza -aghlH --git --icons --sort=type"
 
 
-#Brew 
+#Brew
 alias brewup='brew update && brew upgrade && brew cleanup && brew doctor'
 alias caskup='brew upgrade --cask'
 
