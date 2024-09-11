@@ -7,9 +7,9 @@ $hostname\
 (\
     $directory\
 )\
-$fill\
 $git_branch\
 $git_status\
+$fill\
 $cmd_duration\
 (\
     $nodejs\
