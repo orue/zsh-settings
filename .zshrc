@@ -2,7 +2,7 @@
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 
-echo "Welcome, Carlos"
+echo "Hello, World!"
 
 #  Brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -81,7 +81,7 @@ zsh_add_plugin "hlissner/zsh-autopair"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
-# fnm - Node Version Manager 
+# fnm - Node Version Manager
 eval "$(fnm env --use-on-cd)"
 
 # Amazon Q post block. Keep at the bottom of this file.

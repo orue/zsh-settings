@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Navigation alias
 alias dev='cd ~/Development'
 alias dot='cd ~/.dotfiles'
