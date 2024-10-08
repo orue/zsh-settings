@@ -48,21 +48,29 @@ alias ssh='TERM="xterm-256color" ssh'
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
 
-# confirm before overwriting something
-alias mv='mv -iv'
-alias cp='cp -iv'
-alias rm='rm -i'
-alias rmrf='rm -rf'
-
-# easier to read disk
-alias df='df -h'     # human-readable sizes
-
 # Directory views
 alias ls='eza --icons -F -H --group-directories-first --git -1'
 alias lS='eza -1'			             # one column, just names
 alias tree='eza --tree --git-ignore --icons'                      # tree
 alias l="eza -ghlH --git --icons"
 alias ll="eza -aghlH --git --icons --sort=type"
+
+alias cp='cp -iv'                   # Preferred 'cp' implementation
+alias mv='mv -iv'                   # Preferred 'mv' implementation
+alias mkdir='mkdir -pv'             # Preferred 'mkdir' implementation
+alias rm='rm -i'
+alias rmrf='rm -rf'
+alias f='open -a Finder ./'         # f:            Opens current directory in MacOS Finder
+
+
+# history
+alias h='history'
+alias clear_history='echo "" > ~/.zsh_history & exec $SHELL -l'
+
+# easier to read disk
+alias df='df -h'     # human-readable sizes
+
+
 
 
 #Brew

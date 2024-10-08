@@ -6,15 +6,6 @@ alias dot='cd ~/.dotfiles'
 alias conf='cd ~/.config'
 alias doc='cd ~/Dropbox/Documents'
 
-# AWS Profile
-alias clearprofile='export AWS_PROFILE='
-setprofile() {
-  if [ $(cat ~/.aws/config | grep "\[profile $1\]" | wc -l) == 0 ]; then
-    echo "Invalid profile name"
-  else
-    export AWS_PROFILE=$1
-  fi
-}
 
 # Git
 alias g='git'

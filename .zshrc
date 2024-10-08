@@ -2,7 +2,9 @@
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 
-echo "Hello, Terminal"
+# don't check for new mail
+MAILCHECK=0
+
 
 #  Brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
