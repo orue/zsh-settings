@@ -2,7 +2,7 @@
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 
-echo "Hello, World!"
+echo "Hello, Terminal"
 
 #  Brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -68,6 +68,7 @@ zsh_add_file "zsh-exports"
 zsh_add_file "zsh-aliases"
 zsh_add_file "zsh-user-aliases"
 zsh_add_file "zsh-venv"
+zsh_add_file "zsh-aws"
 
 
 # Load all the plugins
@@ -82,7 +83,13 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
 # fnm - Node Version Manager
-eval "$(fnm env --use-on-cd)"
+
+eval "$(fnm env --use-on-cd --shell zsh)"
+
+# set default profile and us-west-2 as default
+asp default
+asr us-east-2
+
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
