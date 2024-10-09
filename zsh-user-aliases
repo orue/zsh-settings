@@ -6,6 +6,12 @@ alias dot='cd ~/.dotfiles'
 alias conf='cd ~/.config'
 alias doc='cd ~/Dropbox/Documents'
 
+#Projects
+function cclear(){
+  cd ~/Development/github/mjphealthcare/cclear
+  asp mjp_dev
+}
+
 
 # Git
 alias g='git'
