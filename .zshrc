@@ -5,7 +5,6 @@
 # don't check for new mail
 MAILCHECK=0
 
-
 #  Brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
