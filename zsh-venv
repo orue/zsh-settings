@@ -19,6 +19,7 @@ debug_log() {
 # - activate only if venv is in the current directory or any parent directory
 # - deactivate if no venv is found in the current directory or any parent directory
 python_venv() {
+
   local dir=$(pwd)
   local found_venv=0
   debug_log "python_venv $dir"

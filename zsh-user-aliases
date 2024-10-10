@@ -7,10 +7,10 @@ alias conf='cd ~/.config'
 alias doc='cd ~/Dropbox/Documents'
 
 #Projects
-function cclear(){
-  cd ~/Development/github/mjphealthcare/cclear
-  asp mjp_dev
-}
+alias cclear='cd ~/Development/github/mjphealthcare/cclear'
+alias cclear_api='cd ~/Development/github/mjphealthcare/cclear/services/cclear_api'
+
+
 
 
 # Git
