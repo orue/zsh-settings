@@ -11,8 +11,6 @@ alias cclear='cd ~/Development/github/mjphealthcare/cclear'
 alias cclear_api='cd ~/Development/github/mjphealthcare/cclear/services/cclear_api'
 
 
-
-
 # Git
 alias g='git'
 alias gs='git status'

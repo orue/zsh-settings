@@ -28,7 +28,7 @@ function asp() {
     return 1
   else
     export AWS_DEFAULT_PROFILE="$1" AWS_PROFILE="$1"
-    echo "AWS Profile: $AWS_PROFILE"
+    echo "☁️ AWS Profile: $AWS_PROFILE"
   fi
 }
 
@@ -51,12 +51,12 @@ function alp() {
 
 function aws_check(){
     if [[ $PWD = *"mjphealthcare"* ]]; then
-      if [[ $AWS_PROFILE != "mjp_dev" ]]; then
-      asp mjp_dev
+      if [[ $AWS_PROFILE != $MJP_DEV_PROFILE ]]; then
+      asp $MJP_DEV_PROFILE
       fi
   else
-      if [[ $AWS_PROFILE != "default" ]]; then
-      asp default
+      if [[ $AWS_PROFILE != $CO_DEV_PROFILE ]]; then
+      asp $CO_DEV_PROFILE
       fi
 
   fi
@@ -65,3 +65,6 @@ function aws_check(){
 
 autoload -U add-zsh-hook
 add-zsh-hook chpwd aws_check
+
+# Run aws_check initially to set the correct state
+aws_check

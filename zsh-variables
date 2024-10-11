@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export AWS_DEFAULT_REGION="us-east-2"
+
+export CO_DEV_PROFILE="default"
+export MJP_DEV_PROFILE="mjp_dev"
+

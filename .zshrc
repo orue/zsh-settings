@@ -64,13 +64,12 @@ autoload -Uz colors && colors
 source "$ZDOTDIR/zsh-functions"
 
 # Normal files to source
+zsh_add_file "zsh-variables"
 zsh_add_file "zsh-exports"
-# zsh_add_file "zsh-prompt"
 zsh_add_file "zsh-aliases"
 zsh_add_file "zsh-user-aliases"
 zsh_add_file "zsh-aws"
 zsh_add_file "zsh-venv"
-
 
 
 # Load all the plugins
@@ -88,9 +87,8 @@ eval "$(pyenv init -)"
 
 eval "$(fnm env --use-on-cd --shell zsh)"
 
-# set default profile and us-west-2 as default
-asp default
-asr us-east-2
+# set AWS Default Region to us-west-2
+asr $AWS_DEFAULT_REGION
 
 
 # Amazon Q post block. Keep at the bottom of this file.
