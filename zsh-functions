@@ -76,3 +76,7 @@ zle -N zle-line-finish
 
 
 trap 'set-short-prompt; return 130' INT
+
+
+function pyenv-versions() {
+    pyenv install -l | rg '^\s+[\d\.]+$' | sort -rV | awk -F. '{if (last_major_minor != $1"."$2) {print; last_major_minor=$1"."$2}}' | sort -V}

@@ -19,26 +19,32 @@ debug_log() {
 # - activate only if venv is in the current directory or any parent directory
 # - deactivate if no venv is found in the current directory or any parent directory
 python_venv() {
-
   local dir=$(pwd)
   local found_venv=0
+  local venv_path=""
+  # Array of possible venv directory names
+  local venv_names=("venv" ".venv" )
+
   debug_log "python_venv $dir"
 
   while [[ $dir != "/" ]]; do
-    debug_log "$dir/venv"
-    if [[ -d "$dir/venv" ]]; then
-      debug_log "found $dir/venv"
-      found_venv=1
-      break
-    fi
+    for venv_name in "${venv_names[@]}"; do
+      debug_log "checking $dir/$venv_name"
+      if [[ -d "$dir/$venv_name" && -f "$dir/$venv_name/bin/activate" ]]; then
+        debug_log "found $dir/$venv_name"
+        found_venv=1
+        venv_path="$dir/$venv_name"
+        break 2  # Break out of both loops
+      fi
+    done
     dir=$(dirname "$dir")
   done
 
   if [[ $found_venv -eq 1 ]]; then
-    debug_log "found_venv -eq $found_venv"
-    if [[ -z "$ZSH_VIRTUAL_ENV" ]]; then
-      echo "🐍 activating"
-      source "$dir/venv/bin/activate"
+    debug_log "found_venv -eq $found_venv at $venv_path"
+    if [[ -z "$VIRTUAL_ENV" ]]; then
+      echo "🐍 activating python virtualenv at $venv_path"
+      source "$venv_path/bin/activate"
     fi
   else
     if [[ -n "$VIRTUAL_ENV" ]]; then
@@ -53,3 +59,7 @@ add-zsh-hook chpwd python_venv
 
 # Run python_venv initially to set the correct state
 python_venv
+
+
+
+

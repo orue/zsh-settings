@@ -84,8 +84,10 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
 # fnm - Node Version Manager
-
 eval "$(fnm env --use-on-cd --shell zsh)"
+
+# uv python cli
+eval "$(uv generate-shell-completion zsh)"
 
 # set AWS Default Region to us-west-2
 asr $AWS_DEFAULT_REGION

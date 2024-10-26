@@ -4,12 +4,16 @@
 alias dev='cd ~/Development'
 alias dot='cd ~/.dotfiles'
 alias conf='cd ~/.config'
-alias doc='cd ~/Dropbox/Documents'
+alias zshrc='code ~/.config/zsh'
+alias doc='open ~/Dropbox/Documents'
+alias notes='code ~/Development/github/orue/notes'
 
 #Projects
 alias cclear='cd ~/Development/github/mjphealthcare/cclear'
-alias cclear_api='cd ~/Development/github/mjphealthcare/cclear/services/cclear_api'
+alias cclear-api='code ~/Development/github/mjphealthcare/cclear/services/cclear-api --Python'
 
+# Alias for run last SQLite
+alias my-sqlite="echo 'This is just an alias that is using for the homebrew installed sqlite3. Set up the alias' && /opt/homebrew/opt/sqlite/bin/sqlite3"
 
 # Git
 alias g='git'
