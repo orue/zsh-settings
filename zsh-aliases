@@ -16,13 +16,8 @@ alias ykiller='rm -rf node_modules/ && yarn install'
 # git aliases
 alias github="gh repo view --web"
 
-# Poetry Alias
-alias ps="poetry shell"
-alias pss="poetry show --tree"
-alias pi="poetry install"
-
 # Markdown files
-alias -s md='cot -n'
+alias -s md='code -n'
 
 # JSON files
 alias -s json=code
@@ -72,8 +67,6 @@ alias df='df -h'     # human-readable sizes
 
 
 
-
 #Brew
 alias brewup='brew update && brew upgrade && brew cleanup && brew doctor'
 alias caskup='brew upgrade --cask'
-
