@@ -13,6 +13,10 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Starship
 eval "$(starship init zsh)"
 
+# pyenv
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+
 # Zsh settings for history
 HISTORY_IGNORE="(ls|[bf]g|exit|reset|clear|cd|cd ..|cd..)"
 HISTSIZE=25000
@@ -65,6 +69,7 @@ autoload -Uz colors && colors
 # Useful Functions
 source "$ZDOTDIR/zsh-functions"
 
+
 # Normal files to source
 zsh_add_file "zsh-variables"
 zsh_add_file "zsh-exports"
@@ -73,7 +78,6 @@ zsh_add_file "zsh-user-aliases"
 zsh_add_file "zsh-aws"
 zsh_add_file "zsh-venv"
 
-
 # Load all the plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
@@ -81,19 +85,15 @@ zsh_add_plugin "zsh-users/zsh-history-substring-search"
 zsh_add_plugin "hlissner/zsh-autopair"
 
 
-# pyenv
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-
 # fnm - Node Version Manager
 eval "$(fnm env --use-on-cd --shell zsh)"
 
 # uv python cli
 eval "$(uv generate-shell-completion zsh)"
 
+
 # set AWS Default Region to us-west-2
 asr $AWS_DEFAULT_REGION
-
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"

@@ -15,9 +15,10 @@ debug_log() {
   fi
 }
 
-# Python venv auto activate/deactivate,
-# - activate only if venv is in the current directory or any parent directory
-# - deactivate if no venv is found in the current directory or any parent directory
+# Python venv auto activate/deactivate
+# Handles multiple virtual environment directory names
+# Activates if venv is in current directory or any parent directory
+# Deactivates if no venv is found in current directory or any parent directory
 python_venv() {
   local dir=$(pwd)
   local found_venv=0
@@ -42,14 +43,16 @@ python_venv() {
 
   if [[ $found_venv -eq 1 ]]; then
     debug_log "found_venv -eq $found_venv at $venv_path"
-    if [[ -z "$VIRTUAL_ENV" ]]; then
-      echo "🐍 activating python virtualenv at $venv_path"
+    if [[ -z "$ZSH_VIRTUAL_ENV" ]]; then
+      echo "🐍 activating virtualenv at $venv_path"
+      export ZSH_VIRTUAL_ENV="$venv_path"
       source "$venv_path/bin/activate"
     fi
   else
-    if [[ -n "$VIRTUAL_ENV" ]]; then
+    if [[ -n "$ZSH_VIRTUAL_ENV" ]]; then
       echo "💣 deactivating"
       deactivate
+      unset ZSH_VIRTUAL_ENV
     fi
   fi
 }
@@ -59,7 +62,3 @@ add-zsh-hook chpwd python_venv
 
 # Run python_venv initially to set the correct state
 python_venv
-
-
-
-

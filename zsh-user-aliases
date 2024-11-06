@@ -7,6 +7,7 @@ alias conf='cd ~/.config'
 alias zshrc='code ~/.config/zsh'
 alias doc='open ~/Dropbox/Documents'
 alias notes='code ~/dev/github/orue/notes'
+alias meetings='code ~/dev/github/mjphealthcare/meeting-notes'
 alias hosts='sudo subl /etc/hosts'
 alias gitconfig='subl ~/.gitconfig'
 
