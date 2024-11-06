@@ -65,8 +65,5 @@ alias clear_history='echo "" > ~/.zsh_history & exec $SHELL -l'
 # easier to read disk
 alias df='df -h'     # human-readable sizes
 
-
-
-#Brew
-alias brewup='brew update && brew upgrade && brew cleanup && brew doctor'
-alias caskup='brew upgrade --cask'
+#Homebrew Update
+alias brewup='brew update; brew upgrade; brew upgrade --cask; brew autoremove; brew cleanup; brew doctor'
