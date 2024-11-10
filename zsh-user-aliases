@@ -4,7 +4,7 @@
 alias dev='cd ~/dev'
 alias dot='cd ~/.dotfiles'
 alias conf='cd ~/.config'
-alias zshrc='code ~/.config/zsh'
+alias zshrc='cd ~/.config/zsh && code ~/.config/zsh'
 alias doc='open ~/Dropbox/Documents'
 alias notes='code ~/dev/github/orue/notes'
 alias meetings='code ~/dev/github/mjphealthcare/meeting-notes'
@@ -19,19 +19,31 @@ alias cclear-api='cd ~/dev/github/mjphealthcare/cclear/services/cclear-api'
 alias my-sqlite="echo 'This is just an alias that is using for the homebrew installed sqlite3. Set up the alias' && /opt/homebrew/opt/sqlite/bin/sqlite3"
 
 # Git
-alias g='git'
-alias gs='git status'
-alias ga='git add'
-alias gcm='git commit -m'
-alias gp='git push'
-alias gpl='git pull'
-alias gb='git branch'
-alias gco='git checkout'
+alias g="git"
+alias ggo="git checkout"
+alias gs='git status -sb'
+alias ga='git add '
+alias gb='git branch '
+alias gc='git commit'
 alias gd='git diff'
-alias gl='git log'
-alias gr='git remote -v'
-alias gcl='git clone'
+alias gds='git diff --staged'
+alias gl='git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'
 
+alias gca="git commit -a --amend --reuse-message=HEAD"
+alias gcn="git commit --no-verify"
+alias gdp='git diff | less'
+alias gb-current='git branch --show-current'
+
+# Switch to common branch, pull and prune
+alias g-main="git checkout main && git pull && git fetch -p"
+alias g-dev="git checkout codev && git pull && git fetch -p"
+
+# git+github: check out PR by number
+alias ghpr='gh pr checkout'
+
+# git: create a PR
+alias pr-create='gh pr create -f'
+alias pr-create-draft='gh pr create -f -d'
 
 # Home Local Servers
 alias azul="ssh orue@azul" # home server
