@@ -17,6 +17,9 @@ eval "$(starship init zsh)"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
+
+
+
 # Zsh settings for history
 HISTORY_IGNORE="(ls|[bf]g|exit|reset|clear|cd|cd ..|cd..)"
 HISTSIZE=25000
@@ -88,9 +91,9 @@ zsh_add_plugin "hlissner/zsh-autopair"
 # fnm - Node Version Manager
 eval "$(fnm env --use-on-cd --shell zsh)"
 
-# uv python cli
+# uv and uvx python cli
 eval "$(uv generate-shell-completion zsh)"
-
+eval "$(uvx --generate-shell-completion zsh)"
 
 # set AWS Default Region to us-west-2
 asr $AWS_DEFAULT_REGION
