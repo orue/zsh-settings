@@ -93,7 +93,6 @@ eval "$(fnm env --use-on-cd --shell zsh)"
 
 # uv and uvx python cli
 eval "$(uv generate-shell-completion zsh)"
-eval "$(uvx --generate-shell-completion zsh)"
 
 # set AWS Default Region to us-west-2
 asr $AWS_DEFAULT_REGION
