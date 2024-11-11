@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
 # Navigation alias
 alias dev='cd ~/dev'

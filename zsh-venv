@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
 # python venv - auto activate / deactivate logic
 
@@ -24,7 +24,7 @@ python_venv() {
   local found_venv=0
   local venv_path=""
   # Array of possible venv directory names
-  local venv_names=("venv" ".venv" )
+  local venv_names=("venv" ".venv")
 
   debug_log "python_venv $dir"
 
@@ -35,7 +35,7 @@ python_venv() {
         debug_log "found $dir/$venv_name"
         found_venv=1
         venv_path="$dir/$venv_name"
-        break 2  # Break out of both loops
+        break 2 # Break out of both loops
       fi
     done
     dir=$(dirname "$dir")
