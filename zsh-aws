@@ -27,7 +27,7 @@ function asp() {
     return 1
   else
     export AWS_DEFAULT_PROFILE="$1" AWS_PROFILE="$1"
-    echo "☁️ AWS Profile: $AWS_PROFILE"
+    printf "Current AWS Profile: ${aws_color}%'s\n" $AWS_PROFILE
   fi
 }
 

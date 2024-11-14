@@ -52,7 +52,7 @@ alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 # Directory views
 alias ls='eza --icons -F -H --group-directories-first --git -1'
 alias lS='eza -1'                            # one column, just names
-alias tree='eza --tree --git-ignore --icons' # tree
+#alias tree='eza --tree --git-ignore --icons' # tree
 alias l="eza -ghlH --git --icons"
 alias ll="eza -aghlH --git --icons --sort=type"
 

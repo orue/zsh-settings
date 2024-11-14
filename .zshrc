@@ -14,6 +14,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Starship
 eval "$(starship init zsh)"
 
+# fnm - Node Version Manager
+eval "$(fnm env --use-on-cd --shell zsh)"
+
 # pyenv
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
@@ -82,9 +85,6 @@ zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "zsh-users/zsh-history-substring-search"
 zsh_add_plugin "hlissner/zsh-autopair"
-
-# fnm - Node Version Manager
-eval "$(fnm env --use-on-cd --shell zsh)"
 
 # uv and uvx python cli
 eval "$(uv generate-shell-completion zsh)"

@@ -1,18 +1,23 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
 # https://github.com/TaouMou/starship-presets/blob/main/starship_text.toml
+
+# Disable the blank line at the start of the prompt
+add_newline = true
 
 format = """\
 [╭╴](fg:arrow)\
+$os\
 $username\
 $hostname\
-
 (\
     $directory\
 )\
 $cmd_duration\
+${custom.giturl}\
 $git_branch\
 $git_status\
 (\
-
     $nodejs\
     $python\
     $golang\
@@ -23,60 +28,64 @@ $git_status\
 """
 
 
-# Disable the blank line at the start of the prompt
-add_newline = true
+command_timeout = 5000
 
-
-command_timeout = 2000
+right_format = """$all"""
 
 palette = "normal"
 
-
 [palettes.normal]
 arrow = "#EDF2F4"
-os = "#16f4d0"
-os_admin = "#e4ff1a"
-directory = "#9ffff5"
+os = "#5ccfe6"
+os_admin = "#6679a4"
+directory = "#bae67e"
 time = "#bdfffd"
 node = "#a5e6ba"
 git = "#f17f29"
 git_status = "#DFEBED"
-python = "#edf67d"
+python = "#ffd580"
 golang = "#79d4fe"
 clang = "#caf0f8"
-aws = "#ffb86c"
+aws = "#ffae57"
 duration = "#ce4257"
 text_color = "#EDF2F4"
 text_light = "#26272A"
+purple = "#c3a6ff"
 
-# # Use the color palette
-# palette = "dracula"
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = " "
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
 
-# # Define Dracula color palette
-# [palettes.dracula]
-# background = "#282a36"
-# current_line = "#44475a"
-# foreground = "#f8f8f2"
-# comment = "#6272a4"
-# cyan = "#8be9fd"
-# green = "#50fa7b"
-# orange = "#ffb86c"
-# pink = "#ff79c6"
-# purple = "#bd93f9"
-# red = "#ff5555"
-# yellow = "#f1fa8c"
-
+[os]
+disabled = false
 
 [username]
 style_user = 'bold os'
 style_root = 'bold os_admin'
-format = '\[[$user](fg:$style)'
+format = ' \[[$user](fg:$style)'
 disabled = false
 show_always = true
 
 [hostname]
 format = '@[$hostname]($style)\]'
-style = 'bold os_admin'
+style = 'os_admin'
 ssh_only = false
 
 
@@ -85,8 +94,7 @@ success_symbol = "[󰍟](fg:arrow)"
 error_symbol = "[󰍟](fg:red)"
 
 [package]
-disabled=true
-
+disabled = true
 
 
 [directory]
@@ -112,16 +120,34 @@ style = "bold fg:time"
 min_time = 500
 format = 'took [$duration](bold yellow)'
 
-# [cmd_duration]
-# format = "took [ $duration]($style) "
-# style = "bold fg:duration"
-# min_time = 10_10        # Show command duration over 10,00 milliseconds (=1 sec)
 
+[custom.giturl]
+# disabled = true
+description = "Display symbol for remote Git server"
+command = """
+GIT_REMOTE=$(command git ls-remote --get-url 2> /dev/null)
+if [[ "$GIT_REMOTE" =~ "github" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+elif [[ "$GIT_REMOTE" =~ "gitlab" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+elif [[ "$GIT_REMOTE" =~ "bitbucket" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+elif [[ "$GIT_REMOTE" =~ "git" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+else
+    GIT_REMOTE_SYMBOL=" "
+fi
+echo "$GIT_REMOTE_SYMBOL "
+"""
+when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
+format = "on $output "
 
-# ~/.config/starship.toml
 
 [git_branch]
-format = '[$symbol$branch(:$remote_branch)]($style) '
+symbol = " "
+# style = "fg:lavender bg:black"
+format = ' [$symbol$branch]($style) '
+
 
 # https://gist.github.com/akshay-na/2c37a8d21d8abd249543851178f37c0d
 [git_status]
@@ -145,31 +171,29 @@ format = """\
 [$staged](bold green)\
 """
 
-
 [nodejs]
 format = "[ $symbol$version ]($style)"
-style = "bg:node fg:text_light"
 symbol = " "
 version_format = "${raw}"
-disabled=false
+disabled = false
 detect_extensions = ['js', 'mjs', 'cjs', 'ts']
 detect_files = ['package.json', '.node-version', '.nvmrc']
 detect_folders = ['node_modules']
 
 [python]
 format = '[ ${symbol}${pyenv_prefix}(${version})( \($virtualenv\)) ]($style)'
-style = "bg:python fg:text_light"
 symbol = " "
 version_format = "${raw}"
-disabled=false
+disabled = false
 
 [golang]
-format = '[ $symbol($version )($mod_version )]($style)'
-style = "bg:golang fg:text_light"
-symbol = " "
+symbol = ""
+format = '[ $symbol( $version) ]($style)'
+detect_files = ["go.mod"]
 
 [docker_context]
-format = '[ $symbol$context](blue bold)'
+symbol = ""
+format = '[ $symbol( $context) ]($style)'
 
 [aws]
 format = '[ $symbol -> ($profile )(\($region\) )]($style)'
