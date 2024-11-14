@@ -36,9 +36,6 @@ function gi() {
     curl -sLw n https://www.toptal.com/developers/gitignore/api/$@ ;
 }
 
-function tree(){
-    eza --tree --git-ignore --icons --level="${1:-1}"
-}
 
 # Create a new directory and enter it
 function mkcd() {
