@@ -49,13 +49,15 @@ alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'
 # Show IP
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 
-# Directory views
+# eza
 alias ls='eza --icons -F -H --group-directories-first --git -1'
-alias lS='eza -1'                            # one column, just names
-#alias tree='eza --tree --git-ignore --icons' # tree
 alias l="eza -ghlH --git --icons"
-alias ll="eza -aghlH --git --icons --sort=type"
+alias ll="eza -aghlH --group-directories-first --git --git-repos --icons --sort=type"
+function tree() {
+  eza -agTF --tree --icons --group-directories-first --git-ignore --git --git-repos --level="${1:-1}"
+}
 
+# File operations
 alias cp='cp -iv'       # Preferred 'cp' implementation
 alias mv='mv -iv'       # Preferred 'mv' implementation
 alias mkdir='mkdir -pv' # Preferred 'mkdir' implementation
