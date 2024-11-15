@@ -76,9 +76,10 @@ source "$ZDOTDIR/zsh-functions"
 zsh_add_file "zsh-variables"
 zsh_add_file "zsh-exports"
 zsh_add_file "zsh-aliases"
-zsh_add_file "zsh-user-aliases"
+zsh_add_file "user-aliases.zsh"
 zsh_add_file "zsh-aws"
 zsh_add_file "zsh-venv"
+zsh_add_file "zsh-transient-prompt"
 
 # Load all the plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"

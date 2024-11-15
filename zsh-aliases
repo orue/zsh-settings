@@ -5,6 +5,13 @@ alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git
 # Generate Password
 alias pw='openssl rand -base64 16 | colrm 17'
 
+# Terminal
+alias c='clear'
+alias h='history'
+alias v='vim'
+alias e='exit'
+alias r='source ~/.config/zsh/.zshrc'
+
 # NPM
 alias npmgl="npm ls -g --depth 0"
 alias nkiller='rm -rf node_modules/ && npm install'
@@ -15,27 +22,22 @@ alias ykiller='rm -rf node_modules/ && yarn install'
 # git aliases
 alias github="gh repo view --web"
 
-# Markdown files
-alias -s md='code -n'
-
-# JSON files
-alias -s json=code
-
-# bulk association
-alias -s {cs,ts,html}=code
-
-alias gitconfig='cot ~/.gitconfig'
+# Open files with VSCode and nvim
+alias -s {md,json}='code -n --profile "Default"'
+alias -s {html,css,js,ts}='code -n --profile "JS"'
+alias -s py='code -n --profile "Python"'
+alias -s txt=nvim
+alias -s sh=nvim
 
 #  Search terminal history
 alias hs='history | grep -i'
+alias clear_history='echo "" > ~/.zsh_history & exec $SHELL -l'
 
-# Acitvate Python virtual env
-alias activate='source venv/bin/activate'
-
-# App lauchers
+# Editor lauchers
 alias vim='/opt/homebrew/bin/nvim'
-alias charm="open -b com.jetbrains.pycharm ."
-alias c="code ."
+alias pych="open -b com.jetbrains.pycharm ."
+alias vco="code ."
+alias vc="code"
 
 # Remote Servers
 alias ssh='TERM="xterm-256color" ssh'
@@ -64,10 +66,6 @@ alias mkdir='mkdir -pv' # Preferred 'mkdir' implementation
 alias rm='rm -i'
 alias rmrf='rm -rf'
 alias f='open -a Finder ./' # f:            Opens current directory in MacOS Finder
-
-# history
-alias h='history'
-alias clear_history='echo "" > ~/.zsh_history & exec $SHELL -l'
 
 # easier to read disk
 alias df='df -h' # human-readable sizes
