@@ -70,16 +70,16 @@ HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 autoload -Uz colors && colors
 
 # Useful Functions
-source "$ZDOTDIR/zsh-functions"
+source "$ZDOTDIR/functions.zsh"
 
 # Normal files to source
-zsh_add_file "zsh-variables"
-zsh_add_file "zsh-exports"
-zsh_add_file "zsh-aliases"
+zsh_add_file "variables.zsh"
+zsh_add_file "exports.zsh"
+zsh_add_file "aliases.zsh"
 zsh_add_file "user-aliases.zsh"
-zsh_add_file "zsh-aws"
-zsh_add_file "zsh-venv"
-zsh_add_file "zsh-transient-prompt"
+zsh_add_file "aws.zsh"
+zsh_add_file "python-venv.zsh"
+zsh_add_file "transient-prompt.zsh"
 
 # Load all the plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
