@@ -196,6 +196,7 @@ symbol = ""
 format = '[ $symbol( $context) ]($style)'
 
 [aws]
-format = '[ $symbol -> ($profile )(\($region\) )]($style)'
+# format = '[ $symbol -> ($profile )(\($region\) )]($style)'
+format = '[$symbol:($profile)(\($region\))]($style)'
 symbol = 'aws'
 style = 'fg:aws'
