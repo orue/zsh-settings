@@ -47,6 +47,11 @@ function pipup() {
     clear
 }
 
+# list all aliases
+function aliases() {
+    alias | sort | awk -F'=' '{printf "\033[33m%-20s\033[0m %s\n", $1, $2}'
+}
+
 # Create archive from given directory
 function mkarchive() {
     tar -czvf $1.tar.gz $1

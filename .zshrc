@@ -8,8 +8,6 @@ echo " "
 # don't check for new mail
 MAILCHECK=0
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 #  Brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 

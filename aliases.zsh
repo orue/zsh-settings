@@ -17,7 +17,6 @@ alias edit='nvim'                                        # Open a file in Sublim
 alias hc='echo "" > $HOME/.zsh_history & exec $SHELL -l' # Clear history
 
 alias ghweb="gh repo view --web"                  # git open repository on browser
-alias -s md='code -n --profile "Default"'         # Create and open Markdown file on VSCode
 alias ssh='TERM="xterm-256color" ssh'             # Remote Servers SSH connection with 256 colors
 alias ping='ping -c 5'                            # Ping 5 times
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"' # Generate a uuid-v4
@@ -28,7 +27,8 @@ alias vim='/opt/homebrew/bin/nvim'            # Launch Neovim
 alias charm="open -b com.jetbrains.pycharm ." # Open current directory in PyCharm
 alias vc="code ."                             # Open current directory in VSCode
 alias subl="open -a 'Sublime Text'"           # Open Sublime Text
-alias cot="open -a 'CotEditor'"               # Open CotEditor
+alias -s txt='cot -n'                         # open a txt file with cotEditor
+alias -s md='code -n --profile "Default"'     # Create and open Markdown file on VSCode
 
 # eza - ls alternative
 alias ls='eza --icons=always -F -H --group-directories-first --git -1'
