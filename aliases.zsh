@@ -3,35 +3,22 @@
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 
 # Generate Password
-alias pw='openssl rand -base64 16 | colrm 17'
+alias pw='openssl rand -base64 24 | tr -dc "A-Za-z0-9!@#$%^&*()_+" | head -c 20; echo'
 
 # Terminal
 alias c='clear'
-alias h='history'
 alias v='vim'
-alias e='exit'
-alias r='source ~/.config/zsh/.zshrc'
+alias x='exit'
+alias h='history'
+alias r='source $ZDOTDIR/.zshrc'
+alias edit='nvim'                                        # Open a file in Sublime Text
+alias hc='echo "" > $HOME/.zsh_history & exec $SHELL -l' # Clear history
 
-# NPM
-alias npmgl="npm ls -g --depth 0"
-alias nkiller='rm -rf node_modules/ && npm install'
+# git open repository on browser
+alias ghweb="gh repo view --web"
 
-# Yarn
-alias ykiller='rm -rf node_modules/ && yarn install'
-
-# git aliases
-alias github="gh repo view --web"
-
-# Open files with VSCode and nvim
-alias -s {md,json}='code -n --profile "Default"'
-alias -s {html,css,js,ts}='code -n --profile "JS"'
-alias -s py='code -n --profile "Python"'
-alias -s txt=nvim
-alias -s sh=nvim
-
-#  Search terminal history
-alias hs='history | grep -i'
-alias clear_history='echo "" > ~/.zsh_history & exec $SHELL -l'
+# Create and open Markdown file on VSCode
+alias -s md='code -n --profile "Default"'
 
 # Editor lauchers
 alias vim='/opt/homebrew/bin/nvim'
@@ -39,36 +26,32 @@ alias pych="open -b com.jetbrains.pycharm ."
 alias vco="code ."
 alias vc="code"
 
-# Remote Servers
+# Remote Servers SSH connection with 256 colors
 alias ssh='TERM="xterm-256color" ssh'
 
-# Colorize grep output (good for log files)
-alias grep='grep --color=auto'
+# Ping 5 times
+alias ping='ping -c 5'
 
 # Generate a uuid-v4
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'
 
-# Show IP
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+# Human Readable disk usage
+alias df='df -h'
 
-# eza
-alias ls='eza --icons -F -H --group-directories-first --git -1'
-alias l="eza -ghlH --git --icons"
-alias ll="eza -aghlH --group-directories-first --git --git-repos --icons --sort=type"
-function tree() {
-  eza -agTF --tree --icons --group-directories-first --git-ignore --git --git-repos --level="${1:-1}"
-}
+# eza - ls alternative
+alias ls='eza --icons=always -F -H --group-directories-first --git -1'
+alias l="eza -ghlH --git --icons=always --group-directories-first"
+alias ll="eza -aghlH --group-directories-first --git --git-repos --icons=always --sort=type"
+tree() { eza -agTF --tree --icons --group-directories-first --git-ignore --git --git-repos --level="${1:-1}"; }
 
 # File operations
-alias cp='cp -iv'       # Preferred 'cp' implementation
-alias mv='mv -iv'       # Preferred 'mv' implementation
-alias mkdir='mkdir -pv' # Preferred 'mkdir' implementation
+alias cp='cp -iv' # Preferred 'cp' implementation
+alias mv='mv -iv' # Preferred 'mv' implementation
 alias rm='rm -i'
 alias rmrf='rm -rf'
-alias f='open -a Finder ./' # f:            Opens current directory in MacOS Finder
-
-# easier to read disk
-alias df='df -h' # human-readable sizes
+alias f='open -a Finder ./'           # Opens current directory in MacOS Finder
+mcd() { mkdir -pv "$1" && cd "$1"; }  # Makes new Dir and jumps inside
+trash() { command mv "$@" ~/.Trash; } # Moves a file to the trash
 
 #Homebrew Update
 alias brewup='brew update; brew upgrade; brew upgrade --cask; brew autoremove; brew cleanup; brew doctor'

@@ -8,6 +8,8 @@ echo " "
 # don't check for new mail
 MAILCHECK=0
 
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
 #  Brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -24,7 +26,7 @@ eval "$(pyenv init -)"
 # Zsh settings for history
 HISTORY_IGNORE="(ls|[bf]g|exit|reset|clear|cd|cd ..|cd..)"
 HISTSIZE=25000
-HISTFILE=~/.zsh_history
+HISTFILE=$ZDOTDIR/.zsh_history
 SAVEHIST=100000
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
