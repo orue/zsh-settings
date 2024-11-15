@@ -24,10 +24,11 @@ alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"' # Generate a uuid-v4
 alias df='df -h'                                  # Human Readable disk usage
 
 # Editor lauchers
-alias vim='/opt/homebrew/bin/nvim'
-alias pych="open -b com.jetbrains.pycharm ."
-alias vco="code ."
-alias vc="code"
+alias vim='/opt/homebrew/bin/nvim'            # Launch Neovim
+alias charm="open -b com.jetbrains.pycharm ." # Open current directory in PyCharm
+alias vc="code ."                             # Open current directory in VSCode
+alias subl="open -a 'Sublime Text'"           # Open Sublime Text
+alias cot="open -a 'CotEditor'"               # Open CotEditor
 
 # eza - ls alternative
 alias ls='eza --icons=always -F -H --group-directories-first --git -1'
