@@ -9,7 +9,6 @@ alias brewup='brew update; brew upgrade; brew upgrade --cask; brew autoremove; b
 
 # Terminal
 alias c='clear'
-alias v='vim'
 alias x='exit'
 alias h='history'
 alias r='source $ZDOTDIR/.zshrc'
