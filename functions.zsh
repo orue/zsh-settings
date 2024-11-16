@@ -85,45 +85,6 @@ function zsh_add_completion() {
     fi
 }
 
-function add_to_gitignore() {
-    local gitignore=".gitignore"
-    local pattern="$1"
-
-    if [[ ! -f "$gitignore" ]]; then
-        echo "$pattern" >"$gitignore"
-        echo "Created $gitignore with $pattern"
-        return
-    fi
-
-    if ! grep -Fxq "$pattern" "$gitignore"; then
-        echo "$pattern" >>"$gitignore"
-        echo "Added $pattern to $gitignore"
-        tail "$gitignore"
-    else
-        echo "$pattern is already in $gitignore"
-    fi
-}
-
-function list_aliases() {
-    local filter="$1"
-    if [[ -z "$filter" ]]; then
-        alias | sort | awk -F'=' '{printf "\033[33m%-20s\033[0m %s\n", $1, $2}'
-    else
-        alias | grep -i "$filter" | sort | awk -F'=' '{printf "\033[33m%-20s\033[0m %s\n", $1, $2}'
-    fi
-}
-
-# Gereate a gitignore file
-function gi() {
-    curl -sLw n https://www.toptal.com/developers/gitignore/api/$@
-}
-
-# Upgrade pip
-function pipup() {
-    pip install --upgrade pip
-    clear
-}
-
 # Create archive from given directory
 function mkarchive() {
     tar -czvf $1.tar.gz $1
@@ -151,6 +112,43 @@ function extract() {
     fi
 }
 
-function pyenv-versions() {
-    pyenv install -l | rg '^\s+[\d\.]+$' | sort -rV | awk -F. '{if (last_major_minor != $1"."$2) {print; last_major_minor=$1"."$2}}' | sort -V
+# List aliases
+function list_aliases() {
+    local filter="$1"
+    if [[ -z "$filter" ]]; then
+        alias | sort | awk -F'=' '{printf "\033[33m%-20s\033[0m %s\n", $1, $2}'
+    else
+        alias | grep -i "$filter" | sort | awk -F'=' '{printf "\033[33m%-20s\033[0m %s\n", $1, $2}'
+    fi
+}
+
+# Add a file to the .gitignore
+function add_to_gitignore() {
+    local gitignore=".gitignore"
+    local pattern="$1"
+
+    if [[ ! -f "$gitignore" ]]; then
+        echo "$pattern" >"$gitignore"
+        echo "Created $gitignore with $pattern"
+        return
+    fi
+
+    if ! grep -Fxq "$pattern" "$gitignore"; then
+        echo "$pattern" >>"$gitignore"
+        echo "Added $pattern to $gitignore"
+        tail "$gitignore"
+    else
+        echo "$pattern is already in $gitignore"
+    fi
+}
+
+# Gereate a gitignore file
+function gi() {
+    curl -sLw n https://www.toptal.com/developers/gitignore/api/$@
+}
+
+# Upgrade pip
+function pipup() {
+    pip install --upgrade pip
+    clear
 }

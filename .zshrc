@@ -41,12 +41,6 @@ setopt PUSHD_SILENT
 setopt NO_BEEP
 setopt PROMPT_SUBST
 
-# ZSH Plugins
-zsh_add_plugin "zsh-users/zsh-autosuggestions"
-zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
-zsh_add_plugin "zsh-users/zsh-history-substring-search"
-zsh_add_plugin "hlissner/zsh-autopair"
-
 # ZSH Prompt Configuration
 zle_highlight=(
   paste:none
@@ -91,6 +85,12 @@ zsh_add_file "user-aliases.zsh"
 zsh_add_file "aws.zsh"
 zsh_add_file "python-venv.zsh"
 zsh_add_file "transient-prompt.zsh"
+
+# ZSH Plugins
+zsh_add_plugin "zsh-users/zsh-autosuggestions"
+zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
+zsh_add_plugin "zsh-users/zsh-history-substring-search"
+zsh_add_plugin "hlissner/zsh-autopair"
 
 # uv and uvx python cli
 eval "$(uv generate-shell-completion zsh)"
