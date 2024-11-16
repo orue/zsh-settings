@@ -21,11 +21,11 @@ eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
-# Zsh settings for history
-HISTORY_IGNORE="(ls|[bf]g|exit|reset|clear|cd|cd ..|cd..)"
+# ZSH History Configuration
 HISTSIZE=25000
-HISTFILE=$ZDOTDIR/.zsh_history
 SAVEHIST=100000
+HISTORY_IGNORE="(ls|[bf]g|exit|reset|clear|cd|cd ..|cd..)"
+HISTFILE=$ZDOTDIR/.zsh_history
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
@@ -41,12 +41,22 @@ setopt PUSHD_SILENT
 setopt NO_BEEP
 setopt PROMPT_SUBST
 
+# ZSH Plugins
+zsh_add_plugin "zsh-users/zsh-autosuggestions"
+zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
+zsh_add_plugin "zsh-users/zsh-history-substring-search"
+zsh_add_plugin "hlissner/zsh-autopair"
+
+# ZSH Prompt Configuration
 zle_highlight=(
-  'paste:none'
-  'isearch:underline'
+  paste:none
+  isearch:underline
+  region:standout
+  special:standout
+  suffix:bold
 )
 
-DISABLE_UNTRACKED_FILES_DIRTY=true
+DISABLE_UNTRACKED_FILES_DIRTY=true # Disable dirty check for untracked files
 
 # completions
 autoload -Uz compinit
@@ -68,11 +78,12 @@ HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 
 # Colors
 autoload -Uz colors && colors
+alias ssh='TERM="xterm-256color" ssh' # Remote Servers SSH connection with 256 colors
 
-# Useful Functions
+# Load functions
 source "$ZDOTDIR/functions.zsh"
 
-# Normal files to source
+# Load files
 zsh_add_file "variables.zsh"
 zsh_add_file "exports.zsh"
 zsh_add_file "aliases.zsh"
@@ -80,12 +91,6 @@ zsh_add_file "user-aliases.zsh"
 zsh_add_file "aws.zsh"
 zsh_add_file "python-venv.zsh"
 zsh_add_file "transient-prompt.zsh"
-
-# Load all the plugins
-zsh_add_plugin "zsh-users/zsh-autosuggestions"
-zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
-zsh_add_plugin "zsh-users/zsh-history-substring-search"
-zsh_add_plugin "hlissner/zsh-autopair"
 
 # uv and uvx python cli
 eval "$(uv generate-shell-completion zsh)"
