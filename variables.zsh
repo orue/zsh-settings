@@ -6,6 +6,7 @@ export CO_DEV_PROFILE="default"
 export MJP_DEV_PROFILE="mjp_dev"
 
 # Regular Colors
+RESET='\033[0m'               # Text Reset
 Black="\[\033[0;30m\]"        # Black
 Red="\[\033[0;31m\]"          # Red
 Green="\[\033[0;32m\]"        # Green

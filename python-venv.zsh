@@ -51,7 +51,7 @@ python_venv() {
   else
     if [[ -n "$ZSH_VIRTUAL_ENV" ]]; then
       # echo "Deactivating virtual environment"
-      printf "Deactivating virtual environment\n"
+      printf "\nDeactivating virtual environment\n"
       deactivate
       unset ZSH_VIRTUAL_ENV
     fi
