@@ -18,15 +18,34 @@ ${custom.giturl}\
 $git_branch\
 $git_status\
 (\
+    $package\
     $nodejs\
+    $deno\
+    $bun\
+    $conda\
     $python\
     $golang\
+    $perl\
+    $php\
+    $dart\
+    $lua\
+    $rust\
+    $c\
+    $cmake\
+    $dotnet\
+    $java\
+    $julia\
+    $kotlin\
+    $swift\
+    $pulumi\
+    $terraform\
     $docker_context\
+    $kubernetes\
     $aws\
+    $gcloud\
 )
 [╰─](fg:arrow)$character\
 """
-
 
 command_timeout = 5000
 
@@ -38,56 +57,51 @@ palette = "normal"
 arrow = "#EDF2F4"
 os = "#5ccfe6"
 os_admin = "#6679a4"
-directory = "#bae67e"
+directory = "#ffd580"
 time = "#bdfffd"
-node = "#a5e6ba"
+node = "#68a063"
 git = "#f17f29"
 git_status = "#DFEBED"
-python = "#ffd580"
-golang = "#79d4fe"
-clang = "#caf0f8"
-aws = "#ffae57"
+python = "ffde57"
+golang = "#00add8"
+clang = "#0280cd"
+swift = "#f15138"
+lua = "#5959a5"
 duration = "#ce4257"
 text_color = "#EDF2F4"
 text_light = "#26272A"
 purple = "#c3a6ff"
 
-[os.symbols]
-Windows = "󰍲"
-Ubuntu = "󰕈"
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = " "
-Manjaro = ""
-Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-Arch = "󰣇"
-Artix = "󰣇"
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
-
 [os]
 disabled = false
+format = ' [$symbol]($style)'
+
+[os.symbols]
+Arch = " "
+CentOS = " "
+Debian = " "
+Fedora = " "
+FreeBSD = " "
+Linux = " "
+Macos = " "
+openSUSE = " "
+Redhat = " "
+RedHatEnterprise = " "
+Ubuntu = " "
+Unknown = " "
+Windows = "󰍲 "
 
 [username]
+format = '\[[$user@]($style)'
+show_always = true
 style_user = 'bold os'
 style_root = 'bold os_admin'
-format = ' \[[$user](fg:$style)'
-disabled = false
-show_always = true
 
 [hostname]
-format = '@[$hostname]($style)\]'
-style = 'os_admin'
+ssh_symbol = "󰣀 "
 ssh_only = false
-
+format = '[$ssh_symbol$hostname]($style)\]'
+style = 'os'
 
 [character]
 success_symbol = "[󰍟](fg:arrow)"
@@ -96,19 +110,12 @@ error_symbol = "[󰍟](fg:red)"
 [package]
 disabled = true
 
-
 [directory]
-truncation_length = 5
+read_only = " 󰌾"
+truncation_length = 100
 truncate_to_repo = false
-fish_style_pwd_dir_length = 0
-use_logical_path = false
-format = '[$path]($style) [$read_only]($read_only_style)'
-style = 'fg:85 bold'
-disabled = false
-read_only = ''
-read_only_style = 'red'
-truncation_symbol = '.../'
-home_symbol = '~'
+style = " fg:directory"
+format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) '
 
 [time]
 disabled = true
@@ -117,37 +124,12 @@ time_format = "%H:%M"
 style = "bold fg:time"
 
 [cmd_duration]
-min_time = 500
+min_time = 1000
 format = 'took [$duration](bold yellow)'
-
-
-[custom.giturl]
-# disabled = true
-description = "Display symbol for remote Git server"
-command = """
-GIT_REMOTE=$(command git ls-remote --get-url 2> /dev/null)
-if [[ "$GIT_REMOTE" =~ "github" ]]; then
-    GIT_REMOTE_SYMBOL=" "
-elif [[ "$GIT_REMOTE" =~ "gitlab" ]]; then
-    GIT_REMOTE_SYMBOL=" "
-elif [[ "$GIT_REMOTE" =~ "bitbucket" ]]; then
-    GIT_REMOTE_SYMBOL=" "
-elif [[ "$GIT_REMOTE" =~ "git" ]]; then
-    GIT_REMOTE_SYMBOL=" "
-else
-    GIT_REMOTE_SYMBOL=" "
-fi
-echo "$GIT_REMOTE_SYMBOL "
-"""
-when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
-format = "on $output "
-
 
 [git_branch]
 symbol = " "
-# style = "fg:lavender bg:black"
 format = ' [$symbol$branch]($style) '
-
 
 # https://gist.github.com/akshay-na/2c37a8d21d8abd249543851178f37c0d
 [git_status]
@@ -172,31 +154,96 @@ format = """\
 """
 
 [nodejs]
-format = "[ $symbol$version ]($style)"
 symbol = " "
-version_format = "${raw}"
-disabled = false
-detect_extensions = ['js', 'mjs', 'cjs', 'ts']
-detect_files = ['package.json', '.node-version', '.nvmrc']
-detect_folders = ['node_modules']
+format = ' [$symbol($version)]($style)'
+style = "bold fg:node"
+
+[bun]
+format = '[$symbol($version)]($style)'
+
+
+[deno]
+format = '\[[$symbol($version)]($style)\]'
+
+[lua]
+symbol = " "
+format = ' [$symbol($version)]($style)'
+style = "fg:lua"
+
+[conda]
+symbol = " "
+format = ' [$symbol$environment]($style)'
 
 [python]
-format = '[ ${symbol}${pyenv_prefix}(${version})( \($virtualenv\)) ]($style)'
-symbol = " "
-version_format = "${raw}"
-disabled = false
+symbol = " "
+format = ' [${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)'
 
 [golang]
-symbol = ""
-format = '[ $symbol( $version) ]($style)'
-detect_files = ["go.mod"]
+symbol = " "
+format = ' [$symbol($version)]($style)'
+
+[rust]
+disabled = true
+symbol = " "
+format = ' [$symbol($version)]($style)'
+
+[c]
+symbol = " "
+format = ' [$symbol($version(-$name))]($style)'
+style = "fg:clang"
+
+[cmake]
+format = '[$symbol($version)]($style)'
+
+[swift]
+format = '[ $symbol($version)]($style)'
+style = "fg:swift"
+
+[dotnet]
+format = ' [$symbol($version)($tfm)]($style)'
+
+[perl]
+format = '[$symbol($version)]($style)'
+
+[php]
+format = '\[[$symbol($version)]($style)\]'
+
+[dart]
+symbol = " "
+format = '\[[$symbol($version)]($style)\]'
+
+[java]
+symbol = " "
+format = ' [$symbol($version)]($style)'
+style = "fg:red"
+
+[julia]
+symbol = " "
+format = '\[[$symbol($version)]($style)\]'
+
+[kotlin]
+format = '\[[$symbol($version)]($style)\]'
+
+[pulumi]
+format = ' [$symbol$stack]($style)'
+
+[terraform]
+format = ' [$symbol$workspace]($style)'
 
 [docker_context]
-symbol = ""
-format = '[ $symbol( $context) ]($style)'
+symbol = " "
+format = ' [$symbol$context]($style) '
+
+[kubernetes]
+format = '\[[$symbol$context( \($namespace\))]($style)\]'
 
 [aws]
-# format = '[ $symbol -> ($profile )(\($region\) )]($style)'
-format = '[$symbol:($profile)(\($region\))]($style)'
-symbol = 'aws'
-style = 'fg:aws'
+disabled = true
+symbol = " "
+format = ' [$symbol($profile)(\($region\))(\[$duration\])]($style) '
+style = "fg:aws"
+
+[gcloud]
+symbol = " "
+format = '\[[$symbol$account(@$domain)(\($region\))]($style)\]'
+disabled = true
