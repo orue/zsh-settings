@@ -3,7 +3,7 @@
 export STARSHIP_CONFIG=~/.config/zsh/starship.toml
 
 export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export EDITOR="nvim"

@@ -82,6 +82,7 @@ zsh_add_file "variables.zsh"
 zsh_add_file "exports.zsh"
 zsh_add_file "aliases.zsh"
 zsh_add_file "user-aliases.zsh"
+zsh_add_file "git-aliases.zsh"
 zsh_add_file "aws.zsh"
 zsh_add_file "python-venv.zsh"
 zsh_add_file "transient-prompt.zsh"
@@ -94,6 +95,7 @@ zsh_add_plugin "hlissner/zsh-autopair"
 
 # uv and uvx python cli
 eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
 
 # set AWS Default Region to us-west-2
 asr $AWS_DEFAULT_REGION
