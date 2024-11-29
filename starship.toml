@@ -230,9 +230,18 @@ format = ' [$symbol$stack]($style)'
 [terraform]
 format = ' [$symbol$workspace]($style)'
 
+# [docker_context]
+# symbol = " "
+# format = ' [$symbol$context]($style) '
+
 [docker_context]
-symbol = " "
+disabled = false
+symbol = ' '
+style = 'fg:#06969A'
 format = ' [$symbol$context]($style) '
+detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
+only_with_files = true
+detect_extensions = ['Dockerfile']
 
 [kubernetes]
 format = '\[[$symbol$context( \($namespace\))]($style)\]'
