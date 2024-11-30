@@ -152,3 +152,16 @@ function pipup() {
     pip install --upgrade pip
     clear
 }
+
+# Create a python project
+function py-project() {
+    mcd $1
+    uv init
+    gi python >.gitignore
+    mkdir src
+    mv hello.py src/main.py
+    mkdir tests
+    touch tests/tests_main.py
+    uv add --dev pytest
+    vc --profile Python
+}
