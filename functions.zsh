@@ -162,6 +162,7 @@ function py-project() {
     mv hello.py src/main.py
     mkdir tests
     touch tests/tests_main.py
+    cp $HOME/Dropbox/templates/python/ruff.toml .
     uv add --dev pytest
-    vc --profile Python
+    code . --profile Python
 }
