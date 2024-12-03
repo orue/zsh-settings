@@ -142,19 +142,17 @@ function add_to_gitignore() {
     fi
 }
 
-# Gereate a gitignore file
+# Generate a gitignore file
 function gi() {
     curl -sLw n https://www.toptal.com/developers/gitignore/api/$@
 }
 
-# Upgrade pip
-function pipup() {
-    pip install --upgrade pip
-    clear
-}
-
-# Create a python project
+# Create a new Python project
 function py-project() {
+    if [[ -z "$1" ]]; then
+        echo "Please provide a project name"
+        return
+    fi
     mcd $1
     uv init
     gi python >.gitignore
@@ -164,5 +162,16 @@ function py-project() {
     touch tests/tests_main.py
     cp $HOME/Dropbox/templates/python/ruff.toml .
     uv add --dev pytest
+    if [[ -n "$2" ]]; then
+        if [[ "$2" == "fastapi" ]]; then
+            echo "Adding FastAPI"
+            uv add "$2" --extra standard
+        else
+            echo "Adding $2 to the project"
+            uv add "$2"
+        fi
+    else
+        echo "No second argument provided"
+    fi
     code . --profile Python
 }
