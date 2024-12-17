@@ -14,9 +14,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Starship
 eval "$(starship init zsh)"
 
-# fnm - Node.js version manager
-eval "$(fnm env --version-file-strategy recursive --use-on-cd)"
-
 # pyenv
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
@@ -84,6 +81,7 @@ zsh_add_file "aliases.zsh"
 zsh_add_file "user-aliases.zsh"
 zsh_add_file "git-aliases.zsh"
 zsh_add_file "aws.zsh"
+zsh_add_file "nvm.zsh"
 zsh_add_file "python-venv.zsh"
 zsh_add_file "transient-prompt.zsh"
 

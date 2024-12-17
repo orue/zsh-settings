@@ -153,10 +153,19 @@ format = """\
 [$staged](bold green)\
 """
 
+
+# [nodejs]
+# symbol = " "
+# format = ' [$symbol($version)]($style)'
+# style = "bold fg:node"
+
+# Node.js module configuration
 [nodejs]
 symbol = " "
 format = ' [$symbol($version)]($style)'
-style = "bold fg:node"
+detect_extensions = ["js", "mjs", "cjs", "ts"]
+detect_files = ["package.json", ".node-version"]
+detect_folders = ["node_modules"]
 
 [bun]
 format = '[$symbol($version)]($style)'
