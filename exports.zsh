@@ -14,9 +14,11 @@ export PATH="$HOME/.docker/bin:$PATH"   # Add Docker bin to the PATH
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
+export UV_PYTHON=3.12 # Universal-ctags Python version
+
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"                                # Pyenv installation directory
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH" # Add Pyenv to the PATH
+# export PYENV_ROOT="$HOME/.pyenv"                                # Pyenv installation directory
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH" # Add Pyenv to the PATH
 
 # nvm
 export NVM_DIR="$HOME/.nvm"                                                                                      # NVM installation directory
