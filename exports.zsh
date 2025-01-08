@@ -29,3 +29,22 @@ export NVM_DIR="$HOME/.nvm"                                                     
 export GOROOT="/opt/homebrew/opt/go/libexec" # Go installation directory
 export GOPATH=$HOME/dev/go                   # Go workspace
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin    # Add Go to the PATH
+
+# FROM: https://medium.com/@gokayburuc/some-zsh-config-ideas-for-devs-652d01c8b56f
+# Define an array of directories to add to PATH
+# path=(
+#     $path                           # Keep existing PATH entries
+#     $HOME/bin
+#     $HOME/.local/bin
+#     $HOME/dotnet
+#     $SCRIPTS
+#     $HOME/.krew/bin
+#     $HOME/.rd/bin                   # Rancher Desktop
+#     # $HOME/*/bin(N)                # Add all bin directories under HOME
+#     # /usr/local/*/bin(N)           # Add all bin directories under /usr/local
+# )
+# # Remove duplicate entries and non-existent directories
+# typeset -U path
+# path=($^path(N-/))
+# # Export the updated PATH
+# export PATH

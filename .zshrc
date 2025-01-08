@@ -14,9 +14,8 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Starship
 eval "$(starship init zsh)"
 
-# pyenv
-# eval "$(pyenv init --path)"
-# eval "$(pyenv init -)"
+# FZF
+source <(fzf --zsh)
 
 # ZSH History Configuration
 HISTSIZE=25000
