@@ -3,7 +3,7 @@
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 
-echo "Orue.dev"
+echo "Welcome to $HOST"
 echo " "
 # don't check for new mail
 MAILCHECK=0
@@ -85,7 +85,7 @@ zsh_add_file "python-venv.zsh"
 zsh_add_file "transient-prompt.zsh"
 
 # ZSH Plugins
-zsh_add_plugin "zsh-users/zsh-autosuggestions"
+# zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "zsh-users/zsh-history-substring-search"
 zsh_add_plugin "hlissner/zsh-autopair"
