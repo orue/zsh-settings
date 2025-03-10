@@ -8,25 +8,25 @@ alias gpass='openssl rand -base64 24 | tr -dc "A-Za-z0-9!@#$%^&*()_+" | head -c 
 alias update='brew update; brew upgrade; brew upgrade --cask; brew autoremove; brew cleanup; brew doctor'
 
 # Terminal
-alias c='clear'                                             # Clear terminal
-alias x='exit'                                              # Close terminal
-alias h='history'                                           # Show history
-alias r='source $ZDOTDIR/.zshrc'                            # Reload zshrc file
-alias edit-zsh='nvim $HOME/.config/zsh/'                    # Edit zsh configuration
-alias edit-nvim='nvim $HOME/.config/nvim/'                  # Edit nvim configutation
-alias edit-git=' git config --global -e'                    # Edit git config file
-alias edit-hosts='sudo nvim /etc/hosts'                     # Edit hosts file
-alias edit='nvim'                                           # Open a file in Neovim
-alias hc='echo "" > $HOME/.zsh_history & exec $SHELL -l'    # Clear history
-alias grep='grep --color=auto'                              # Always highlight matches in grep
-alias ping='ping -c 5'                                      # Ping 5 times
-alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'           # Generate a uuid-v4
-alias df='df -h'                                            # Human Readable disk usage
+alias c='clear'                                          # Clear terminal
+alias x='exit'                                           # Close terminal
+alias h='history'                                        # Show history
+alias r='source $ZDOTDIR/.zshrc'                         # Reload zshrc file
+alias edit-zsh='nvim $HOME/.config/zsh/'                 # Edit zsh configuration
+alias edit-nvim='nvim $HOME/.config/nvim/'               # Edit nvim configutation
+alias edit-git=' git config --global -e'                 # Edit git config file
+alias edit-hosts='sudo nvim /etc/hosts'                  # Edit hosts file
+alias edit='nvim'                                        # Open a file in Neovim
+alias hc='echo "" > $HOME/.zsh_history & exec $SHELL -l' # Clear history
+alias grep='grep --color=auto'                           # Always highlight matches in grep
+alias ping='ping -c 5'                                   # Ping 5 times
+alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'        # Generate a uuid-v4
+alias df='df -h'                                         # Human Readable disk usage
+alias fzfb='nvim $(fzf -m --preview="bat --color=always {}" --layout=reverse)'
 
 # Editor lauchers
-alias vc="code . --new-window " # Open current directory in VSCode
-alias vim=nvim                  # Launch Neovim
-alias -s {txt,md,sh}='cot -n'   # open a txt file with cotEditor
+alias vim=nvim                        # Launch Neovim
+alias -s {txt,md,sh}='cot -n'         # open a txt file with cotEditor
 
 # eza - ls alternative
 alias ls='eza --icons=always -F -H --group-directories-first --git -1'
@@ -54,4 +54,3 @@ alias ghweb="gh repo view --web" # git open repository on browser
 alias ghpr="gh pr view"          # git open pull request on browser
 
 alias git-aliases="git config -l | grep alias | sed 's/^alias\.//g'"
-alias lg="lazygit" # Open lazygit

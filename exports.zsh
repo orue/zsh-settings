@@ -27,7 +27,7 @@ export NVM_DIR="$HOME/.nvm"                                                     
 
 # Go
 export GOROOT="/opt/homebrew/opt/go/libexec" # Go installation directory
-export GOPATH=$HOME/dev/go                   # Go workspace
+export GOPATH=$HOME/go                   # Go workspace
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin    # Add Go to the PATH
 
 # FROM: https://medium.com/@gokayburuc/some-zsh-config-ideas-for-devs-652d01c8b56f
