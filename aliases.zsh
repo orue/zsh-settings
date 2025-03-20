@@ -25,6 +25,7 @@ alias df='df -h'                                         # Human Readable disk u
 alias fzfb='nvim $(fzf -m --preview="bat --color=always {}" --layout=reverse)'
 
 # Editor lauchers
+alias vi=nvim			      # Launch Neovim
 alias vim=nvim                        # Launch Neovim
 alias -s {txt,md,sh}='cot -n'         # open a txt file with cotEditor
 
