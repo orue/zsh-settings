@@ -12,22 +12,32 @@ alias c='clear'                                          # Clear terminal
 alias x='exit'                                           # Close terminal
 alias h='history'                                        # Show history
 alias r='source $ZDOTDIR/.zshrc'                         # Reload zshrc file
-alias edit-zsh='nvim $HOME/.config/zsh/'                 # Edit zsh configuration
-alias edit-nvim='nvim $HOME/.config/nvim/'               # Edit nvim configutation
-alias edit-git=' git config --global -e'                 # Edit git config file
+
+alias zsh-conf='nvim $HOME/.config/zsh/'                 # Edit zsh configuration
+alias vi-conf='nvim $HOME/.config/nvim/'                 # Edit nvim configutation
+alias git-conf='nvim $HOME/.gitconfig'                   # Edit git config file
 alias edit-hosts='sudo nvim /etc/hosts'                  # Edit hosts file
 alias edit='nvim'                                        # Open a file in Neovim
+
 alias hc='echo "" > $HOME/.zsh_history & exec $SHELL -l' # Clear history
 alias grep='grep --color=auto'                           # Always highlight matches in grep
 alias ping='ping -c 5'                                   # Ping 5 times
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'        # Generate a uuid-v4
 alias df='df -h'                                         # Human Readable disk usage
-alias fzfb='nvim $(fzf -m --preview="bat --color=always {}" --layout=reverse)'
+alias fzf='fzf -m --preview="bat --color=always {}" --layout=reverse'
+
+function fzf_edit() {
+  local files
+  files=$(fzf -m --preview="bat --color=always {}" --layout=reverse)
+  if [[ -n "$files" ]]; then
+    nvim $files
+  fi
+}
 
 # Editor lauchers
-alias vi=nvim			      # Launch Neovim
-alias vim=nvim                        # Launch Neovim
-alias -s {txt,md,sh}='cot -n'         # open a txt file with cotEditor
+alias vi=nvim                 # Launch Neovim
+alias vim=nvim                # Launch Neovim
+alias -s {txt,md,sh}='cot -n' # open a txt file with cotEditor
 
 # eza - ls alternative
 alias ls='eza --icons=always -F -H --group-directories-first --git -1'
