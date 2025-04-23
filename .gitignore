@@ -3,4 +3,3 @@ plugins/
 .zcompdump
 .zsh_history
 .zcompcache/
-/user-aliases.zsh

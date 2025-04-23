@@ -37,7 +37,7 @@ function fzf_edit() {
 # Editor lauchers
 alias vi=nvim                 # Launch Neovim
 alias vim=nvim                # Launch Neovim
-alias -s {txt,md,sh}='cot -n' # open a txt file with cotEditor
+alias -s {txt,md,sh}='nvim' # open a txt file with cotEditor
 
 # eza - ls alternative
 alias ls='eza --icons=always -F -H --group-directories-first --git -1'
