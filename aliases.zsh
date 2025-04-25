@@ -13,7 +13,8 @@ alias x='exit'                                           # Close terminal
 alias h='history'                                        # Show history
 alias r='source $ZDOTDIR/.zshrc'                         # Reload zshrc file
 
-alias zsh-conf='nvim $HOME/.config/zsh/'                 # Edit zsh configuration
+alias zsh-conf='cd $HOME/.config/zsh/ && nvim'           # Edit zsh configuration
+alias nvim-config='cd $HOME/.config/nvim && nvim'      # Go to Neovim config folder
 alias vi-conf='nvim $HOME/.config/nvim/'                 # Edit nvim configutation
 alias git-conf='nvim $HOME/.gitconfig'                   # Edit git config file
 alias edit-hosts='sudo nvim /etc/hosts'                  # Edit hosts file

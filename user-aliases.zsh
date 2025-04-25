@@ -7,8 +7,6 @@ alias github='cd $HOME/dev/github/ && l' # Go to github folder
 alias box='cd $HOME/Dropbox/ && l'                  # Go to Dropbox folder
 alias backup='cd $HOME/Dropbox/backups/ && ll'      # Go to backups folder
 alias config='cd $HOME/.config/ && ll'              # Go to config folder
-alias nvim-config='cd $HOME/.config/nvim && tree 2' # Go to Neovim config folder
-alias zsh-config='cd $HOME/.config/zsh && tree 2'   # Go to zsh config folder
 
 alias docs='cd $HOME/Documents && l' # Go to documents folder
 alias dl='cd $HOME/Downloads/'       # Go to downloads folder
