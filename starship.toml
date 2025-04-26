@@ -62,7 +62,7 @@ style_root = 'bold os_admin'
 [hostname]
 ssh_symbol = "󰣀 "
 ssh_only = true
-format = '[$ssh_symbol$hostname]($style)\]'
+format = '\([$ssh_symbol$hostname]($style)\)'
 style = 'os'
 
 [package]
@@ -71,20 +71,19 @@ disabled = true
 [directory]
 style = "sapphire"
 format = "[ $path ]($style)"
-#truncation_length = 4
-#truncation_symbol = "…/"
 
 [directory.substitutions]
-"~/Documents" = " ~"
+"~/Documents" = "󱔘"
+"~/Desktop" = " "
 "~/Downloads" = ""
-"~/Projects" = "󱌢"
-"~/School" = "󰑴"
-"~/GitHub" = ""
+"~/dev" = ""
+"~/Tutorials" = "󰑴"
+"~/GitHub" = "󰊤"
 "~/.config" = ""
 "~" = " ~"
 
 [git_branch]
-symbol = " "
+symbol = " "
 format = ' [$symbol$branch]($style) '
 
 

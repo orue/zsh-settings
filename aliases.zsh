@@ -8,17 +8,14 @@ alias gpass='openssl rand -base64 24 | tr -dc "A-Za-z0-9!@#$%^&*()_+" | head -c 
 alias update='brew update; brew upgrade; brew upgrade --cask; brew autoremove; brew cleanup; brew doctor'
 
 # Terminal
-alias c='clear'                                          # Clear terminal
-alias x='exit'                                           # Close terminal
-alias h='history'                                        # Show history
-alias r='source $ZDOTDIR/.zshrc'                         # Reload zshrc file
+alias c='clear'                  # Clear terminal
+alias x='exit'                   # Close terminal
+alias h='history'                # Show history
+alias r='source $ZDOTDIR/.zshrc' # Reload zshrc file
 
-alias zsh-conf='cd $HOME/.config/zsh/ && nvim'           # Edit zsh configuration
-alias nvim-config='cd $HOME/.config/nvim && nvim'      # Go to Neovim config folder
-alias vi-conf='nvim $HOME/.config/nvim/'                 # Edit nvim configutation
-alias git-conf='nvim $HOME/.gitconfig'                   # Edit git config file
-alias edit-hosts='sudo nvim /etc/hosts'                  # Edit hosts file
-alias edit='nvim'                                        # Open a file in Neovim
+alias git-conf='nvim $HOME/.gitconfig'  # Edit git config file
+alias edit-hosts='sudo nvim /etc/hosts' # Edit hosts file
+alias edit='nvim'                       # Open a file in Neovim
 
 alias hc='echo "" > $HOME/.zsh_history & exec $SHELL -l' # Clear history
 alias grep='grep --color=auto'                           # Always highlight matches in grep
@@ -36,8 +33,8 @@ function fzf_edit() {
 }
 
 # Editor lauchers
-alias vi=nvim                 # Launch Neovim
-alias vim=nvim                # Launch Neovim
+alias vi=nvim               # Launch Neovim
+alias vim=nvim              # Launch Neovim
 alias -s {txt,md,sh}='nvim' # open a txt file with cotEditor
 
 # eza - ls alternative
