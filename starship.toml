@@ -78,7 +78,7 @@ format = "[ $path ]($style)"
 "~/Desktop" = ""
 "~/Downloads" = ""
 "~/dev/GitHub" = " GitHub"
-"~/dev" = " Dev"
+"~/dev" = "󰲋 Dev"
 "~/.config" = " Config"
 "~" = " ~"
 
