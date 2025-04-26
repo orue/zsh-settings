@@ -80,7 +80,7 @@ format = "[ $path ]($style)"
 "~/dev" = "󰲋 Dev"
 "GitHub" = " GitHub"
 "GitLab" = "󰮠 GitLab"
-"~/.config" = " Config"
+"~/.config" = " .config"
 "~" = " ~"
 
 [git_branch]

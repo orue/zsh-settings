@@ -8,10 +8,10 @@ alias gpass='openssl rand -base64 24 | tr -dc "A-Za-z0-9!@#$%^&*()_+" | head -c 
 alias update='brew update; brew upgrade; brew upgrade --cask; brew autoremove; brew cleanup; brew doctor'
 
 # Terminal
-alias c='clear'                  # Clear terminal
-alias x='exit'                   # Close terminal
-alias h='history'                # Show history
-alias r='source $ZDOTDIR/.zshrc' # Reload zshrc file
+alias c='clear'                           # Clear terminal
+alias x='exit'                            # Close terminal
+alias h='history'                         # Show history
+alias r='source $ZDOTDIR/.zshrc && clear' # Reload zshrc file
 
 alias git-conf='nvim $HOME/.gitconfig'  # Edit git config file
 alias edit-hosts='sudo nvim /etc/hosts' # Edit hosts file
@@ -33,8 +33,8 @@ function fzf_edit() {
 }
 
 # Editor lauchers
-alias vi=nvim               # Launch Neovim
-alias vim=nvim              # Launch Neovim
+alias vi=nvim            # Launch Neovim
+alias vim=nvim           # Launch Neovim
 alias -s {txt,md}='nvim' # open a txt file with cotEditor
 
 # eza - ls alternative

@@ -13,7 +13,7 @@ alias tuts='cd $HOME/dev/Gopher/ && l'
 alias github='cd $HOME/dev/GitHub/ && l'
 alias gitlab='cd $HOME/dev/GitLab/ && l'
 
-alias config='cd $HOME/.config/ && l'
+alias conf='cd $HOME/.config/ && l'
 
 # Alias for run last SQLite
 alias my-sqlite="echo 'Using for the homebrew installed sqlite3. Set up the alias' && /opt/homebrew/opt/sqlite/bin/sqlite3"
