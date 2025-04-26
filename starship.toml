@@ -73,13 +73,13 @@ style = "sapphire"
 format = "[ $path ]($style)"
 
 [directory.substitutions]
-"~/Documents" = "󱔘"
-"~/Desktop" = " "
+"~/Documents" = "󱔗 Docs"
+"~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes" = "󰠮 Notes"
+"~/Desktop" = ""
 "~/Downloads" = ""
-"~/dev" = ""
-"~/Tutorials" = "󰑴"
-"~/GitHub" = "󰊤"
-"~/.config" = ""
+"~/dev/GitHub" = " GitHub"
+"~/dev" = " Dev"
+"~/.config" = " Config"
 "~" = " ~"
 
 [git_branch]

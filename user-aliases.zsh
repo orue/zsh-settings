@@ -1,11 +1,11 @@
 #!/usr/bin/env zsh
 
 #  Folder Navigation
-alias notes='cd $HOME/Documents/Notes/ && l'
+alias notes='cd $HOME/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Notes && l'
 alias docs='cd $HOME/Documents/ && l'
-alias github='cd $HOME/GitHub/ && l'
+alias github='cd $HOME/dev/GitHub/ && ll'
 alias dev='cd $HOME/dev/ && l'
-alias tuts='cd $HOME/Tutorials/ && l'
+alias tuts='cd $HOME/dev/Tutorials/ && l'
 alias config='cd $HOME/.config/ && l'
 alias dl='cd $HOME/Downloads/'
 alias desk='cd $HOME/Desktop/'
