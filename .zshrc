@@ -85,7 +85,7 @@ zsh_add_file "python-venv.zsh"
 zsh_add_file "transient-prompt.zsh"
 
 # ZSH Plugins
-# zsh_add_plugin "zsh-users/zsh-autosuggestions"
+zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "zsh-users/zsh-history-substring-search"
 zsh_add_plugin "hlissner/zsh-autopair"

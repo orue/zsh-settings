@@ -44,13 +44,11 @@ alias ll="eza -aghlH --group-directories-first --git --git-repos --icons=always 
 tree() { eza -agTF --tree --icons --group-directories-first --git-ignore --git --git-repos --level="${1:-1}"; }
 
 # File operations
-alias cp='cp -iv'                     # Preferred 'cp' implementation
-alias mv='mv -iv'                     # Preferred 'mv' implementation
-alias rm='rm -i'                      # Preferred 'rm' implementation
-alias rmrf='rm -rfI'                  # Preferred 'rm -rf' implementation
-alias f='open -a Finder ./'           # Opens current directory in MacOS Finder
-mcd() { mkdir -pv "$1" && cd "$1"; }  # Makes new Dir and jumps inside
-trash() { command mv "$@" ~/.Trash; } # Moves a file to the trash
+alias cp='cp -iv'                    # Preferred 'cp' implementation
+alias mv='mv -iv'                    # Preferred 'mv' implementation
+alias rm='rm -i'                     # Preferred 'rm' implementation
+alias rmrf='rm -rfI'                 # Preferred 'rm -rf' implementation
+mcd() { mkdir -pv "$1" && cd "$1"; } # Makes new Dir and jumps inside
 
 # Network and SSH
 alias localip="ipconfig getifaddr en0"             # Get internal IP address
