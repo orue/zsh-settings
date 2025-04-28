@@ -40,7 +40,7 @@ alias -s {txt,md}='nvim' # open a txt file with cotEditor
 # eza - ls alternative
 alias ls='eza --icons=always -F -H --group-directories-first --git -1'
 alias l="eza --icons --color-scale size --no-user --no-permissions --group-directories-first --git -l"
-alias ll="eza -aghlH --group-directories-first --git --git-repos --icons=always --sort=type"
+alias ll="eza -aghlH --group-directories-first --git --git-repos --icons=always --sort=type --ignore-glob=".DS_Store""
 tree() { eza -agTF --tree --icons --group-directories-first --git-ignore --git --git-repos --level="${1:-1}"; }
 
 # File operations

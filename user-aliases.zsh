@@ -1,16 +1,17 @@
 #!/usr/bin/env zsh
 
 #  Folder Navigation
-alias notes='cd $HOME/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Notes && l'
-alias docs='cd $HOME/Documents/ && l'
+alias notes='cd $HOME/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Notes && ls'
+alias docs='cd $HOME/Documents/ && ls'
 alias dl='cd $HOME/Downloads/'
 alias desk='cd $HOME/Desktop/'
 
 # Development folders
-alias dev='cd $HOME/dev/ && l'
-alias tuts='cd $HOME/dev/Tutorials/ && l'
-alias github='cd $HOME/dev/GitHub/ && l'
-alias gitlab='cd $HOME/dev/GitLab/ && l'
+alias dev='cd $HOME/dev/ && ls'
+alias sandbox='cd $HOME/dev/Sandbox/ && ls'
+alias tuts='cd $HOME/dev/Tutorials/ && ls'
+alias github='cd $HOME/dev/GitHub/ && ls'
+alias gitlab='cd $HOME/dev/GitLab/ && ls'
 
 alias conf='cd $HOME/.config/ && l'
 
