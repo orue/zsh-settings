@@ -9,7 +9,6 @@ alias desk='cd $HOME/Desktop/'
 # Development folders
 alias dev='cd $HOME/dev/ && l'
 alias tuts='cd $HOME/dev/Tutorials/ && l'
-alias tuts='cd $HOME/dev/Gopher/ && l'
 alias github='cd $HOME/dev/GitHub/ && l'
 alias gitlab='cd $HOME/dev/GitLab/ && l'
 
