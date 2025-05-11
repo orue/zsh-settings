@@ -15,6 +15,7 @@ $character
 
 right_format = """$all"""
 
+
 palette = "normal"
 
 [palettes.normal]
