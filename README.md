@@ -1,11 +1,14 @@
 ## My ZSH Configuration
 
+In your home directory, create a `.zshenv` file with the following content:
 
 ```sh
 ZDOTDIR=$HOME/.config/zsh
 ```
 
-```
+Then, clone this repository into the `.config/zsh` directory:
+
+```sh
 .config/zsh
 ├── .gitignore
 ├── .zshrc
