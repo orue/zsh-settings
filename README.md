@@ -2,6 +2,9 @@
 
 This is my personal ZSH configuration, which includes various customizations, aliases, and functions to enhance the ZSH shell experience.
 
+I use [Ghostty](http://ghostty.com), which is a terminal emulator that supports ZSH and provides a modern interface with
+Tokyo night color scheme. The configuration is designed to work seamlessly with Ghostty, but it can also be used in other terminal emulators.
+
 ### Screenshots
 Here are some screenshots of the ZSH configuration in action:
 ![zsh prompt](./img/Screenshot.jpg)
