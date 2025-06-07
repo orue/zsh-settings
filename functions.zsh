@@ -18,6 +18,21 @@ function fzf_edit() {
     fi
 }
 
+# Clean nvim config
+function nvim_clean() {
+    local config_dir="$HOME/.config/nvim"
+    if [[ -d "$config_dir" ]]; then
+        echo "Cleaning nvim config..."
+        rm -rf "$config_dir"
+        rm -rf "$HOME/.local/share/nvim"
+        rm -rf "$HOME/.local/state/nvim"
+        rm -rf "$HOME/.local/cache/nvim"
+        echo "nvim config cleaned."
+    else
+        echo "nvim config directory does not exist."
+    fi
+}
+
 # Function to source files if they exist
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
