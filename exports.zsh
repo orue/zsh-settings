@@ -20,6 +20,12 @@ export NVM_DIR="$HOME/.nvm"                                                     
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"                                       # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 
+# if reloading, some env vars that are already set can interfere with nvm
+if [ -n "$NVM_BIN" ]; then
+  # `nvm deactivate` will cleanup any remaining env vars
+  nvm deactivate --silent
+fi
+
 # Go
 export GOROOT="/opt/homebrew/opt/go/libexec" # Go installation directory
 export GOPATH=$HOME/go                       # Go workspace

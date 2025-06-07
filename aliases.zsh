@@ -8,10 +8,10 @@ alias gpass='openssl rand -base64 24 | tr -dc "A-Za-z0-9!@#$%^&*()_+" | head -c 
 alias update='brew update; brew upgrade; brew upgrade --cask; brew autoremove; brew cleanup; brew doctor'
 
 # Terminal
-alias c='clear'                           # Clear terminal
-alias x='exit'                            # Close terminal
-alias h='history'                         # Show history
-alias r='source $ZDOTDIR/.zshrc && clear' # Reload zshrc file
+alias c='clear'   # Clear terminal
+alias x='exit'    # Close terminal
+alias h='history' # Show history
+alias r='reload'  # Reload shell
 
 alias git-conf='nvim $HOME/.gitconfig'  # Edit git config file
 alias edit-hosts='sudo nvim /etc/hosts' # Edit hosts file
@@ -23,14 +23,6 @@ alias ping='ping -c 5'                                   # Ping 5 times
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'        # Generate a uuid-v4
 alias df='df -h'                                         # Human Readable disk usage
 alias fzf='fzf -m --preview="bat --color=always {}" --layout=reverse'
-
-function fzf_edit() {
-  local files
-  files=$(fzf -m --preview="bat --color=always {}" --layout=reverse)
-  if [[ -n "$files" ]]; then
-    nvim $files
-  fi
-}
 
 # Editor lauchers
 alias vi=nvim            # Launch Neovim
@@ -55,6 +47,9 @@ alias localip="ipconfig getifaddr en0"             # Get internal IP address
 alias openports='sudo lsof -i -P -n | grep LISTEN' # List all open ports
 alias ipinfo='curl ipinfo.io'                      # Get IP address information
 alias sshv='ssh -v'                                # SSH with verbose output
+
+# Internet speed
+alias speed="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -"
 
 # GitHub CLI
 alias ghweb="gh repo view --web" # git open repository on browser

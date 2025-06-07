@@ -1,5 +1,23 @@
 #!/usr/bin/env zsh
 
+# Function to reload the shell
+function reload() {
+    # if reloading, some env vars that are already set can interfere with nvm
+    if [ -n "$NVM_BIN" ]; then
+        # `nvm deactivate` will cleanup any remaining env vars
+        nvm deactivate --silent
+    fi
+    exec zsh
+}
+
+function fzf_edit() {
+    local files
+    files=$(fzf -m --preview="bat --color=always {}" --layout=reverse)
+    if [[ -n "$files" ]]; then
+        nvim $files
+    fi
+}
+
 # Function to source files if they exist
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"

@@ -15,5 +15,6 @@ Blue="\[\033[0;34m\]"         # Blue
 Purple="\[\033[0;35m\]"       # Purple
 Cyan="\[\033[0;36m\]"         # Cyan
 White="\[\033[0;37m\]"        # White
+node_color="\033[0;32m"       # Green
 aws_color='\033[38;5;216m'    # aws
 python_color='\033[38;5;223m' # python
