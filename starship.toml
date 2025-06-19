@@ -80,6 +80,7 @@ style = 'os'
 disabled = true
 
 [directory]
+truncation_length = 4
 style = "bold lavender"
 format = "[ $path ]($style)"
 
