@@ -2,9 +2,6 @@
 
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
-
-echo "Welcome to $HOST"
-echo " "
 # don't check for new mail
 MAILCHECK=0
 
@@ -14,14 +11,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Starship
 eval "$(starship init zsh)"
 
-# pyenv configuration
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
 
 # FZF
 source <(fzf --zsh)
@@ -88,9 +77,9 @@ zsh_add_file "exports.zsh"
 zsh_add_file "aliases.zsh"
 zsh_add_file "user-aliases.zsh"
 zsh_add_file "git-aliases.zsh"
-zsh_add_file "aws.zsh"
+#zsh_add_file "aws.zsh"
 zsh_add_file "nvm.zsh"
-zsh_add_file "python-venv.zsh"
+#zsh_add_file "python-venv.zsh"
 zsh_add_file "transient-prompt.zsh"
 
 # ZSH Plugins
@@ -122,7 +111,7 @@ unset __conda_setup
 conda config --set auto_activate_base false
 
 # set AWS Default Region to us-west-2
-asr $AWS_DEFAULT_REGION
+#asr $AWS_DEFAULT_REGION
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

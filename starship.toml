@@ -6,6 +6,7 @@ command_timeout = 1000
 add_newline = true
 
 format = """
+$python\
 $directory\
 $git_branch\
 $git_status\
@@ -45,24 +46,11 @@ base = "#303446"
 mantle = "#292c3c"
 crust = "#232634"
 
+
 [os]
 disabled = true
 # format = ' [$symbol]($style)'
 
-[os.symbols]
-Arch = " "
-CentOS = " "
-Debian = " "
-Fedora = " "
-FreeBSD = " "
-Linux = " "
-Macos = " "
-openSUSE = " "
-Redhat = " "
-RedHatEnterprise = " "
-Ubuntu = " "
-Unknown = " "
-Windows = "󰍲 "
 
 [username]
 format = '\[[$user@]($style)'
@@ -79,26 +67,28 @@ style = 'os'
 [package]
 disabled = true
 
+# [directory]
+# # truncation_length = 4
+# style = "lavender"
+# format = "[ $path ]($style)"
+
 [directory]
-truncation_length = 4
-style = "bold lavender"
+style = "fg:lavender bg:mantle"
 format = "[ $path ]($style)"
+truncation_length = 2
+truncate_to_repo = false
+truncation_symbol = "…/"
 
 [directory.substitutions]
-"~/Documents" = "󱔗 Docs"
-"~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes" = "󰠮 Notes"
-"~/Desktop" = ""
-"~/Downloads" = ""
-"~/dev" = "󰲋 Dev"
-"GitHub" = " GitHub"
-"GitLab" = "󰮠 GitLab"
-"~/.config" = " .config"
-"~" = "  ~"
+# "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes" = "󰠮 Notes"
+# "~/dev" = "󰲋 Dev"
+# "GitHub" = " GitHub"
+# "GitLab" = "󰮠 GitLab"
+# "~/.config" = " .config"
 
 [git_branch]
 symbol = " "
-style = "bold mauve"
-format = ' [$symbol$branch]($style) '
+format = '[[ $symbol$branch ](mauve)]($style)'
 
 
 [git_status]
@@ -113,7 +103,7 @@ untracked = "[${count}?](blue)"
 staged = "[${count}+](green)"
 
 [git_state]
-style = "bold red"
+style = "color_red"
 format = "[$state( $progress_current/$progress_total) ]($style)"
 rebase = "rebase"
 merge = "merge"
@@ -123,83 +113,39 @@ bisect = "bisect"
 am = "am"
 am_or_rebase = "am/rebase"
 
-[nodejs]
-symbol = " "
-format = ' [$symbol($version)](bold green)'
-detect_extensions = ["js", "mjs", "cjs", "ts"]
-detect_files = ["package.json", ".node-version"]
-detect_folders = ["node_modules"]
-
-[lua]
-symbol = " "
-format = ' [$symbol($version)]($style)'
-style = "fg:lua"
-
-[python]
-symbol = " "
-format = ' [${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)'
-style = "bold yellow"
-
-[conda]
-symbol = " "
-format = ' [$symbol$environment]($style)'
-
-[golang]
-symbol = " "
-format = ' [$symbol($version)]($style)'
-
-[rust]
-disabled = true
-symbol = " "
-format = ' [$symbol($version)]($style)'
-
-[c]
-symbol = " "
-format = ' [$symbol($version(-$name))]($style)'
-style = "fg:clang"
-
-[cmake]
-format = '[$symbol($version)]($style)'
-
-[perl]
-format = '[$symbol($version)]($style)'
-
-[php]
-format = '\[[$symbol($version)]($style)\]'
-
-[pulumi]
-format = ' [$symbol$stack]($style)'
-
-[terraform]
-format = ' [$symbol$workspace]($style)'
-
-[docker_context]
-disabled = false
-symbol = ' '
-style = 'fg:#06969A'
-format = ' [$symbol$context]($style) '
-detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
-only_with_files = true
-detect_extensions = ['Dockerfile']
-
-[kubernetes]
-format = '\[[$symbol$context( \($namespace\))]($style)\]'
-
-[aws]
-disabled = true
-symbol = " "
-format = ' [$symbol($profile)(\($region\))(\[$duration\])]($style) '
-style = "fg:aws"
-
-[gcloud]
-symbol = " "
-format = '\[[$symbol$account(@$domain)(\($region\))]($style)\]'
-disabled = true
-
-[line_break]
-disabled = true
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character]
 success_symbol = "[➜](bold green)"
 error_symbol = "[✗](bold red)"
+
+[nodejs]
+disabled = true
+[lua]
+disabled = true
+[python]
+# disabled = true
+format = '[(\($virtualenv\) )]($style)'
+style = "yellow"
+[conda]
+disabled = true
+[golang]
+disabled = true
+[rust]
+disabled = true
+[c]
+disabled = true
+[pulumi]
+disabled = true
+[terraform]
+disabled = true
+[docker_context]
+disabled = true
+[kubernetes]
+disabled = true
+[aws]
+disabled = true
+[gcloud]
+disabled = true
+[line_break]
+disabled = true

@@ -176,7 +176,7 @@ function add_to_gitignore() {
 }
 
 # Generate a gitignore file
-function gi() {
+function gitignore() {
     curl -sLw n https://www.toptal.com/developers/gitignore/api/$@
 }
 

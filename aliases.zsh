@@ -7,6 +7,7 @@ alias gpass='openssl rand -base64 24 | tr -dc "A-Za-z0-9!@#$%^&*()_+" | head -c 
 #Homebrew Update
 alias update='brew update; brew upgrade; brew upgrade --cask; brew autoremove; brew cleanup; brew doctor'
 
+
 # Terminal
 alias c='clear'   # Clear terminal
 alias x='exit'    # Close terminal
@@ -28,6 +29,7 @@ alias fzf='fzf -m --preview="bat --color=always {}" --layout=reverse'
 alias vi=nvim            # Launch Neovim
 alias vim=nvim           # Launch Neovim
 alias -s {txt,md}='nvim' # open a txt file with cotEditor
+
 
 # eza - ls alternative
 alias ls='eza --icons=always -F -H --group-directories-first --git -1'
