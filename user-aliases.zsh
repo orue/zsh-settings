@@ -10,7 +10,7 @@ alias desk='cd $HOME/Desktop/'
 alias dev='cd $HOME/dev/ && ls'
 alias sandbox='cd $HOME/dev/Sandbox/ && ls'
 alias tuts='cd $HOME/dev/Tutorials/ && ls'
-alias github='cd $HOME/dev/GitHub/ && ls'
+alias github='cd $HOME/dev/GitHub/orue/ && ls'
 alias gitlab='cd $HOME/dev/GitLab/ && ls'
 
 alias conf='cd $HOME/.config/ && l'

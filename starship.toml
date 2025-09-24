@@ -6,134 +6,87 @@ command_timeout = 1000
 add_newline = true
 
 format = """
-$python\
+[░▒▓](#a3aed2)\
+[  ](bg:#a3aed2 fg:#090c0c)\
+[](bg:#769ff0 fg:#a3aed2)\
 $directory\
+[](fg:#769ff0 bg:#394260)\
 $git_branch\
 $git_status\
-$line_break\
-$character
-"""
-
-right_format = """$all"""
-
-palette = "catppuccin_frappe"
-
-[palettes.catppuccin_frappe]
-rosewater = "#f2d5cf"
-flamingo = "#eebebe"
-pink = "#f4b8e4"
-mauve = "#ca9ee6"
-red = "#e78284"
-maroon = "#ea999c"
-peach = "#ef9f76"
-yellow = "#e5c890"
-green = "#a6d189"
-teal = "#81c8be"
-sky = "#99d1db"
-sapphire = "#85c1dc"
-blue = "#8caaee"
-lavender = "#babbf1"
-text = "#c6d0f5"
-subtext1 = "#b5bfe2"
-subtext0 = "#a5adce"
-overlay2 = "#949cbb"
-overlay1 = "#838ba7"
-overlay0 = "#737994"
-surface2 = "#626880"
-surface1 = "#51576d"
-surface0 = "#414559"
-base = "#303446"
-mantle = "#292c3c"
-crust = "#232634"
-
-
-[os]
-disabled = true
-# format = ' [$symbol]($style)'
-
-
-[username]
-format = '\[[$user@]($style)'
-show_always = false
-style_user = 'bold os'
-style_root = 'bold os_admin'
-
-[hostname]
-ssh_symbol = "󰣀 "
-ssh_only = true
-format = '\([$ssh_symbol$hostname]($style)\)'
-style = 'os'
-
-[package]
-disabled = true
-
-# [directory]
-# # truncation_length = 4
-# style = "lavender"
-# format = "[ $path ]($style)"
+[](fg:#394260 bg:#212736)\
+$nodejs\
+$golang\
+$lua\
+$python\
+$c\
+$php\
+$rust\
+[](fg:#212736 bg:#1d2230)\
+$time\
+[ ](fg:#1d2230)\
+\n$character"""
 
 [directory]
-style = "fg:lavender bg:mantle"
+style = "fg:#e3e5e5 bg:#769ff0"
 format = "[ $path ]($style)"
 truncation_length = 2
-truncate_to_repo = false
 truncation_symbol = "…/"
 
 [directory.substitutions]
-# "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes" = "󰠮 Notes"
-# "~/dev" = "󰲋 Dev"
-# "GitHub" = " GitHub"
-# "GitLab" = "󰮠 GitLab"
-# "~/.config" = " .config"
+"Documents" = "󰈙 "
+"Downloads" = " "
+"~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes" = "󰠮 "
+"~/dev" = "󰲋 "
+"GitHub" = " "
+"GitLab" = "󰮠 "
+"~/.config" = " "
 
 [git_branch]
-symbol = " "
-format = '[[ $symbol$branch ](mauve)]($style)'
-
+symbol = ""
+style = "bg:#394260"
+format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
 
 [git_status]
-format = '([\[$all_status$ahead_behind\]]($style) )'
-stashed = "[${count}*](green)"
-modified = "[${count}+](yellow)"
-deleted = "[${count}-](red)"
-conflicted = "[${count}~](red)"
-ahead = "⇡${count}"
-behind = "⇣${count}"
-untracked = "[${count}?](blue)"
-staged = "[${count}+](green)"
-
-[git_state]
-style = "color_red"
-format = "[$state( $progress_current/$progress_total) ]($style)"
-rebase = "rebase"
-merge = "merge"
-revert = "revert"
-cherry_pick = "cherry"
-bisect = "bisect"
-am = "am"
-am_or_rebase = "am/rebase"
-
-
-# Replace the "❯" symbol in the prompt with "➜"
-[character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[✗](bold red)"
+style = "bg:#394260"
+format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
 
 [nodejs]
-disabled = true
-[lua]
-disabled = true
-[python]
-# disabled = true
-format = '[(\($virtualenv\) )]($style)'
-style = "yellow"
-[conda]
-disabled = true
+symbol = "󰎙"
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
 [golang]
-disabled = true
-[rust]
-disabled = true
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[lua]
+symbol = "󰢱"
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[python]
+symbol = "󰌠"
+style = "bg:#212736"
+format = '[[ $symbol ${version} ${virtualenv}](fg:#769ff0 bg:#212736)]($style)'
+
 [c]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[php]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+
+[conda]
 disabled = true
 [pulumi]
 disabled = true
@@ -149,3 +102,9 @@ disabled = true
 disabled = true
 [line_break]
 disabled = true
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:#1d2230"
+format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
