@@ -19,7 +19,7 @@ alias conf='cd $HOME/.config/ && l'
 alias my-sqlite="echo 'Using for the homebrew installed sqlite3. Set up the alias' && /opt/homebrew/opt/sqlite/bin/sqlite3"
 
 # SSH personal servers
-alias azul="ssh orue@azul" # home server
+alias azul="ssh azul" # home server
 
 # npm and yarn
 alias npmgl="npm ls -g --depth 0"                    # Check global npm packages

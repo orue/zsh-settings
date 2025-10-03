@@ -3,6 +3,7 @@
 export STARSHIP_CONFIG=~/.config/zsh/starship.toml # Starship configuration file
 export PATH="/opt/homebrew/bin:$PATH"              # Add Homebrew to the PATH
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"    # Add libpq to the PATH
+export PATH="$(brew --prefix)/opt/curl/bin:$PATH"  # Add curl to the PATH
 export XDG_CONFIG_HOME="$HOME/.config"
 
 export TERM="xterm-256color"            # Terminal type
