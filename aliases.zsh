@@ -9,7 +9,6 @@ alias update='brew update; brew upgrade; brew upgrade --cask; brew autoremove; b
 
 
 # Terminal
-alias c='clear'   # Clear terminal
 alias x='exit'    # Close terminal
 alias h='history' # Show history
 alias r='reload'  # Reload shell
@@ -48,13 +47,10 @@ mcd() { mkdir -pv "$1" && cd "$1"; } # Makes new Dir and jumps inside
 alias localip="ipconfig getifaddr en0"             # Get internal IP address
 alias openports='sudo lsof -i -P -n | grep LISTEN' # List all open ports
 alias ipinfo='curl ipinfo.io'                      # Get IP address information
-alias sshv='ssh -v'                                # SSH with verbose output
 
 # Internet speed
 alias speed="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -"
 
 # GitHub CLI
 alias ghweb="gh repo view --web" # git open repository on browser
-alias ghpr="gh pr view"          # git open pull request on browser
 
-alias git-aliases="git config -l | grep alias | sed 's/^alias\.//g'"
