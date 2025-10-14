@@ -9,7 +9,6 @@ alias update='brew update; brew upgrade; brew upgrade --cask; brew autoremove; b
 
 
 # Terminal
-alias x='exit'    # Close terminal
 alias h='history' # Show history
 alias r='reload'  # Reload shell
 
