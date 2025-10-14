@@ -14,7 +14,7 @@ function fzf_edit() {
     local files
     files=$(fzf -m --preview="bat --color=always {}" --layout=reverse)
     if [[ -n "$files" ]]; then
-        nvim $files
+        nvim "$files"
     fi
 }
 
@@ -120,11 +120,24 @@ function zsh_add_completion() {
 
 # Create archive from given directory
 function mkarchive() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: mkarchive <directory>"
+        return 1
+    fi
+    if [[ ! -d "$1" ]]; then
+        echo "Error: '$1' is not a directory"
+        return 1
+    fi
     tar -czvf $1.tar.gz $1
 }
 
 # Extract archive
 function extract() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: extract <archive_file>"
+        echo "Supported formats: tar.bz2, tar.gz, bz2, rar, gz, tar, tbz2, tgz, zip, Z, 7z"
+        return 1
+    fi
     if [ -f $1 ]; then
         case $1 in
         *.tar.bz2) tar xvjf $1 ;;
@@ -155,56 +168,4 @@ function list_aliases() {
     fi
 }
 
-# Add a file to the .gitignore
-function add_to_gitignore() {
-    local gitignore=".gitignore"
-    local pattern="$1"
 
-    if [[ ! -f "$gitignore" ]]; then
-        echo "$pattern" >"$gitignore"
-        echo "Created $gitignore with $pattern"
-        return
-    fi
-
-    if ! grep -Fxq "$pattern" "$gitignore"; then
-        echo "$pattern" >>"$gitignore"
-        echo "Added $pattern to $gitignore"
-        tail "$gitignore"
-    else
-        echo "$pattern is already in $gitignore"
-    fi
-}
-
-# Generate a gitignore file
-function gitignore() {
-    curl -sLw n https://www.toptal.com/developers/gitignore/api/$@
-}
-
-# Create a new Python project
-# function py-project() {
-#     if [[ -z "$1" ]]; then
-#         echo "Please provide a project name"
-#         return
-#     fi
-#     mcd $1
-#     uv init
-#     gi python >.gitignore
-#     mkdir src
-#     mv hello.py src/main.py
-#     mkdir tests
-#     touch tests/tests_main.py
-#     cp $HOME/Dropbox/templates/python/ruff.toml .
-#     uv add --dev pytest
-#     if [[ -n "$2" ]]; then
-#         if [[ "$2" == "fastapi" ]]; then
-#             echo "Adding FastAPI"
-#             uv add "$2" --extra standard
-#         else
-#             echo "Adding $2 to the project"
-#             uv add "$2"
-#         fi
-#     else
-#         echo "No second argument provided"
-#     fi
-#     code . --profile Python
-# }

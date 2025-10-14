@@ -2,6 +2,9 @@
 
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 
+# Quick config editing
+alias zshrc='nvim $ZDOTDIR/.zshrc'
+
 # Generate Password
 alias gpass='openssl rand -base64 32 | tr -dc "A-Za-z0-9!@#$%^&*()" | head -c 20; echo'
 # Homebrew Update
@@ -11,7 +14,7 @@ alias update='brew update; brew upgrade; brew upgrade --cask; brew autoremove; b
 alias cls='clear'
 alias ..='cd ..'                     # Go up one directory
 alias ...='cd ../..'                 # Go up two directories
-alias reload='exec $SHELL -l'        # Reload shell
+alias r='exec $SHELL -l'        # Reload shell
 
 alias edit-hosts='sudo nvim /etc/hosts' # Edit hosts file
 
