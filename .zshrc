@@ -77,9 +77,8 @@ zsh_add_file "exports.zsh"
 zsh_add_file "aliases.zsh"
 zsh_add_file "user-aliases.zsh"
 zsh_add_file "git-aliases.zsh"
-#zsh_add_file "aws.zsh"
 zsh_add_file "nvm.zsh"
-#zsh_add_file "python-venv.zsh"
+zsh_add_file "python-venv.zsh"
 zsh_add_file "transient-prompt.zsh"
 
 # ZSH Plugins
@@ -110,12 +109,11 @@ unset __conda_setup
 # Anaconda configuration with pyenv
 conda config --set auto_activate_base false
 
-# set AWS Default Region to us-west-2
-#asr $AWS_DEFAULT_REGION
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#export NVM_DIR="$HOME/.nvm"
+#export NVM_AUTO_USE=true
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # -- end of file
 
 # Amazon Q post block. Keep at the bottom of this file.

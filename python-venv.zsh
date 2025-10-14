@@ -2,11 +2,14 @@
 
 # python venv - auto activate / deactivate logic
 
-# Initialize ZSH_VIRTUAL_ENV  to ensure it starts in a known state
+# Initialize ZSH_VIRTUAL_ENV to ensure it starts in a known state
 export ZSH_VIRTUAL_ENV=""
 
 # Enable debug mode if DEBUG_MODE is set
 DEBUG_MODE=${DEBUG_MODE:-0}
+
+# Color for virtual environment messages
+python_color="\033[0;32m" # Green color
 
 # Debug logging function
 debug_log() {

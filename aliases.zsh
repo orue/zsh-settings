@@ -8,16 +8,14 @@ alias gpass='openssl rand -base64 32 | tr -dc "A-Za-z0-9!@#$%^&*()" | head -c 20
 alias update='brew update; brew upgrade; brew upgrade --cask; brew autoremove; brew cleanup; brew doctor'
 
 # Terminal
-alias h='history'                    # Show history
+alias cls='clear'
 alias ..='cd ..'                     # Go up one directory
 alias ...='cd ../..'                 # Go up two directories
 alias reload='exec $SHELL -l'        # Reload shell
 
-alias git-conf='nvim $HOME/.gitconfig'  # Edit git config file
 alias edit-hosts='sudo nvim /etc/hosts' # Edit hosts file
-alias edit='nvim'                       # Open a file in Neovim
 
-alias hc='echo "" > $HOME/.zsh_history & exec $SHELL -l' # Clear history
+alias hc='read "?Clear history? (y/N): " && [[ $REPLY =~ ^[Yy]$ ]] && echo "" > $HOME/.zsh_history && exec $SHELL -l' # Clear history
 alias grep='grep --color=auto'                           # Always highlight matches in grep
 alias ping='ping -c 5'                                   # Ping 5 times
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'        # Generate a uuid-v4
@@ -25,7 +23,6 @@ alias df='df -h'                                         # Human Readable disk u
 alias fzf='fzf -m --preview="bat --color=always {}" --layout=reverse'
 
 # Editor lauchers
-alias vi=nvim            # Launch Neovim
 alias vim=nvim           # Launch Neovim
 alias -s {txt,md}='nvim' # open a txt file with cotEditor
 
@@ -49,7 +46,9 @@ mcd() { mkdir -pv "$1" && cd "$1"; } # Makes new Dir and jumps inside
 # Network and SSH
 alias localip="ipconfig getifaddr en0"             # Get internal IP address
 alias openports='sudo lsof -i -P -n | grep LISTEN' # List all open ports
+alias ports='netstat -tuln'                        # Show network connections
 alias ipinfo='curl ipinfo.io'                      # Get IP address information
+alias mem='top -l 1 -s 0 | grep PhysMem'          # Show memory usage
 
 # Internet speed
 alias speed="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -"
