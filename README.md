@@ -27,7 +27,7 @@ A modern, feature-rich ZSH configuration optimized for development workflows wit
 
 ## Screenshots
 
-![ZSH Prompt in Action](./img/Screenshot.jpg)
+![ZSH Prompt in Action](./img/screenshot.jpg)
 
 ## Prerequisites
 
