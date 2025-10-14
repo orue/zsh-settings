@@ -16,8 +16,8 @@ eval "$(starship init zsh)"
 source <(fzf --zsh)
 
 # ZSH History Configuration
-HISTSIZE=25000
-SAVEHIST=100000
+HISTSIZE=10000
+SAVEHIST=50000
 HISTORY_IGNORE="(ls|[bf]g|exit|reset|clear|cd|cd ..|cd..)"
 HISTFILE=$ZDOTDIR/.zsh_history
 setopt INC_APPEND_HISTORY
@@ -46,16 +46,19 @@ zle_highlight=(
 
 DISABLE_UNTRACKED_FILES_DIRTY=true # Disable dirty check for untracked files
 
-# completions
+# completions with cache optimization
 autoload -Uz compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 zstyle ':completion:*' menu select
-# zstyle ':completion::complete:lsof:*' menu yes select
 zmodload zsh/complist
-compinit
 _comp_options+=(globdots) # Include hidden files.
 
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
+# History search functions
+autoload -U up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
@@ -90,30 +93,29 @@ zsh_add_plugin "hlissner/zsh-autopair"
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
-if [ $? -eq 0 ]; then
-  eval "$__conda_setup"
-else
-  if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-    . "/opt/anaconda3/etc/profile.d/conda.sh"
+# Lazy load conda
+function init_conda() {
+  __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
+  if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
   else
-    export PATH="/opt/anaconda3/bin:$PATH"
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+      . "/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+      export PATH="/opt/anaconda3/bin:$PATH"
+    fi
   fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+  unset __conda_setup
+  conda config --set auto_activate_base false
+}
 
-# Anaconda configuration with pyenv
-conda config --set auto_activate_base false
+# Auto-initialize conda when needed
+function conda() {
+  unfunction conda
+  init_conda
+  conda "$@"
+}
 
-
-#export NVM_DIR="$HOME/.nvm"
-#export NVM_AUTO_USE=true
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-# -- end of file
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
