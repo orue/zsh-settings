@@ -3,14 +3,15 @@
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 
 # Generate Password
-alias gpass='openssl rand -base64 24 | tr -dc "A-Za-z0-9!@#$%^&*()_+" | head -c 20; echo'
-#Homebrew Update
+alias gpass='openssl rand -base64 32 | tr -dc "A-Za-z0-9!@#$%^&*()" | head -c 20; echo'
+# Homebrew Update
 alias update='brew update; brew upgrade; brew upgrade --cask; brew autoremove; brew cleanup; brew doctor'
 
-
 # Terminal
-alias h='history' # Show history
-alias r='reload'  # Reload shell
+alias h='history'                    # Show history
+alias ..='cd ..'                     # Go up one directory
+alias ...='cd ../..'                 # Go up two directories
+alias reload='exec $SHELL -l'        # Reload shell
 
 alias git-conf='nvim $HOME/.gitconfig'  # Edit git config file
 alias edit-hosts='sudo nvim /etc/hosts' # Edit hosts file
@@ -33,7 +34,10 @@ alias -s {txt,md}='nvim' # open a txt file with cotEditor
 alias ls='eza --icons=always -F -H --group-directories-first --git -1'
 alias l="eza --icons --color-scale size --no-user --no-permissions --group-directories-first --git -l"
 alias ll="eza -aghlH --group-directories-first --git --git-repos --icons=always --sort=type --ignore-glob=".DS_Store""
-tree() { eza -agTF --tree --icons --group-directories-first --git-ignore --git --git-repos --level="${1:-1}"; }
+tree() { 
+  local level="${1:-1}"
+  eza -agTF --tree --icons --group-directories-first --git-ignore --git --git-repos --level="$level"
+}
 
 # File operations
 alias cp='cp -iv'                    # Preferred 'cp' implementation
