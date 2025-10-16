@@ -128,7 +128,7 @@ function mkarchive() {
         echo "Error: '$1' is not a directory"
         return 1
     fi
-    tar -czvf $1.tar.gz $1
+    tar -czvf "$1.tar.gz" "$1"
 }
 
 # Extract archive
@@ -138,19 +138,19 @@ function extract() {
         echo "Supported formats: tar.bz2, tar.gz, bz2, rar, gz, tar, tbz2, tgz, zip, Z, 7z"
         return 1
     fi
-    if [ -f $1 ]; then
-        case $1 in
-        *.tar.bz2) tar xvjf $1 ;;
-        *.tar.gz) tar xvzf $1 ;;
-        *.bz2) bunzip2 $1 ;;
-        *.rar) unrar x $1 ;;
-        *.gz) gunzip $1 ;;
-        *.tar) tar xvf $1 ;;
-        *.tbz2) tar xvjf $1 ;;
-        *.tgz) tar xvzf $1 ;;
-        *.zip) unzip $1 ;;
-        *.Z) uncompress $1 ;;
-        *.7z) 7z x $1 ;;
+    if [[ -f "$1" ]]; then
+        case "$1" in
+        *.tar.bz2) tar xvjf "$1" ;;
+        *.tar.gz) tar xvzf "$1" ;;
+        *.bz2) bunzip2 "$1" ;;
+        *.rar) unrar x "$1" ;;
+        *.gz) gunzip "$1" ;;
+        *.tar) tar xvf "$1" ;;
+        *.tbz2) tar xvjf "$1" ;;
+        *.tgz) tar xvzf "$1" ;;
+        *.zip) unzip "$1" ;;
+        *.Z) uncompress "$1" ;;
+        *.7z) 7z x "$1" ;;
         *) echo "'$1' cannot be extracted via extract()" ;;
         esac
     else
