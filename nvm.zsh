@@ -41,7 +41,7 @@ check_nvm() {
       printf "Activating  ${node_color}%'s\n" $nvmrc_node_version
       export ZSH_NVM_VERSION="$nvm_file_path"
       nvm use --silent
-      debug_log "ZSH_NVM_VERSION=$ZSH_NVM_VERSION"
+      nvm_debug_log "ZSH_NVM_VERSION=$ZSH_NVM_VERSION"
     fi
   else
     if [[ -n "$ZSH_NVM_VERSION" ]]; then

@@ -8,7 +8,9 @@ set-long-prompt() {
 set-short-prompt() {
   if [[ $PROMPT != '%# ' ]]; then
     PROMPT=$(starship module character)
-    zle .reset-prompt
+    if zle; then
+      zle .reset-prompt
+    fi
   fi
 }
 
