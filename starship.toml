@@ -1,4 +1,4 @@
-command_timeout = 5000
+command_timeout = 1000
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
@@ -29,61 +29,79 @@ $time\
 [directory]
 style = "fg:#e3e5e5 bg:#769ff0"
 format = "[ $path ]($style)"
-truncation_length = 2
+truncation_length = 10
 truncation_symbol = "…/"
+#truncate_to_repo = true            # Smart truncation in git repos
 
-[directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes" = "󰠮 "
-"~/dev" = "󰲋 "
-"GitHub" = " "
-"GitLab" = "󰮠 "
-"~/.config" = " "
 
 [git_branch]
 symbol = ""
 style = "bg:#394260"
 format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
 
+
 [git_status]
 style = "bg:#394260"
 format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
+conflicted = "🏳"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+up_to_date = ""
+untracked = "?${count}"
+stashed = "📦"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
 
 [nodejs]
 symbol = "󰎙"
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+detect_files = ["package.json", ".node-version"]
+detect_folders = ["node_modules"]
 
 [golang]
 symbol = ""
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+detect_extensions = ["go"]
+detect_files = ["go.mod", "go.sum", "go.work"]
 
 [lua]
 symbol = "󰢱"
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+detect_extensions = ["lua"]
+detect_files = [".lua-version"]
 
 [python]
 symbol = "󰌠"
 style = "bg:#212736"
 format = '[[ $symbol ${version} ${virtualenv}](fg:#769ff0 bg:#212736)]($style)'
+detect_extensions = ["py"]
+detect_files = ["requirements.txt", "pyproject.toml", "Pipfile", ".python-version", "setup.py"]
 
 [c]
 symbol = ""
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+detect_extensions = ["c", "h"]
 
 [php]
 symbol = ""
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+detect_extensions = ["php"]
+detect_files = ["composer.json"]
 
 [rust]
 symbol = ""
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+detect_extensions = ["rs"]
+detect_files = ["Cargo.toml", "Cargo.lock"]
 
 
 [conda]
