@@ -1,5 +1,13 @@
 #!/usr/bin/env zsh
 
+# Initialize NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# Use default version on shell startup
+nvm use default --silent
+
 # Initialize ZSH_NVM_VERSION  to ensure it starts in a known state
 export ZSH_NVM_VERSION=""
 
