@@ -58,7 +58,7 @@ deleted = "✘${count}"
 [nodejs]
 symbol = "󰎙"
 style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+format = '[[ $symbol ($version) ](fg:#9ece6a bg:#212736)]($style)'
 detect_files = ["package.json", ".node-version"]
 detect_folders = ["node_modules"]
 
@@ -79,7 +79,7 @@ detect_files = [".lua-version"]
 [python]
 symbol = "󰌠"
 style = "bg:#212736"
-format = '[[ $symbol ${version} ${virtualenv}](fg:#769ff0 bg:#212736)]($style)'
+format = '[[ $symbol ${version} ](fg:#e0af68 bg:#212736)]($style)[[\(${virtualenv}\)](fg:#9ece6a bg:#212736)]($style)'
 detect_extensions = ["py"]
 detect_files = ["requirements.txt", "pyproject.toml", "Pipfile", ".python-version", "setup.py"]
 
@@ -99,10 +99,9 @@ detect_files = ["composer.json"]
 [rust]
 symbol = ""
 style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212737)]($style)'
 detect_extensions = ["rs"]
 detect_files = ["Cargo.toml", "Cargo.lock"]
-
 
 [conda]
 disabled = true
