@@ -11,10 +11,20 @@ function reload() {
 }
 
 function fzf_edit() {
+    if ! command -v fzf &> /dev/null; then
+        echo "${Red}Error: fzf is not installed${RESET}"
+        return 1
+    fi
+
+    local preview_cmd="cat {}"
+    if command -v bat &> /dev/null; then
+        preview_cmd="bat --color=always {}"
+    fi
+
     local files
-    files=$(fzf -m --preview="bat --color=always {}" --layout=reverse)
+    files=$(fzf -m --preview="$preview_cmd" --layout=reverse)
     if [[ -n "$files" ]]; then
-        nvim "$files"
+        ${EDITOR:-nvim} "$files"
     fi
 }
 
@@ -22,20 +32,50 @@ function fzf_edit() {
 function nvim_clean() {
     local config_dir="$HOME/.config/nvim"
     if [[ -d "$config_dir" ]]; then
-        echo "Cleaning nvim config..."
-        rm -rf "$config_dir"
-        rm -rf "$HOME/.local/share/nvim"
-        rm -rf "$HOME/.local/state/nvim"
-        rm -rf "$HOME/.local/cache/nvim"
-        echo "nvim config cleaned."
+        echo "${Yellow}Warning: This will delete all nvim configuration!${RESET}"
+        echo "Directories to be removed:"
+        echo "  - $config_dir"
+        echo "  - $HOME/.local/share/nvim"
+        echo "  - $HOME/.local/state/nvim"
+        echo "  - $HOME/.local/cache/nvim"
+        read -q "REPLY?Continue? (y/n) "
+        echo
+        if [[ "$REPLY" == "y" ]]; then
+            echo "Cleaning nvim config..."
+            rm -rf "$config_dir"
+            rm -rf "$HOME/.local/share/nvim"
+            rm -rf "$HOME/.local/state/nvim"
+            rm -rf "$HOME/.local/cache/nvim"
+            echo "${Green}nvim config cleaned.${RESET}"
+        else
+            echo "Cancelled."
+        fi
     else
-        echo "nvim config directory does not exist."
+        echo "${Red}nvim config directory does not exist.${RESET}"
     fi
 }
 
 # Function to source files if they exist
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
+}
+
+# Helper to find plugin file
+function _find_plugin_file() {
+    local plugin_dir="$1"
+    local plugin_name="$2"
+    local plugin_file="$plugin_dir/$plugin_name.plugin.zsh"
+
+    if [[ ! -f "$plugin_file" ]]; then
+        plugin_file="$plugin_dir/$plugin_name.zsh"
+    fi
+
+    if [[ -f "$plugin_file" ]]; then
+        echo "$plugin_file"
+        return 0
+    else
+        return 1
+    fi
 }
 
 # Function to add a plugin to the Zsh plugins directory
@@ -47,33 +87,25 @@ function zsh_add_plugin() {
 
     if [[ -d "$plugin_dir" ]]; then
         # Plugin directory exists, source the plugin file
-        local plugin_file="$plugin_dir/$plugin_name.plugin.zsh"
-        if [[ ! -f "$plugin_file" ]]; then
-            plugin_file="$plugin_dir/$plugin_name.zsh"
-        fi
-
-        if [[ -f "$plugin_file" ]]; then
+        local plugin_file=$(_find_plugin_file "$plugin_dir" "$plugin_name")
+        if [[ -n "$plugin_file" ]]; then
             source "$plugin_file"
         else
-            echo "Error: Plugin file not found for $plugin_name"
+            echo "${Red}Error: Plugin file not found for $plugin_name${RESET}"
         fi
     else
         # Clone the plugin repository
         git clone --depth 1 "https://github.com/$repo.git" "$plugin_dir" || {
-            echo "Error: Failed to clone $repo"
+            echo "${Red}Error: Failed to clone $repo${RESET}"
             return 1
         }
 
         # Source the plugin file after cloning
-        local plugin_file="$plugin_dir/$plugin_name.plugin.zsh"
-        if [[ ! -f "$plugin_file" ]]; then
-            plugin_file="$plugin_dir/$plugin_name.zsh"
-        fi
-
-        if [[ -f "$plugin_file" ]]; then
+        local plugin_file=$(_find_plugin_file "$plugin_dir" "$plugin_name")
+        if [[ -n "$plugin_file" ]]; then
             source "$plugin_file"
         else
-            echo "Error: Plugin file not found for $plugin_name after cloning"
+            echo "${Red}Error: Plugin file not found for $plugin_name after cloning${RESET}"
         fi
     fi
 }
@@ -90,12 +122,12 @@ function zsh_add_completion() {
             fpath+=("${completion_file[1]:h}")
             zsh_add_file "plugins/$plugin_name/$plugin_name.plugin.zsh"
         else
-            echo "Error: Completion file not found for $plugin_name"
+            echo "${Red}Error: Completion file not found for $plugin_name${RESET}"
         fi
     else
         # Clone the plugin repository
         git clone --depth 1 "https://github.com/$repo.git" "$plugin_dir" || {
-            echo "Error: Failed to clone $repo"
+            echo "${Red}Error: Failed to clone $repo${RESET}"
             return 1
         }
 
@@ -104,7 +136,7 @@ function zsh_add_completion() {
         if [[ -f "$completion_file[1]" ]]; then
             fpath+=("${completion_file[1]:h}")
         else
-            echo "Error: Completion file not found for $plugin_name after cloning"
+            echo "${Red}Error: Completion file not found for $plugin_name after cloning${RESET}"
         fi
 
         # Regenerate completion dump if it exists
@@ -121,11 +153,11 @@ function zsh_add_completion() {
 # Create archive from given directory
 function mkarchive() {
     if [[ -z "$1" ]]; then
-        echo "Usage: mkarchive <directory>"
+        echo "${Yellow}Usage: mkarchive <directory>${RESET}"
         return 1
     fi
     if [[ ! -d "$1" ]]; then
-        echo "Error: '$1' is not a directory"
+        echo "${Red}Error: '$1' is not a directory${RESET}"
         return 1
     fi
     tar -czvf "$1.tar.gz" "$1"
@@ -134,8 +166,8 @@ function mkarchive() {
 # Extract archive
 function extract() {
     if [[ -z "$1" ]]; then
-        echo "Usage: extract <archive_file>"
-        echo "Supported formats: tar.bz2, tar.gz, bz2, rar, gz, tar, tbz2, tgz, zip, Z, 7z"
+        echo "${Yellow}Usage: extract <archive_file>${RESET}"
+        echo "${Yellow}Supported formats: tar.bz2, tar.gz, bz2, rar, gz, tar, tbz2, tgz, zip, Z, 7z${RESET}"
         return 1
     fi
     if [[ -f "$1" ]]; then
@@ -151,10 +183,10 @@ function extract() {
         *.zip) unzip "$1" ;;
         *.Z) uncompress "$1" ;;
         *.7z) 7z x "$1" ;;
-        *) echo "'$1' cannot be extracted via extract()" ;;
+        *) echo "${Red}Error: '$1' cannot be extracted via extract()${RESET}" ;;
         esac
     else
-        echo "'$1' is not a valid file"
+        echo "${Red}Error: '$1' is not a valid file${RESET}"
     fi
 }
 
@@ -162,9 +194,11 @@ function extract() {
 function list_aliases() {
     local filter="$1"
     if [[ -z "$filter" ]]; then
-        alias | sort | awk -F'=' '{printf "\033[33m%-20s\033[0m %s\n", $1, $2}'
+        alias | sort | awk -F'=' -v yellow="$Yellow" -v reset="$RESET" \
+            '{printf "%s%-20s%s %s\n", yellow, $1, reset, $2}'
     else
-        alias | grep -i "$filter" | sort | awk -F'=' '{printf "\033[33m%-20s\033[0m %s\n", $1, $2}'
+        alias | grep -i "$filter" | sort | awk -F'=' -v yellow="$Yellow" -v reset="$RESET" \
+            '{printf "%s%-20s%s %s\n", yellow, $1, reset, $2}'
     fi
 }
 
