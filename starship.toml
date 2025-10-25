@@ -24,19 +24,44 @@ $rust\
 [](fg:#414559)\
 \n$character"""
 
+[palettes.catppuccin_frappe]
+rosewater = "#f2d5cf"
+flamingo = "#eebebe"
+pink = "#f4b8e4"
+mauve = "#ca9ee6"
+red = "#e78284"
+maroon = "#ea999c"
+peach = "#ef9f76"
+yellow = "#e5c890"
+green = "#a6d189"
+teal = "#81c8be"
+sky = "#99d1db"
+sapphire = "#85c1dc"
+blue = "#8caaee"
+lavender = "#babbf1"
+text = "#c6d0f5"
+subtext1 = "#b5bfe2"
+subtext0 = "#a5adce"
+overlay2 = "#949cbb"
+overlay1 = "#838ba7"
+overlay0 = "#737994"
+surface2 = "#626880"
+surface1 = "#51576d"
+surface0 = "#414559"
+base = "#303446"
+mantle = "#292c3c"
+crust = "#232634"
+
 [directory]
 style = "fg:#c6d0f5 bg:#8caaee"
 format = "[ $path ]($style)"
 truncation_length = 10
 truncation_symbol = "…/"
-#truncate_to_repo = true            # Smart truncation in git repos
-
 
 [git_branch]
 symbol = ""
 style = "bg:#51576d"
 format = '[[ $symbol $branch ](fg:#8caaee bg:#51576d)]($style)'
-
 
 [git_status]
 style = "bg:#51576d"
@@ -100,23 +125,6 @@ style = "bg:#414559"
 format = '[[ $symbol ($version) ](fg:#8caaee bg:#414559)]($style)'
 detect_extensions = ["rs"]
 detect_files = ["Cargo.toml", "Cargo.lock"]
-
-[conda]
-disabled = true
-[pulumi]
-disabled = true
-[terraform]
-disabled = true
-[docker_context]
-disabled = true
-[kubernetes]
-disabled = true
-[aws]
-disabled = true
-[gcloud]
-disabled = true
-[line_break]
-disabled = true
 
 [character]
 success_symbol = "[➜](#a6d189)"     # Normal insert mode (typing)
