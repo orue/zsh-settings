@@ -8,9 +8,6 @@ export ZSH_VIRTUAL_ENV=""
 # Enable debug mode if DEBUG_MODE is set
 DEBUG_MODE=${DEBUG_MODE:-0}
 
-# Color for virtual environment messages
-python_color="\033[0;32m" # Green color
-
 # Debug logging function
 debug_log() {
   if [[ $DEBUG_MODE -eq 1 ]]; then
