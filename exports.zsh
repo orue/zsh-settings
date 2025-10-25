@@ -26,9 +26,13 @@ export HOMEBREW_NO_ANALYTICS=TRUE
 # ============================================================================
 # PATH modifications
 # ============================================================================
-add_to_path "/opt/homebrew/bin"
-add_to_path "/opt/homebrew/opt/libpq/bin"
-add_to_path "/opt/homebrew/opt/curl/bin"
+# Use HOMEBREW_PREFIX if available (set by brew shellenv), otherwise try common locations
+BREW_PREFIX="${HOMEBREW_PREFIX:-/opt/homebrew}"
+[[ ! -d "$BREW_PREFIX" ]] && BREW_PREFIX="/usr/local"
+
+add_to_path "$BREW_PREFIX/bin"
+add_to_path "$BREW_PREFIX/opt/libpq/bin"
+add_to_path "$BREW_PREFIX/opt/curl/bin"
 add_to_path "$HOME/.local/bin"
 add_to_path "$HOME/.docker/bin"
 
@@ -37,7 +41,7 @@ add_to_path "$HOME/.docker/bin"
 # ============================================================================
 
 # Go
-export GOROOT="/opt/homebrew/opt/go/libexec"
+export GOROOT="$BREW_PREFIX/opt/go/libexec"
 export GOPATH="$HOME/go"
 add_to_path "$GOROOT/bin"
 add_to_path "$GOPATH/bin"
@@ -52,16 +56,3 @@ export STARSHIP_CONFIG="$HOME/.config/zsh/starship.toml"
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
-# ============================================================================
-# External tool loading
-# ============================================================================
-
-# Load NVM
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-
-# If reloading, some env vars that are already set can interfere with nvm
-if [ -n "$NVM_BIN" ]; then
-  # `nvm deactivate` will cleanup any remaining env vars
-  nvm deactivate --silent
-fi
