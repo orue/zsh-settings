@@ -21,7 +21,6 @@ debug_log() {
 # Deactivates if no venv is found in current directory or any parent directory
 python_venv() {
   local dir=$(pwd)
-  local found_venv=0
   local venv_path=""
   # Array of possible venv directory names
   local venv_names=("venv" ".venv")
@@ -33,7 +32,6 @@ python_venv() {
       debug_log "checking $dir/$venv_name"
       if [[ -d "$dir/$venv_name" && -f "$dir/$venv_name/bin/activate" ]]; then
         debug_log "found $dir/$venv_name"
-        found_venv=1
         venv_path="$dir/$venv_name"
         break 2 # Break out of both loops
       fi
@@ -41,8 +39,8 @@ python_venv() {
     dir=$(dirname "$dir")
   done
 
-  if [[ $found_venv -eq 1 ]]; then
-    debug_log "found_venv -eq $found_venv at $venv_path"
+  if [[ -n "$venv_path" ]]; then
+    debug_log "found venv at $venv_path"
     # Check if we need to activate or switch venvs
     if [[ "$ZSH_VIRTUAL_ENV" != "$venv_path" ]]; then
       # Deactivate current venv if one is active
