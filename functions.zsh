@@ -202,4 +202,34 @@ function list_aliases() {
     fi
 }
 
+# Makes new directory and jumps inside
+function mcd() {
+    mkdir -pv "$1" && cd "$1"
+}
 
+# Tree with custom depth (default: 1)
+function tree() {
+    local level="${1:-1}"
+    eza -agTF --tree --icons --group-directories-first --git-ignore --git --git-repos --level="$level"
+}
+
+# Full system update
+function update() {
+    echo "🍺 Updating Homebrew..."
+    brew update || { echo "❌ brew update failed"; return 1; }
+
+    echo "\n📦 Upgrading formulae..."
+    brew upgrade || { echo "❌ brew upgrade failed"; return 1; }
+
+    echo "\n🎯 Upgrading casks..."
+    brew upgrade --cask || { echo "❌ brew upgrade --cask failed"; return 1; }
+
+    echo "\n🧹 Cleaning up..."
+    brew autoremove
+    brew cleanup
+
+    echo "\n🩺 Running diagnostics..."
+    brew doctor
+
+    echo "\n✅ Update complete!"
+}
