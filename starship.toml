@@ -6,14 +6,14 @@ command_timeout = 1000
 add_newline = true
 
 format = """
-[░▒▓](#a3aed2)\
-[  ](bg:#a3aed2 fg:#090c0c)\
-[](bg:#769ff0 fg:#a3aed2)\
+[░▒▓](#babbf1)\
+[  ](bg:#babbf1 fg:#232634)\
+[](bg:#8caaee fg:#babbf1)\
 $directory\
-[](fg:#769ff0 bg:#394260)\
+[](fg:#8caaee bg:#51576d)\
 $git_branch\
 $git_status\
-[](fg:#394260 bg:#212736)\
+[](fg:#51576d bg:#414559)\
 $nodejs\
 $golang\
 $lua\
@@ -21,13 +21,13 @@ $python\
 $c\
 $php\
 $rust\
-[](fg:#212736 bg:#1d2230)\
+[](fg:#414559 bg:#303446)\
 $time\
-[ ](fg:#1d2230)\
+[ ](fg:#303446)\
 \n$character"""
 
 [directory]
-style = "fg:#e3e5e5 bg:#769ff0"
+style = "fg:#c6d0f5 bg:#8caaee"
 format = "[ $path ]($style)"
 truncation_length = 10
 truncation_symbol = "…/"
@@ -36,13 +36,13 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:#394260"
-format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
+style = "bg:#51576d"
+format = '[[ $symbol $branch ](fg:#8caaee bg:#51576d)]($style)'
 
 
 [git_status]
-style = "bg:#394260"
-format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
+style = "bg:#51576d"
+format = '[[($all_status$ahead_behind )](fg:#8caaee bg:#51576d)]($style)'
 conflicted = "🏳"
 ahead = "⇡${count}"
 behind = "⇣${count}"
@@ -57,49 +57,49 @@ deleted = "✘${count}"
 
 [nodejs]
 symbol = "󰎙"
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#9ece6a bg:#212736)]($style)'
+style = "bg:#414559"
+format = '[[ $symbol ($version) ](fg:#a6d189 bg:#414559)]($style)'
 detect_files = ["package.json", ".node-version"]
 detect_folders = ["node_modules"]
 
 [golang]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#414559"
+format = '[[ $symbol ($version) ](fg:#8caaee bg:#414559)]($style)'
 detect_extensions = ["go"]
 detect_files = ["go.mod", "go.sum", "go.work"]
 
 [lua]
 symbol = "󰢱"
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#414559"
+format = '[[ $symbol ($version) ](fg:#8caaee bg:#414559)]($style)'
 detect_extensions = ["lua"]
 detect_files = [".lua-version"]
 
 [python]
 symbol = "󰌠"
-style = "bg:#212736"
-format = '[[[$symbol](fg:#e0af68) ${version}](fg:#769ff0 bg:#212736)]($style)[[(\([$virtualenv](fg:#e0af68)\))](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#414559"
+format = '[[ $symbol ($version) ](fg:#e5c890 bg:#414559)]($style)[[(\($virtualenv\))](fg:#8caaee bg:#414559)]($style)'
 detect_extensions = ["py"]
 detect_files = ["requirements.txt", "pyproject.toml", "Pipfile", ".python-version", "setup.py"]
 
 [c]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#414559"
+format = '[[ $symbol ($version) ](fg:#8caaee bg:#414559)]($style)'
 detect_extensions = ["c", "h"]
 
 [php]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#414559"
+format = '[[ $symbol ($version) ](fg:#8caaee bg:#414559)]($style)'
 detect_extensions = ["php"]
 detect_files = ["composer.json"]
 
 [rust]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212737)]($style)'
+style = "bg:#414559"
+format = '[[ $symbol ($version) ](fg:#8caaee bg:#414559)]($style)'
 detect_extensions = ["rs"]
 detect_files = ["Cargo.toml", "Cargo.lock"]
 
@@ -123,8 +123,8 @@ disabled = true
 [time]
 disabled = false
 time_format = "%R" # Hour:Minute Format
-style = "bg:#1d2230"
-format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+style = "bg:#303446"
+format = '[[  $time ](fg:#b5bfe2 bg:#303446)]($style)'
 [character]
-success_symbol = "[➜](bold green)"     # Normal insert mode (typing)
+success_symbol = "[➜](#a6d189)"     # Normal insert mode (typing)
 error_symbol = "[✗](bold red)"         # Insert mode after error
