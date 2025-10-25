@@ -43,15 +43,21 @@ python_venv() {
 
   if [[ $found_venv -eq 1 ]]; then
     debug_log "found_venv -eq $found_venv at $venv_path"
-    if [[ -z "$ZSH_VIRTUAL_ENV" ]]; then
-      printf "Activating  virtual environment ${python_color}(%'s)\n" $(basename $(pwd))
+    # Check if we need to activate or switch venvs
+    if [[ "$ZSH_VIRTUAL_ENV" != "$venv_path" ]]; then
+      # Deactivate current venv if one is active
+      if [[ -n "$ZSH_VIRTUAL_ENV" ]]; then
+        printf "${python_color}Switching virtual environment...${RESET}\n"
+        deactivate
+      fi
+      # Activate the new venv
+      printf "${python_color}Activating virtual environment (%s)${RESET}\n" "$(basename $(dirname "$venv_path"))"
       export ZSH_VIRTUAL_ENV="$venv_path"
       source "$venv_path/bin/activate"
     fi
   else
     if [[ -n "$ZSH_VIRTUAL_ENV" ]]; then
-      # echo "Deactivating virtual environment"
-      printf "\nDeactivating  virtual environment\n"
+      printf "${python_color}Deactivating virtual environment${RESET}\n"
       deactivate
       unset ZSH_VIRTUAL_ENV
     fi
