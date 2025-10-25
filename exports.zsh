@@ -56,3 +56,8 @@ export STARSHIP_CONFIG="$HOME/.config/zsh/starship.toml"
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
+# Personal path shortcuts
+export OBSIDIAN_PATH="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes"
+export DEV_PATH="$HOME/dev"
+export GITHUB_PATH="$HOME/dev/GitHub/orue"
+
