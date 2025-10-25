@@ -1,4 +1,4 @@
-command_timeout = 1000
+command_timeout = 500
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
@@ -21,9 +21,7 @@ $python\
 $c\
 $php\
 $rust\
-[](fg:#414559 bg:#303446)\
-$time\
-[ ](fg:#303446)\
+[](fg:#414559)\
 \n$character"""
 
 [directory]
@@ -120,11 +118,6 @@ disabled = true
 [line_break]
 disabled = true
 
-[time]
-disabled = false
-time_format = "%R" # Hour:Minute Format
-style = "bg:#303446"
-format = '[[  $time ](fg:#b5bfe2 bg:#303446)]($style)'
 [character]
 success_symbol = "[➜](#a6d189)"     # Normal insert mode (typing)
 error_symbol = "[✗](bold red)"         # Insert mode after error
