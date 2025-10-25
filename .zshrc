@@ -17,13 +17,21 @@
 # Don't check for new mail
 MAILCHECK=0
 
-# Brew - Cached for faster startup
+# Brew - Cached for faster startup (supports both Apple Silicon and Intel Macs)
+BREW_LOCATION=""
 if [[ -f /opt/homebrew/bin/brew ]]; then
-  if [[ ! -f "$ZDOTDIR/.brew_env.zsh" ]] || [[ /opt/homebrew/bin/brew -nt "$ZDOTDIR/.brew_env.zsh" ]]; then
-    /opt/homebrew/bin/brew shellenv > "$ZDOTDIR/.brew_env.zsh"
+  BREW_LOCATION="/opt/homebrew/bin/brew"
+elif [[ -f /usr/local/bin/brew ]]; then
+  BREW_LOCATION="/usr/local/bin/brew"
+fi
+
+if [[ -n "$BREW_LOCATION" ]]; then
+  if [[ ! -f "$ZDOTDIR/.brew_env.zsh" ]] || [[ "$BREW_LOCATION" -nt "$ZDOTDIR/.brew_env.zsh" ]]; then
+    "$BREW_LOCATION" shellenv > "$ZDOTDIR/.brew_env.zsh"
   fi
   source "$ZDOTDIR/.brew_env.zsh"
 fi
+unset BREW_LOCATION
 
 # ============================================================================
 # ZSH OPTIONS
@@ -51,7 +59,7 @@ setopt NO_BEEP              # No beeping
 setopt PROMPT_SUBST         # Allow prompt substitution
 
 # ============================================================================
-# PROMPT CONFIGURATION
+# ZLE & PROMPT CONFIGURATION
 # ============================================================================
 # ZLE Highlighting
 zle_highlight=(
@@ -62,11 +70,8 @@ zle_highlight=(
   suffix:bold
 )
 
-# Git performance optimization
+# Git performance optimization (for prompts)
 DISABLE_UNTRACKED_FILES_DIRTY=true
-
-# Starship prompt
-eval "$(starship init zsh)"
 
 # ============================================================================
 # COMPLETION SYSTEM
@@ -87,8 +92,6 @@ _comp_options+=(globdots)  # Include hidden files
 # ============================================================================
 # COLORS
 # ============================================================================
-autoload -Uz colors && colors
-
 # SSH with 256 colors
 alias ssh='TERM="xterm-256color" ssh'
 
@@ -116,6 +119,12 @@ zsh_add_plugin "hlissner/zsh-autopair"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"  # MUST be last for performance
 
 # ============================================================================
+# PROMPT INITIALIZATION
+# ============================================================================
+# Initialize Starship prompt (after all config and plugins are loaded)
+eval "$(starship init zsh)"
+
+# ============================================================================
 # KEY BINDINGS (after plugins)
 # ============================================================================
 # History substring search (requires plugin loaded above)
@@ -126,32 +135,67 @@ HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 # ============================================================================
 # FZF INTEGRATION
 # ============================================================================
-source <(fzf --zsh)
+# Cached for faster startup
+if command -v fzf &>/dev/null; then
+  if [[ ! -f "$ZDOTDIR/.fzf_env.zsh" ]] || [[ $(command -v fzf) -nt "$ZDOTDIR/.fzf_env.zsh" ]]; then
+    fzf --zsh > "$ZDOTDIR/.fzf_env.zsh"
+  fi
+  source "$ZDOTDIR/.fzf_env.zsh"
+fi
 
 # ============================================================================
-# TOOL COMPLETIONS (deferred for faster startup)
+# TOOL COMPLETIONS (cached for faster startup)
 # ============================================================================
-# UV Python CLI completions
+# UV Python CLI completions - cached
 if command -v uv &>/dev/null; then
-  eval "$(uv generate-shell-completion zsh)"
+  if [[ ! -f "$ZDOTDIR/.uv_completion.zsh" ]] || [[ $(command -v uv) -nt "$ZDOTDIR/.uv_completion.zsh" ]]; then
+    uv generate-shell-completion zsh > "$ZDOTDIR/.uv_completion.zsh"
+  fi
+  source "$ZDOTDIR/.uv_completion.zsh"
 fi
 
 if command -v uvx &>/dev/null; then
-  eval "$(uvx --generate-shell-completion zsh)"
+  if [[ ! -f "$ZDOTDIR/.uvx_completion.zsh" ]] || [[ $(command -v uvx) -nt "$ZDOTDIR/.uvx_completion.zsh" ]]; then
+    uvx --generate-shell-completion zsh > "$ZDOTDIR/.uvx_completion.zsh"
+  fi
+  source "$ZDOTDIR/.uvx_completion.zsh"
 fi
 
 # ============================================================================
 # LAZY LOADING - CONDA
 # ============================================================================
 function init_conda() {
-  __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
+  # Try to find conda in common installation locations
+  local conda_locations=(
+    "/opt/anaconda3"
+    "/opt/miniconda3"
+    "$HOME/anaconda3"
+    "$HOME/miniconda3"
+    "/usr/local/anaconda3"
+    "/usr/local/miniconda3"
+  )
+
+  local conda_base=""
+  for location in "${conda_locations[@]}"; do
+    if [[ -f "$location/bin/conda" ]]; then
+      conda_base="$location"
+      break
+    fi
+  done
+
+  if [[ -z "$conda_base" ]]; then
+    echo "conda installation not found"
+    return 1
+  fi
+
+  __conda_setup="$('$conda_base/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
   if [[ $? -eq 0 ]]; then
     eval "$__conda_setup"
   else
-    if [[ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]]; then
-      . "/opt/anaconda3/etc/profile.d/conda.sh"
+    if [[ -f "$conda_base/etc/profile.d/conda.sh" ]]; then
+      . "$conda_base/etc/profile.d/conda.sh"
     else
-      export PATH="/opt/anaconda3/bin:$PATH"
+      export PATH="$conda_base/bin:$PATH"
     fi
   fi
   unset __conda_setup

@@ -1,15 +1,46 @@
 #!/usr/bin/env zsh
 
-# Initialize NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# Use default version on shell startup
-nvm use default --silent
-
-# Initialize ZSH_NVM_VERSION  to ensure it starts in a known state
+# ============================================================================
+# LAZY LOADING - NVM
+# ============================================================================
+# Initialize ZSH_NVM_VERSION to ensure it starts in a known state
 export ZSH_NVM_VERSION=""
+export NVM_DIR="$HOME/.nvm"
+
+# Function to initialize NVM (called on first use)
+function init_nvm() {
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+
+# Lazy-load NVM when first called
+function nvm() {
+  unfunction nvm
+  init_nvm
+  nvm "$@"
+}
+
+# Lazy-load for common node commands
+function node() {
+  unfunction node npm npx
+  init_nvm
+  nvm use default --silent
+  node "$@"
+}
+
+function npm() {
+  unfunction node npm npx
+  init_nvm
+  nvm use default --silent
+  npm "$@"
+}
+
+function npx() {
+  unfunction node npm npx
+  init_nvm
+  nvm use default --silent
+  npx "$@"
+}
 
 # Enable debug mode if NVM_DEBUG_MODE is set
 NVM_DEBUG_MODE=${NVM_DEBUG_MODE:-0}
@@ -44,7 +75,8 @@ check_nvm() {
 
   if [[ $found_nvm -eq 1 ]]; then
     nvm_debug_log "found_nvm -eq $found_nvm at $nvm_file_path"
-    if [[ -z "$ZSH_NVM_VERSION" ]]; then
+    # Check if we need to switch (either no version set, or different .nvmrc file)
+    if [[ "$ZSH_NVM_VERSION" != "$nvm_file_path" ]]; then
       local nvmrc_node_version=$(nvm version "$(cat "${nvm_file_path}")")
       printf "Activating  ${node_color}%'s\n" $nvmrc_node_version
       export ZSH_NVM_VERSION="$nvm_file_path"
@@ -53,6 +85,7 @@ check_nvm() {
     fi
   else
     if [[ -n "$ZSH_NVM_VERSION" ]]; then
+      # Switch back to default (will auto-initialize NVM if needed via wrapper)
       nvm use default --silent
       unset ZSH_NVM_VERSION
     fi
