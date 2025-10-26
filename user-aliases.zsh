@@ -11,7 +11,7 @@
 
 # Generic navigation helper
 _nav() {
-  cd "$1" && ls || { echo "❌ Cannot access $2"; return 1; }
+  cd "$1" || { echo "❌ Cannot access $2"; return 1; }
 }
 
 # Navigation shortcuts
