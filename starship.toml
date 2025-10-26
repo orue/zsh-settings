@@ -2,21 +2,15 @@ command_timeout = 500
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Use the Catppuccin Frappe palette
-palette = "catppuccin_frappe"
-
-# Enable the blank line at the start of the prompt
-add_newline = true
-
 format = """
-[░▒▓](lavender)\
+[░▒▓](mauve)\
 [  ](bg:lavender fg:crust)\
 [](bg:blue fg:lavender)\
 $directory\
-[](fg:blue bg:surface1)\
+[](fg:blue bg:teal)\
 $git_branch\
 $git_status\
-[](fg:surface1 bg:surface0)\
+[](fg:teal bg:lavender)\
 $nodejs\
 $golang\
 $lua\
@@ -24,8 +18,91 @@ $python\
 $c\
 $php\
 $rust\
-[](fg:surface0)\
-\n$character"""
+[](fg:lavender)\
+$line_break\
+$character"""
+
+palette = "catppuccin_frappe"
+add_newline = true
+
+[directory]
+style = "fg:crust bg:blue"
+format = "[ $path ]($style)"
+truncation_length = 5
+truncate_to_repo = false 
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol $branch ](fg:crust bg:teal)]($style)'
+
+[git_status]
+style = "bg:teal"
+format = '[[($all_status$ahead_behind )](fg:crust bg:teal)]($style)'
+conflicted = "🏳"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+up_to_date = ""
+untracked = "?${count}"
+stashed = "📦"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+
+[nodejs]
+symbol = "󰎙"
+style = "bg:lavender"
+format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+detect_files = ["package.json", ".node-version"]
+detect_folders = ["node_modules"]
+
+[golang]
+symbol = "󰟓"
+style = "bg:lavender"
+format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+detect_extensions = ["go"]
+detect_files = ["go.mod", "go.sum", "go.work"]
+
+[lua]
+symbol = "󰢱"
+style = "bg:lavender"
+format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+detect_extensions = ["lua"]
+detect_files = [".lua-version"]
+
+[python]
+symbol = "󰌠"
+style = "bg:lavender"
+format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)[[(\($virtualenv\))](fg:crust bg:lavender)]($style)'
+detect_extensions = ["py"]
+detect_files = ["requirements.txt", "pyproject.toml", "Pipfile", ".python-version", "setup.py"]
+
+[c]
+symbol = ""
+style = "bg:lavender"
+format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+detect_extensions = ["c", "h"]
+
+[php]
+symbol = ""
+style = "bg:lavender"
+format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+detect_extensions = ["php"]
+detect_files = ["composer.json"]
+
+[rust]
+symbol = ""
+style = "bg:lavender"
+format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+detect_extensions = ["rs"]
+detect_files = ["Cargo.toml", "Cargo.lock"]
+
+[character]
+success_symbol = "[➜](bold fg:green)"
+error_symbol = "[✗](bold fg:red)"
 
 [palettes.catppuccin_frappe]
 rosewater = "#f2d5cf"
@@ -54,82 +131,3 @@ surface0 = "#414559"
 base = "#303446"
 mantle = "#292c3c"
 crust = "#232634"
-
-[directory]
-style = "fg:text bg:blue"
-format = "[ $path ]($style)"
-truncation_length = 8
-truncate_to_repo = false 
-truncation_symbol = "…/"
-
-[git_branch]
-symbol = ""
-style = "bg:surface1"
-format = '[[ $symbol $branch ](fg:blue bg:surface1)]($style)'
-
-[git_status]
-style = "bg:surface1"
-format = '[[($all_status$ahead_behind )](fg:blue bg:surface1)]($style)'
-conflicted = "🏳"
-ahead = "⇡${count}"
-behind = "⇣${count}"
-diverged = "⇕⇡${ahead_count}⇣${behind_count}"
-up_to_date = ""
-untracked = "?${count}"
-stashed = "📦"
-modified = "!${count}"
-staged = "+${count}"
-renamed = "»${count}"
-deleted = "✘${count}"
-
-[nodejs]
-symbol = "󰎙"
-style = "bg:surface0"
-format = '[[ $symbol ($version) ](fg:green bg:surface0)]($style)'
-detect_files = ["package.json", ".node-version"]
-detect_folders = ["node_modules"]
-
-[golang]
-symbol = ""
-style = "bg:surface0"
-format = '[[ $symbol ($version) ](fg:blue bg:surface0)]($style)'
-detect_extensions = ["go"]
-detect_files = ["go.mod", "go.sum", "go.work"]
-
-[lua]
-symbol = "󰢱"
-style = "bg:surface0"
-format = '[[ $symbol ($version) ](fg:blue bg:surface0)]($style)'
-detect_extensions = ["lua"]
-detect_files = [".lua-version"]
-
-[python]
-symbol = "󰌠"
-style = "bg:surface0"
-format = '[[ $symbol ($version) ](fg:yellow bg:surface0)]($style)[[(\($virtualenv\))](fg:blue bg:surface0)]($style)'
-detect_extensions = ["py"]
-detect_files = ["requirements.txt", "pyproject.toml", "Pipfile", ".python-version", "setup.py"]
-
-[c]
-symbol = ""
-style = "bg:surface0"
-format = '[[ $symbol ($version) ](fg:blue bg:surface0)]($style)'
-detect_extensions = ["c", "h"]
-
-[php]
-symbol = ""
-style = "bg:surface0"
-format = '[[ $symbol ($version) ](fg:blue bg:surface0)]($style)'
-detect_extensions = ["php"]
-detect_files = ["composer.json"]
-
-[rust]
-symbol = ""
-style = "bg:surface0"
-format = '[[ $symbol ($version) ](fg:blue bg:surface0)]($style)'
-detect_extensions = ["rs"]
-detect_files = ["Cargo.toml", "Cargo.lock"]
-
-[character]
-success_symbol = "[➜](green)"
-error_symbol = "[✗](bold red)"
