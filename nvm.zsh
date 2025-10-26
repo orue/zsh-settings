@@ -6,6 +6,44 @@
 # Initialize ZSH_NVM_VERSION to ensure it starts in a known state
 export ZSH_NVM_VERSION=""
 
+# Add default node version's bin directory to PATH immediately
+# This ensures global npm packages (like claude) are available without waiting for lazy load
+if [[ -z "$NVM_DIR" ]]; then
+  export NVM_DIR="$HOME/.nvm"
+fi
+
+# Add default node version to PATH if it exists
+if [[ -s "$NVM_DIR/alias/default" ]]; then
+  DEFAULT_NODE_ALIAS="$(cat "$NVM_DIR/alias/default")"
+  # Check if it's an alias (like lts/jod) or a direct version
+  if [[ "$DEFAULT_NODE_ALIAS" == lts/* ]] || [[ "$DEFAULT_NODE_ALIAS" == node ]] || [[ "$DEFAULT_NODE_ALIAS" == stable ]] || [[ "$DEFAULT_NODE_ALIAS" == unstable ]]; then
+    # It's an alias, need to resolve it
+    if [[ -s "$NVM_DIR/alias/$DEFAULT_NODE_ALIAS" ]]; then
+      DEFAULT_NODE_VERSION="$(cat "$NVM_DIR/alias/$DEFAULT_NODE_ALIAS")"
+    else
+      # Can't resolve alias without loading nvm, use fallback
+      DEFAULT_NODE_VERSION=""
+    fi
+  else
+    DEFAULT_NODE_VERSION="$DEFAULT_NODE_ALIAS"
+  fi
+
+  if [[ -n "$DEFAULT_NODE_VERSION" ]]; then
+    DEFAULT_NODE_PATH="$NVM_DIR/versions/node/$DEFAULT_NODE_VERSION/bin"
+    if [[ -d "$DEFAULT_NODE_PATH" ]]; then
+      export PATH="$DEFAULT_NODE_PATH:$PATH"
+    fi
+  fi
+fi
+
+# Fallback: use the most recent node version if default couldn't be resolved
+if [[ ! "$PATH" =~ "$NVM_DIR/versions/node" ]] && [[ -d "$NVM_DIR/versions/node" ]]; then
+  LATEST_NODE_PATH="$(ls -t "$NVM_DIR/versions/node" | head -n1)"
+  if [[ -n "$LATEST_NODE_PATH" && -d "$NVM_DIR/versions/node/$LATEST_NODE_PATH/bin" ]]; then
+    export PATH="$NVM_DIR/versions/node/$LATEST_NODE_PATH/bin:$PATH"
+  fi
+fi
+
 # Function to initialize NVM (called on first use)
 function init_nvm() {
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

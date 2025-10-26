@@ -76,6 +76,9 @@ DISABLE_UNTRACKED_FILES_DIRTY=true
 # ============================================================================
 # COMPLETION SYSTEM
 # ============================================================================
+# Docker completions
+fpath=(/Users/orue/.docker/completions $fpath)
+
 # Optimized completion initialization (only rebuild dump if older than a day)
 autoload -Uz compinit
 # Run full compinit if dump is >20 hours old, otherwise skip checks with -C

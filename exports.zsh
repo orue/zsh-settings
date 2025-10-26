@@ -51,6 +51,9 @@ export NVM_DIR="$HOME/.nvm"
 # Starship prompt
 export STARSHIP_CONFIG="$HOME/.config/zsh/starship.toml"
 
+# Eza
+export EZA_CONFIG_DIR="$HOME/.config/eza"
+
 # Man pages
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
