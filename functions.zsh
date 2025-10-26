@@ -1,4 +1,21 @@
 #!/usr/bin/env zsh
+# ==============================================================================
+# ZSH Custom Functions
+# ==============================================================================
+# This file contains utility functions for shell management, plugin handling,
+# file operations, and development workflow automation.
+#
+# Core utilities: debug_log, find_up, cache_command, reload
+# File operations: fzf_edit, extract, mkarchive
+# ZSH management: zsh_add_file, zsh_add_plugin, zsh_add_completion
+# Development: nvim_clean, mcd, tree, update
+# ==============================================================================
+
+# Debug logging function (set DEBUG_MODE=1 to enable)
+# Usage: debug_log "message"
+function debug_log() {
+    [[ ${DEBUG_MODE:-0} -eq 1 ]] && echo "DEBUG: $@"
+}
 
 # Walk up directory tree to find a file or directory
 # Usage: find_up <patterns...>
@@ -36,7 +53,7 @@ function cache_command() {
     if [[ ! -f "$cache_file" ]] || [[ $(command -v "$cmd_name") -nt "$cache_file" ]]; then
         "$@" > "$cache_file"
     fi
-    source "$cache_file"
+    builtin source "$cache_file"
 }
 
 # Function to reload the shell
@@ -49,6 +66,9 @@ function reload() {
     exec zsh
 }
 
+# Fuzzy find and edit files using fzf
+# Uses bat for preview if available, falls back to cat
+# Supports multiple file selection with -m flag
 function fzf_edit() {
     if ! command -v fzf &> /dev/null; then
         echo "${Red}Error: fzf is not installed${RESET}"
@@ -94,61 +114,54 @@ function nvim_clean() {
     fi
 }
 
-# Function to source files if they exist
+# Source a ZSH configuration file if it exists
+# Usage: zsh_add_file "filename.zsh"
+# Example: zsh_add_file "aliases.zsh"
 function zsh_add_file() {
-    [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
+    [ -f "$ZDOTDIR/$1" ] && builtin source "$ZDOTDIR/$1"
 }
 
-# Helper to find plugin file
+# Internal helper to locate plugin main file
+# Tries .plugin.zsh first, then falls back to .zsh
+# Returns: path to plugin file if found, nothing otherwise
 function _find_plugin_file() {
-    local plugin_dir="$1"
-    local plugin_name="$2"
-    local plugin_file="$plugin_dir/$plugin_name.plugin.zsh"
-
-    if [[ ! -f "$plugin_file" ]]; then
-        plugin_file="$plugin_dir/$plugin_name.zsh"
-    fi
-
-    if [[ -f "$plugin_file" ]]; then
-        echo "$plugin_file"
-        return 0
-    else
-        return 1
-    fi
+    local plugin_file="$1/$2.plugin.zsh"
+    [[ -f "$plugin_file" ]] || plugin_file="$1/$2.zsh"
+    [[ -f "$plugin_file" ]] && echo "$plugin_file"
 }
 
-# Function to add a plugin to the Zsh plugins directory
-
+# Install and load a ZSH plugin from GitHub
+# Automatically clones the plugin if not present, then sources it
+# Usage: zsh_add_plugin "user/repo"
+# Example: zsh_add_plugin "zsh-users/zsh-autosuggestions"
 function zsh_add_plugin() {
     local repo="$1"
     local plugin_name="${repo:t}"
     local plugin_dir="$ZDOTDIR/plugins/$plugin_name"
 
-    if [[ -d "$plugin_dir" ]]; then
-        # Plugin directory exists, source the plugin file
-        local plugin_file=$(_find_plugin_file "$plugin_dir" "$plugin_name")
-        if [[ -n "$plugin_file" ]]; then
-            source "$plugin_file"
-        else
-            echo "${Red}Error: Plugin file not found for $plugin_name${RESET}"
-        fi
-    else
-        # Clone the plugin repository
+    # Clone plugin if it doesn't exist
+    if [[ ! -d "$plugin_dir" ]]; then
         git clone --depth 1 "https://github.com/$repo.git" "$plugin_dir" || {
             echo "${Red}Error: Failed to clone $repo${RESET}"
             return 1
         }
+    fi
 
-        # Source the plugin file after cloning
-        local plugin_file=$(_find_plugin_file "$plugin_dir" "$plugin_name")
-        if [[ -n "$plugin_file" ]]; then
-            source "$plugin_file"
-        else
-            echo "${Red}Error: Plugin file not found for $plugin_name after cloning${RESET}"
-        fi
+    # Find and source the plugin file
+    local plugin_file=$(_find_plugin_file "$plugin_dir" "$plugin_name")
+    if [[ -n "$plugin_file" ]]; then
+        builtin source "$plugin_file"
+    else
+        echo "${Red}Error: Plugin file not found for $plugin_name${RESET}"
+        return 1
     fi
 }
 
+# Install and register ZSH completion scripts from GitHub
+# Automatically clones if not present, adds to fpath, and regenerates completion dump
+# Usage: zsh_add_completion "user/repo" [true]
+# Example: zsh_add_completion "zsh-users/zsh-completions"
+# Optional second argument: pass true to initialize completion immediately
 function zsh_add_completion() {
     local repo="$1"
     local plugin_name="${repo:t}"

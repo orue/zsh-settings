@@ -42,31 +42,21 @@ function npx() {
   npx "$@"
 }
 
-# Enable debug mode if NVM_DEBUG_MODE is set
-NVM_DEBUG_MODE=${NVM_DEBUG_MODE:-0}
-
-# Debug logging function
-nvm_debug_log() {
-  if [[ $NVM_DEBUG_MODE -eq 1 ]]; then
-    echo "DEBUG: $@"
-  fi
-}
-
 check_nvm() {
-  nvm_debug_log "check_nvm $(pwd)"
+  debug_log "check_nvm $(pwd)"
 
   # Use find_up to locate node version file
   local nvm_file_path=$(find_up ".node-version" ".nvmrc")
 
   if [[ -n "$nvm_file_path" ]]; then
-    nvm_debug_log "found nvm file at $nvm_file_path"
+    debug_log "found nvm file at $nvm_file_path"
     # Check if we need to switch (either no version set, or different .nvmrc file)
     if [[ "$ZSH_NVM_VERSION" != "$nvm_file_path" ]]; then
       local nvmrc_node_version=$(nvm version "$(cat "${nvm_file_path}")")
       printf "Activating  ${node_color}%'s\n" $nvmrc_node_version
       export ZSH_NVM_VERSION="$nvm_file_path"
       nvm use --silent
-      nvm_debug_log "ZSH_NVM_VERSION=$ZSH_NVM_VERSION"
+      debug_log "ZSH_NVM_VERSION=$ZSH_NVM_VERSION"
     fi
   else
     if [[ -n "$ZSH_NVM_VERSION" ]]; then
@@ -76,9 +66,3 @@ check_nvm() {
     fi
   fi
 }
-
-autoload -U add-zsh-hook
-add-zsh-hook chpwd check_nvm
-
-# Run check_nvm initially to set the correct state
-check_nvm

@@ -30,7 +30,7 @@ if command -v brew &>/dev/null; then
   if [[ ! -f "$ZDOTDIR/.brew_env.zsh" ]] || [[ $(command -v brew) -nt "$ZDOTDIR/.brew_env.zsh" ]]; then
     brew shellenv > "$ZDOTDIR/.brew_env.zsh"
   fi
-  source "$ZDOTDIR/.brew_env.zsh"
+  builtin source "$ZDOTDIR/.brew_env.zsh"
 fi
 
 # ============================================================================
@@ -39,7 +39,7 @@ fi
 # History Configuration
 HISTSIZE=50000        # Increased to match SAVEHIST
 SAVEHIST=50000
-HISTORY_IGNORE="(ls|[bf]g|exit|reset|clear|cd|cd ..|cd..)"
+HISTORY_IGNORE="(ls|[bf]g|exit|reset|clear|cd|cd ..|cd..|history|env|export *)"
 HISTFILE=$ZDOTDIR/.zsh_history
 
 setopt INC_APPEND_HISTORY
@@ -76,9 +76,10 @@ DISABLE_UNTRACKED_FILES_DIRTY=true
 # ============================================================================
 # COMPLETION SYSTEM
 # ============================================================================
-# Optimized completion initialization (only run once per day)
+# Optimized completion initialization (only rebuild dump if older than a day)
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+# Run full compinit if dump is >20 hours old, otherwise skip checks with -C
+if [[ -n ${ZDOTDIR}/.zcompdump(#qNmh+20) ]]; then
   compinit
 else
   compinit -C
@@ -99,9 +100,9 @@ alias ssh='TERM="xterm-256color" ssh'
 # LOAD FUNCTIONS & CONFIGURATIONS
 # ============================================================================
 # Source functions first to make zsh_add_file and zsh_add_plugin available
-# Note: Must use 'source' here since zsh_add_file is defined in this file
+# Note: Must use 'builtin source' here since zsh_add_file is defined in this file
 if [[ -f "$ZDOTDIR/functions.zsh" ]]; then
-    source "$ZDOTDIR/functions.zsh"
+    builtin source "$ZDOTDIR/functions.zsh"
 fi
 
 # Load configuration files (using zsh_add_file from functions.zsh)
@@ -112,6 +113,21 @@ zsh_add_file "user-aliases.zsh"
 zsh_add_file "nvm.zsh"
 zsh_add_file "python-venv.zsh"
 zsh_add_file "transient-prompt.zsh"
+
+# ============================================================================
+# DIRECTORY CHANGE HOOKS
+# ============================================================================
+# Consolidated chpwd hook for better performance
+autoload -U add-zsh-hook
+_chpwd_hook() {
+  check_nvm       # Auto-switch Node versions
+  python_venv     # Auto-activate Python virtual environments
+}
+add-zsh-hook chpwd _chpwd_hook
+
+# Initialize environment checkers
+check_nvm
+python_venv
 
 # ============================================================================
 # PLUGINS (zsh-syntax-highlighting MUST be last)
@@ -125,7 +141,12 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"  # MUST be last for performan
 # PROMPT INITIALIZATION
 # ============================================================================
 # Initialize Starship prompt (after all config and plugins are loaded)
-eval "$(starship init zsh)"
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+else
+  # Fallback to basic prompt if starship is not installed
+  PROMPT='%F{blue}%~%f %# '
+fi
 
 # ============================================================================
 # KEY BINDINGS (after plugins)
