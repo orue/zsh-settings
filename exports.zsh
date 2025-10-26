@@ -1,13 +1,10 @@
 #!/usr/bin/env zsh
 
 # ============================================================================
-# Helper functions
+# PATH Configuration
 # ============================================================================
-
-# Add directory to PATH only if it exists and isn't already in PATH
-add_to_path() {
-  [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && export PATH="$1:$PATH"
-}
+# Use typeset -U to automatically prevent PATH duplicates
+typeset -U path
 
 # ============================================================================
 # Essential exports
@@ -30,11 +27,13 @@ export HOMEBREW_NO_ANALYTICS=TRUE
 BREW_PREFIX="${HOMEBREW_PREFIX:-/opt/homebrew}"
 [[ ! -d "$BREW_PREFIX" ]] && BREW_PREFIX="/usr/local"
 
-add_to_path "$BREW_PREFIX/bin"
-add_to_path "$BREW_PREFIX/opt/libpq/bin"
-add_to_path "$BREW_PREFIX/opt/curl/bin"
-add_to_path "$HOME/.local/bin"
-add_to_path "$HOME/.docker/bin"
+# Add directories to PATH (typeset -U ensures no duplicates)
+# Only add if directory exists
+[[ -d "$BREW_PREFIX/bin" ]] && path=("$BREW_PREFIX/bin" $path)
+[[ -d "$BREW_PREFIX/opt/libpq/bin" ]] && path=("$BREW_PREFIX/opt/libpq/bin" $path)
+[[ -d "$BREW_PREFIX/opt/curl/bin" ]] && path=("$BREW_PREFIX/opt/curl/bin" $path)
+[[ -d "$HOME/.local/bin" ]] && path=("$HOME/.local/bin" $path)
+[[ -d "$HOME/.docker/bin" ]] && path=("$HOME/.docker/bin" $path)
 
 # ============================================================================
 # Application-specific configurations
@@ -43,8 +42,8 @@ add_to_path "$HOME/.docker/bin"
 # Go
 export GOROOT="$BREW_PREFIX/opt/go/libexec"
 export GOPATH="$HOME/go"
-add_to_path "$GOROOT/bin"
-add_to_path "$GOPATH/bin"
+[[ -d "$GOROOT/bin" ]] && path=("$GOROOT/bin" $path)
+[[ -d "$GOPATH/bin" ]] && path=("$GOPATH/bin" $path)
 
 # NVM
 export NVM_DIR="$HOME/.nvm"

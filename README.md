@@ -1,6 +1,6 @@
 # My ZSH Configuration
 
-A modern, feature-rich ZSH configuration optimized for development workflows with AWS, Git, Node.js, and Python support.
+A modern, feature-rich ZSH configuration optimized for development workflows with Git, Node.js, and Python support.
 
 ## Table of Contents
 - [Features](#features)
@@ -16,14 +16,15 @@ A modern, feature-rich ZSH configuration optimized for development workflows wit
 
 ## Features
 
-- **Starship Prompt**: Fast, customizable prompt with Git status and environment info
-- **AWS Integration**: AWS CLI helpers and profile management
-- **Git Enhancements**: Useful Git aliases and functions
-- **Node.js Support**: NVM integration for Node version management
-- **Python Environment**: Virtual environment management and shortcuts
-- **Smart Aliases**: Productivity-boosting command shortcuts
-- **Plugin Management**: Easy plugin updates and management
-- **Ghostty Optimized**: Designed for [Ghostty terminal](http://ghostty.com) with Tokyo Night theme
+- **⚡ Optimized Startup**: Intelligent caching for brew, fzf, and completion scripts
+- **🎨 Starship Prompt**: Fast, customizable prompt with transient mode for cleaner history
+- **🔧 Smart Tool Management**: Auto-switching Node versions (NVM) and Python virtual environments
+- **📦 Plugin System**: Automatic GitHub plugin installation and management
+- **🚀 Lazy Loading**: NVM and Conda lazy load for faster shell startup
+- **🎯 Navigation Shortcuts**: Quick access to common directories (dev, docs, downloads, etc.)
+- **🔒 Security**: History filtering to prevent accidental storage of sensitive commands
+- **🛠️ Utility Functions**: Archive/extract, fuzzy file editing, system updates, and more
+- **📝 Well-Documented**: Comprehensive inline documentation for all functions
 
 ## Screenshots
 
@@ -84,21 +85,35 @@ fzf_edit                 # Fuzzy find and edit files
 
 ```
 .config/zsh/
-├── .gitignore           # Git ignore patterns
-├── .zshrc              # Main ZSH configuration
-├── aliases.zsh         # General aliases
-├── aws.zsh             # AWS CLI helpers
-├── exports.zsh         # Environment exports
-├── functions.zsh       # Custom functions
-├── nvm.zsh             # Node Version Manager setup
-├── python-venv.zsh     # Python virtual environment tools
-├── starship.toml       # Starship prompt configuration
-├── transient-prompt.zsh # Prompt enhancements
-├── user-aliases.zsh    # Personal aliases
-├── variables.zsh       # Shell variables
-├── plugins/            # ZSH plugins directory
-└── img/                # Screenshots and assets
+├── .zshrc                  # Main ZSH configuration with optimized startup
+├── .gitignore              # Git ignore patterns
+├── README.md               # This file
+├── aliases.zsh             # General aliases
+├── brew-cache-update.zsh   # Homebrew cache updater utility
+├── colors.zsh              # Color definitions (Catppuccin Frappe palette)
+├── exports.zsh             # Environment exports and PATH configuration
+├── functions.zsh           # Custom utility functions (well-documented)
+├── nvm.zsh                 # Node Version Manager with lazy loading
+├── python-venv.zsh         # Python virtual environment auto-activation
+├── starship.toml           # Starship prompt configuration
+├── transient-prompt.zsh    # Transient prompt for cleaner history
+├── user-aliases.zsh        # Personal aliases and navigation shortcuts
+├── plugins/                # ZSH plugins directory (auto-managed)
+└── img/                    # Screenshots and assets
 ```
+
+## Performance Optimizations
+
+This configuration includes several optimizations for faster shell startup:
+
+- **Completion Caching**: Compinit runs full checks only once per day
+- **Command Output Caching**: FZF, UV, and UVX completions cached automatically
+- **Lazy Loading**: NVM and Conda initialize only when first used
+- **PATH Deduplication**: Automatic removal of duplicate PATH entries
+- **Consolidated Hooks**: Single directory change hook instead of multiple
+- **Conditional Loading**: Features load only when their commands are available
+
+Expected startup time: **~100-200ms** on modern hardware.
 
 ## Troubleshooting
 
@@ -125,9 +140,20 @@ zsh-update-plugins
 
 ### Compatibility
 
-- **macOS**: Fully supported
+- **macOS**: Fully supported (both Apple Silicon and Intel)
 - **Linux**: Compatible with most distributions
 - **ZSH Version**: Requires 5.0 or higher
+
+### Debug Mode
+
+Enable debug logging for troubleshooting:
+
+```sh
+export DEBUG_MODE=1
+exec zsh
+```
+
+This will show detailed logs for NVM and Python venv auto-switching.
 
 ## Uninstall
 

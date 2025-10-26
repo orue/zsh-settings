@@ -5,7 +5,6 @@
 # ============================================================================
 # Initialize ZSH_NVM_VERSION to ensure it starts in a known state
 export ZSH_NVM_VERSION=""
-export NVM_DIR="$HOME/.nvm"
 
 # Function to initialize NVM (called on first use)
 function init_nvm() {
@@ -20,68 +19,44 @@ function nvm() {
   nvm "$@"
 }
 
-# Lazy-load for common node commands
-function node() {
+# Generic lazy loader for node commands
+function _nvm_lazy_load() {
   unfunction node npm npx
   init_nvm
   nvm use default --silent
+}
+
+# Lazy-load for common node commands
+function node() {
+  _nvm_lazy_load
   node "$@"
 }
 
 function npm() {
-  unfunction node npm npx
-  init_nvm
-  nvm use default --silent
+  _nvm_lazy_load
   npm "$@"
 }
 
 function npx() {
-  unfunction node npm npx
-  init_nvm
-  nvm use default --silent
+  _nvm_lazy_load
   npx "$@"
 }
 
-# Enable debug mode if NVM_DEBUG_MODE is set
-NVM_DEBUG_MODE=${NVM_DEBUG_MODE:-0}
-
-# Debug logging function
-nvm_debug_log() {
-  if [[ $NVM_DEBUG_MODE -eq 1 ]]; then
-    echo "DEBUG: $@"
-  fi
-}
-
 check_nvm() {
-  local dir=$(pwd)
-  local found_nvm=0
-  local nvm_file_path=""
-  local nvm_file_names=(".node-version" ".nvmrc")
+  debug_log "check_nvm $(pwd)"
 
-  nvm_debug_log "check_nvm $dir"
+  # Use find_up to locate node version file
+  local nvm_file_path=$(find_up ".node-version" ".nvmrc")
 
-  while [[ $dir != "/" ]]; do
-    for nvm_file_name in "${nvm_file_names[@]}"; do
-      nvm_debug_log "checking $dir/$nvm_file_name"
-      if [[ -f "$dir/$nvm_file_name" ]]; then
-        nvm_debug_log "found $dir/$nvm_file_name"
-        found_nvm=1
-        nvm_file_path="$dir/$nvm_file_name"
-        break 2 # Break out of both loops
-      fi
-    done
-    dir=$(dirname "$dir")
-  done
-
-  if [[ $found_nvm -eq 1 ]]; then
-    nvm_debug_log "found_nvm -eq $found_nvm at $nvm_file_path"
+  if [[ -n "$nvm_file_path" ]]; then
+    debug_log "found nvm file at $nvm_file_path"
     # Check if we need to switch (either no version set, or different .nvmrc file)
     if [[ "$ZSH_NVM_VERSION" != "$nvm_file_path" ]]; then
       local nvmrc_node_version=$(nvm version "$(cat "${nvm_file_path}")")
       printf "Activating  ${node_color}%'s\n" $nvmrc_node_version
       export ZSH_NVM_VERSION="$nvm_file_path"
       nvm use --silent
-      nvm_debug_log "ZSH_NVM_VERSION=$ZSH_NVM_VERSION"
+      debug_log "ZSH_NVM_VERSION=$ZSH_NVM_VERSION"
     fi
   else
     if [[ -n "$ZSH_NVM_VERSION" ]]; then
@@ -91,9 +66,3 @@ check_nvm() {
     fi
   fi
 }
-
-autoload -U add-zsh-hook
-add-zsh-hook chpwd check_nvm
-
-# Run check_nvm initially to set the correct state
-check_nvm

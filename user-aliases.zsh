@@ -8,41 +8,28 @@
 # NAVIGATION FUNCTIONS
 # ============================================================================
 # Note: PATH variables (OBSIDIAN_PATH, DEV_PATH, GITHUB_PATH) are in exports.zsh
-# Notes & Documents
-notes() {
-  cd "$OBSIDIAN_PATH" && ls || { echo "❌ Cannot access Obsidian notes"; return 1; }
+
+# Generic navigation helper
+_nav() {
+  cd "$1" && ls || { echo "❌ Cannot access $2"; return 1; }
 }
 
-docs() {
-  cd "$HOME/Documents" && ls || { echo "❌ Cannot access Documents"; return 1; }
-}
-
-dl() {
-  cd "$HOME/Downloads" && ls || { echo "❌ Cannot access Downloads"; return 1; }
-}
-
-desk() {
-  cd "$HOME/Desktop" && ls || { echo "❌ Cannot access Desktop"; return 1; }
-}
-
-# Development folders
-dev() {
-  cd "$DEV_PATH" && ls || { echo "❌ Cannot access dev folder"; return 1; }
-}
-
-github() {
-  cd "$GITHUB_PATH" && ls || { echo "❌ Cannot access GitHub folder"; return 1; }
-}
-
-conf() {
-  cd "$HOME/.config" && ls || { echo "❌ Cannot access .config"; return 1; }
-}
+# Navigation shortcuts
+notes() { _nav "$OBSIDIAN_PATH" "Obsidian notes"; }
+docs()  { _nav "$HOME/Documents" "Documents"; }
+dl()    { _nav "$HOME/Downloads" "Downloads"; }
+desk()  { _nav "$HOME/Desktop" "Desktop"; }
+dev()   { _nav "$DEV_PATH" "dev folder"; }
+github() { _nav "$GITHUB_PATH" "GitHub folder"; }
+conf()  { _nav "$HOME/.config" ".config"; }
 
 # ============================================================================
 # DATABASE
 # ============================================================================
 # Use brew --prefix for cross-platform compatibility (Intel vs Apple Silicon)
-alias my-sqlite="$(brew --prefix sqlite 2>/dev/null)/bin/sqlite3"
+if command -v brew &>/dev/null && brew list sqlite &>/dev/null 2>&1; then
+  alias my-sqlite="$(brew --prefix sqlite)/bin/sqlite3"
+fi
 
 # ============================================================================
 # SSH CONNECTIONS

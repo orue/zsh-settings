@@ -1,8 +1,5 @@
 #!/usr/bin/env zsh
 
-# AWS Configuration
-export AWS_DEFAULT_REGION="us-east-2"
-
 # Load zsh colors
 autoload -U colors && colors
 
@@ -19,5 +16,4 @@ White='\033[38;2;198;208;245m'   # Text: #c6d0f5
 
 # Tool-specific colors
 node_color='\033[38;2;166;209;137m'   # Green: #a6d189
-aws_color='\033[38;2;239;159;118m'    # Peach: #ef9f76
 python_color='\033[38;2;229;200;144m' # Yellow: #e5c890
