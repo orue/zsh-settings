@@ -1,6 +1,6 @@
 # My ZSH Configuration
 
-A modern, feature-rich ZSH configuration optimized for development workflows with AWS, Git, Node.js, and Python support.
+A modern, feature-rich ZSH configuration optimized for development workflows with Git, Node.js, and Python support.
 
 ## Table of Contents
 - [Features](#features)
@@ -17,7 +17,6 @@ A modern, feature-rich ZSH configuration optimized for development workflows wit
 ## Features
 
 - **Starship Prompt**: Fast, customizable prompt with Git status and environment info
-- **AWS Integration**: AWS CLI helpers and profile management
 - **Git Enhancements**: Useful Git aliases and functions
 - **Node.js Support**: NVM integration for Node version management
 - **Python Environment**: Virtual environment management and shortcuts
@@ -87,7 +86,6 @@ fzf_edit                 # Fuzzy find and edit files
 ├── .gitignore           # Git ignore patterns
 ├── .zshrc              # Main ZSH configuration
 ├── aliases.zsh         # General aliases
-├── aws.zsh             # AWS CLI helpers
 ├── exports.zsh         # Environment exports
 ├── functions.zsh       # Custom functions
 ├── nvm.zsh             # Node Version Manager setup
