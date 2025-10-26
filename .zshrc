@@ -18,20 +18,20 @@
 MAILCHECK=0
 
 # Brew - Cached for faster startup (supports both Apple Silicon and Intel Macs)
-BREW_LOCATION=""
-if [[ -f /opt/homebrew/bin/brew ]]; then
-  BREW_LOCATION="/opt/homebrew/bin/brew"
-elif [[ -f /usr/local/bin/brew ]]; then
-  BREW_LOCATION="/usr/local/bin/brew"
+# Check common brew locations and add to PATH if found
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+elif [[ -x /usr/local/bin/brew ]]; then
+  export PATH="/usr/local/bin:$PATH"
 fi
 
-if [[ -n "$BREW_LOCATION" ]]; then
-  if [[ ! -f "$ZDOTDIR/.brew_env.zsh" ]] || [[ "$BREW_LOCATION" -nt "$ZDOTDIR/.brew_env.zsh" ]]; then
-    "$BREW_LOCATION" shellenv > "$ZDOTDIR/.brew_env.zsh"
+# Cache brew shellenv output
+if command -v brew &>/dev/null; then
+  if [[ ! -f "$ZDOTDIR/.brew_env.zsh" ]] || [[ $(command -v brew) -nt "$ZDOTDIR/.brew_env.zsh" ]]; then
+    brew shellenv > "$ZDOTDIR/.brew_env.zsh"
   fi
   source "$ZDOTDIR/.brew_env.zsh"
 fi
-unset BREW_LOCATION
 
 # ============================================================================
 # ZSH OPTIONS
@@ -98,11 +98,14 @@ alias ssh='TERM="xterm-256color" ssh'
 # ============================================================================
 # LOAD FUNCTIONS & CONFIGURATIONS
 # ============================================================================
-# Load custom functions first (needed for zsh_add_file and zsh_add_plugin)
-source "$ZDOTDIR/functions.zsh"
+# Source functions first to make zsh_add_file and zsh_add_plugin available
+# Note: Must use 'source' here since zsh_add_file is defined in this file
+if [[ -f "$ZDOTDIR/functions.zsh" ]]; then
+    source "$ZDOTDIR/functions.zsh"
+fi
 
-# Load configuration files
-zsh_add_file "variables.zsh"
+# Load configuration files (using zsh_add_file from functions.zsh)
+zsh_add_file "colors.zsh"
 zsh_add_file "exports.zsh"
 zsh_add_file "aliases.zsh"
 zsh_add_file "user-aliases.zsh"
@@ -135,31 +138,13 @@ HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 # ============================================================================
 # FZF INTEGRATION
 # ============================================================================
-# Cached for faster startup
-if command -v fzf &>/dev/null; then
-  if [[ ! -f "$ZDOTDIR/.fzf_env.zsh" ]] || [[ $(command -v fzf) -nt "$ZDOTDIR/.fzf_env.zsh" ]]; then
-    fzf --zsh > "$ZDOTDIR/.fzf_env.zsh"
-  fi
-  source "$ZDOTDIR/.fzf_env.zsh"
-fi
+cache_command "fzf" "$ZDOTDIR/.fzf_env.zsh" fzf --zsh
 
 # ============================================================================
 # TOOL COMPLETIONS (cached for faster startup)
 # ============================================================================
-# UV Python CLI completions - cached
-if command -v uv &>/dev/null; then
-  if [[ ! -f "$ZDOTDIR/.uv_completion.zsh" ]] || [[ $(command -v uv) -nt "$ZDOTDIR/.uv_completion.zsh" ]]; then
-    uv generate-shell-completion zsh > "$ZDOTDIR/.uv_completion.zsh"
-  fi
-  source "$ZDOTDIR/.uv_completion.zsh"
-fi
-
-if command -v uvx &>/dev/null; then
-  if [[ ! -f "$ZDOTDIR/.uvx_completion.zsh" ]] || [[ $(command -v uvx) -nt "$ZDOTDIR/.uvx_completion.zsh" ]]; then
-    uvx --generate-shell-completion zsh > "$ZDOTDIR/.uvx_completion.zsh"
-  fi
-  source "$ZDOTDIR/.uvx_completion.zsh"
-fi
+cache_command "uv" "$ZDOTDIR/.uv_completion.zsh" uv generate-shell-completion zsh
+cache_command "uvx" "$ZDOTDIR/.uvx_completion.zsh" uvx --generate-shell-completion zsh
 
 # ============================================================================
 # LAZY LOADING - CONDA

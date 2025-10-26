@@ -93,7 +93,7 @@ fzf_edit                 # Fuzzy find and edit files
 ├── starship.toml       # Starship prompt configuration
 ├── transient-prompt.zsh # Prompt enhancements
 ├── user-aliases.zsh    # Personal aliases
-├── variables.zsh       # Shell variables
+├── colors.zsh          # Color definitions
 ├── plugins/            # ZSH plugins directory
 └── img/                # Screenshots and assets
 ```

@@ -1,5 +1,44 @@
 #!/usr/bin/env zsh
 
+# Walk up directory tree to find a file or directory
+# Usage: find_up <patterns...>
+# Returns: path to first matching file/directory, or empty string if not found
+# Example: find_up ".nvmrc" ".node-version"
+function find_up() {
+    local dir=$(pwd)
+    local patterns=("$@")
+
+    while [[ $dir != "/" ]]; do
+        for pattern in "${patterns[@]}"; do
+            if [[ -e "$dir/$pattern" ]]; then
+                echo "$dir/$pattern"
+                return 0
+            fi
+        done
+        dir=$(dirname "$dir")
+    done
+    return 1
+}
+
+# Cache command output for faster startup
+# Usage: cache_command <command_name> <cache_file> <command> [args...]
+# Example: cache_command "fzf" "$ZDOTDIR/.fzf_env.zsh" fzf --zsh
+function cache_command() {
+    local cmd_name="$1"
+    local cache_file="$2"
+    shift 2
+
+    if ! command -v "$cmd_name" &>/dev/null; then
+        return 1
+    fi
+
+    # Regenerate cache if it doesn't exist or if command is newer than cache
+    if [[ ! -f "$cache_file" ]] || [[ $(command -v "$cmd_name") -nt "$cache_file" ]]; then
+        "$@" > "$cache_file"
+    fi
+    source "$cache_file"
+}
+
 # Function to reload the shell
 function reload() {
     # if reloading, some env vars that are already set can interfere with nvm
