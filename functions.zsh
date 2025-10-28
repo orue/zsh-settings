@@ -265,6 +265,35 @@ function tree() {
     eza -agTF --tree --icons --group-directories-first --git-ignore --git --git-repos --level="$level"
 }
 
+# List git repositories with active commits in the last N days
+active-repos() {
+    local search_dir="${1:-$HOME}"
+    local days="${2:-30}"
+    local author_email=$(git config --global user.email)
+    
+    echo "Searching for repos with commits in last $days days..."
+    echo "Author: $author_email"
+    echo ""
+    
+    find "$search_dir" -name .git -type d -prune 2>/dev/null | while read -r git_dir; do
+        repo_dir=$(dirname "$git_dir")
+        
+        # Change to repo directory
+        cd "$repo_dir" || continue
+        
+        # Check for commits by you in the specified time period
+        commit_count=$(git log --author="$author_email" --since="$days days ago" --oneline 2>/dev/null | wc -l)
+        
+        if [ "$commit_count" -gt 0 ]; then
+            # Get the last commit date
+            last_commit=$(git log --author="$author_email" -1 --format="%ar" 2>/dev/null)
+            echo "📁 $repo_dir"
+            echo "   └─ $commit_count commit(s), last: $last_commit"
+            echo ""
+        fi
+    done
+}
+
 # Full system update
 function update() {
     echo "🍺 Updating Homebrew..."
