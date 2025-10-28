@@ -38,6 +38,7 @@ alias rm='rm -i'                                          # Interactive
 alias rmrf='rm -rf'                                       # Force recursive remove (use with caution)
 alias ln='ln -i'                                          # Interactive symlinks
 alias mkdir='mkdir -pv'                                   # Create parent dirs, verbose
+alias cdpwd='echo cd $(pwd) | pbcopy'
 
 # ============================================================================
 # EZA (Modern ls replacement)
@@ -67,7 +68,6 @@ alias publicip='curl -s ifconfig.me'
 alias ipinfo='curl -s ipinfo.io | jq'
 alias openports='sudo lsof -i -P -n | grep LISTEN'
 alias ports='sudo lsof -iTCP -sTCP:LISTEN -n -P'
-# Install speedtest-cli via Homebrew: brew install speedtest-cli
 
 # ============================================================================
 # UTILITIES
