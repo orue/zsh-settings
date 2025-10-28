@@ -34,32 +34,87 @@ A modern, feature-rich ZSH configuration optimized for development workflows wit
 
 Before installation, ensure you have:
 
-- **ZSH shell** (version 5.0+)
+- **macOS** with Homebrew installed
+- **ZSH shell** (version 5.0+, pre-installed on macOS)
 - **Git** for cloning the repository
-- **[Starship prompt](https://starship.rs/)** (recommended)
-- **Ghostty terminal** (optional, works with any terminal)
 
-Install Starship:
+### Required Packages
+
+This configuration requires the following packages. You can install them all at once using the provided Brewfile:
+
 ```sh
-curl -sS https://starship.rs/install.sh | sh
+brew bundle install --file=~/.config/zsh/Brewfile
 ```
+
+Or install manually:
+
+```sh
+# Terminal & Prompt
+brew install starship eza fzf bat
+
+# Development Tools
+brew install git gh go neovim
+
+# Utilities
+brew install curl jq nvm uv
+
+# Databases
+brew install sqlite libpq
+
+# Archive Support
+brew install unrar p7zip
+```
+
+**Package Overview:**
+- **starship**: Cross-shell prompt with customizable themes
+- **eza**: Modern ls replacement with icons and git integration
+- **fzf**: Fuzzy finder for files and commands
+- **bat**: Cat with syntax highlighting
+- **gh**: GitHub CLI
+- **go**: Go programming language
+- **neovim**: Modern vim-based text editor
+- **jq**: JSON processor
+- **nvm**: Node Version Manager
+- **uv**: Fast Python package installer
+- **sqlite**: SQLite database
+- **libpq**: PostgreSQL client library
+- **unrar**: RAR archive extraction
+- **p7zip**: 7-Zip archive support
 
 ## Installation
 
-1. Set ZSH configuration directory:
+### Option 1: Quick Install (Recommended)
+
+1. Install all required packages using Brewfile:
+```sh
+brew bundle install --file=~/.config/zsh/Brewfile
+```
+
+2. Set ZSH configuration directory:
 ```sh
 echo 'ZDOTDIR=$HOME/.config/zsh' > ~/.zshenv
 ```
 
-2. Clone this repository:
+3. Clone this repository:
 ```sh
 git clone https://github.com/orue/zsh-settings.git ~/.config/zsh
 ```
 
-3. Restart your terminal or run:
+4. Restart your terminal or run:
 ```sh
 exec zsh
 ```
+
+### Option 2: Manual Install
+
+1. Install Homebrew (if not already installed):
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+2. Install required packages individually (see Prerequisites section)
+
+3. Follow steps 2-4 from Option 1 above
 
 ## Usage Examples
 
@@ -85,21 +140,22 @@ fzf_edit                 # Fuzzy find and edit files
 
 ```
 .config/zsh/
-├── .zshrc                  # Main ZSH configuration with optimized startup
-├── .gitignore              # Git ignore patterns
-├── README.md               # This file
-├── aliases.zsh             # General aliases
-├── brew-cache-update.zsh   # Homebrew cache updater utility
-├── colors.zsh              # Color definitions (Catppuccin Frappe palette)
-├── exports.zsh             # Environment exports and PATH configuration
-├── functions.zsh           # Custom utility functions (well-documented)
-├── nvm.zsh                 # Node Version Manager with lazy loading
-├── python-venv.zsh         # Python virtual environment auto-activation
-├── starship.toml           # Starship prompt configuration
-├── transient-prompt.zsh    # Transient prompt for cleaner history
-├── user-aliases.zsh        # Personal aliases and navigation shortcuts
-├── plugins/                # ZSH plugins directory (auto-managed)
-└── img/                    # Screenshots and assets
+├── Brewfile                    # Homebrew package definitions
+├── .zshrc                      # Main ZSH configuration with optimized startup
+├── .gitignore                  # Git ignore patterns
+├── README.md                   # This file
+├── aliases.zsh                 # General aliases
+├── brew-cache-update.zsh       # Homebrew cache updater utility
+├── colors.zsh                  # Color definitions (Catppuccin Frappe palette)
+├── exports.zsh                 # Environment exports and PATH configuration
+├── functions.zsh               # Custom utility functions (well-documented)
+├── nvm.zsh                     # Node Version Manager with lazy loading
+├── python-venv.zsh             # Python virtual environment auto-activation
+├── starship.toml               # Starship prompt configuration
+├── transient-prompt.zsh        # Transient prompt for cleaner history
+├── user-aliases.zsh            # Personal aliases and navigation shortcuts
+├── plugins/                    # ZSH plugins directory (auto-managed)
+└── img/                        # Screenshots and assets
 ```
 
 ## Performance Optimizations
