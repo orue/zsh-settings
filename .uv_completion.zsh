@@ -1184,9 +1184,10 @@ never\:"Disables colored output"))' \
 '--directory=[Change to the given directory prior to running the command]:DIRECTORY:_files' \
 '--project=[Run the command within the given project directory]:PROJECT:_files' \
 '--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
-'(--check-exists -U --upgrade)--check[Check if the lockfile is up-to-date]' \
-'(--check)--check-exists[Assert that a \`uv.lock\` exists without checking if it is up-to-date]' \
-'(--check-exists --check)--dry-run[Perform a dry run, without writing the lockfile]' \
+'(--check-exists -U --upgrade --locked)--check[Check if the lockfile is up-to-date]' \
+'(--check-exists -U --upgrade --check)--locked[Check if the lockfile is up-to-date]' \
+'(--check --locked)--check-exists[Assert that a \`uv.lock\` exists without checking if it is up-to-date]' \
+'(--check-exists --check --locked)--dry-run[Perform a dry run, without writing the lockfile]' \
 '--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via \`--find-links\`]' \
 '-U[Allow package upgrades, ignoring pinned versions in any existing output file. Implies \`--refresh\`]' \
 '--upgrade[Allow package upgrades, ignoring pinned versions in any existing output file. Implies \`--refresh\`]' \
@@ -4189,6 +4190,9 @@ never\:"Disables colored output"))' \
 '--build-logs[]' \
 '--no-build-logs[Hide logs from the build backend]' \
 '(--list)--force-pep517[Always build through PEP 517, don'\''t use the fast path for the uv build backend]' \
+'--clear[Clear the output directory before the build, removing stale artifacts]' \
+'--create-gitignore[]' \
+'--no-create-gitignore[Do not create a \`.gitignore\` file in the output directory]' \
 '--require-hashes[Require a matching hash for each requirement]' \
 '--no-require-hashes[]' \
 '--verify-hashes[]' \
