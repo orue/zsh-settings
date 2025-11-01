@@ -134,7 +134,11 @@ zsh-update-plugins       # Update all ZSH plugins
 ```sh
 reload                   # Reload ZSH configuration
 fzf_edit                 # Fuzzy find and edit files
+svim <file>              # Edit files with sudo while preserving nvim config
 ```
+
+**Why svim is useful:**
+When editing system files with `sudo nvim`, your personal nvim configuration (plugins, settings, keybindings) is normally not available because sudo changes the HOME directory to root's home. The `svim` function solves this by preserving your HOME environment variable, giving you access to your complete nvim setup even when editing protected files like `/etc/hosts` or other system configuration files.
 
 ## File Structure
 

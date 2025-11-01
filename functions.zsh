@@ -314,3 +314,12 @@ function update() {
 
     echo "\n✅ Update complete!"
 }
+
+# Edit files with sudo while preserving nvim configuration
+# Usage: svim <file>
+# Example: svim /etc/hosts
+# Runs nvim with sudo but maintains access to your personal nvim config
+# by preserving the HOME environment variable
+function svim() {
+    sudo HOME=$HOME nvim "$@"
+}
