@@ -4,3 +4,4 @@ plugins/
 .zsh_history
 .zcompcache/
 .claude/
+**.DS_Store
