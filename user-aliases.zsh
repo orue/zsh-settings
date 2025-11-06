@@ -28,7 +28,7 @@ conf()  { _nav "$HOME/.config" ".config"; }
 # ============================================================================
 # Use brew --prefix for cross-platform compatibility (Intel vs Apple Silicon)
 if command -v brew &>/dev/null && brew list sqlite &>/dev/null 2>&1; then
-  alias my-sqlite="$(brew --prefix sqlite)/bin/sqlite3"
+  alias sqlite-dev="$(brew --prefix sqlite)/bin/sqlite3"
 fi
 
 # ============================================================================
