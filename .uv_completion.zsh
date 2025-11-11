@@ -995,7 +995,7 @@ symlink\:"Symbolically link packages from the wheel into the \`site-packages\` d
 '*--no-build-package=[Don'\''t build source distributions for a specific package]:NO_BUILD_PACKAGE:_default' \
 '*--no-binary-package=[Don'\''t install pre-built wheels for a specific package]:NO_BINARY_PACKAGE:_default' \
 '*--refresh-package=[Refresh cached data for a specific package]:REFRESH_PACKAGE:_default' \
-'(--all-packages)--package=[Sync for a specific package in the workspace]:PACKAGE:_default' \
+'(--all-packages)*--package=[Sync for specific packages in the workspace]:PACKAGE:_default' \
 '(--all-packages --package --no-install-project --no-install-workspace --no-install-local --extra --all-extras --no-extra --no-all-extras --dev --no-dev --only-dev --group --no-group --no-default-groups --only-group --all-groups)--script=[Sync the environment for a Python script, rather than the current project]:SCRIPT:_files' \
 '-p+[The Python interpreter to use for the project environment.]:PYTHON:_default' \
 '--python=[The Python interpreter to use for the project environment.]:PYTHON:_default' \
@@ -1184,8 +1184,8 @@ never\:"Disables colored output"))' \
 '--directory=[Change to the given directory prior to running the command]:DIRECTORY:_files' \
 '--project=[Run the command within the given project directory]:PROJECT:_files' \
 '--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
-'(--check-exists -U --upgrade --locked)--check[Check if the lockfile is up-to-date]' \
-'(--check-exists -U --upgrade --check)--locked[Check if the lockfile is up-to-date]' \
+'(--check-exists -U --upgrade)--check[Check if the lockfile is up-to-date]' \
+'(--check-exists -U --upgrade)--locked[Check if the lockfile is up-to-date]' \
 '(--check --locked)--check-exists[Assert that a \`uv.lock\` exists without checking if it is up-to-date]' \
 '(--check-exists --check --locked)--dry-run[Perform a dry run, without writing the lockfile]' \
 '--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via \`--find-links\`]' \
@@ -1232,7 +1232,7 @@ never\:"Disables colored output"))' \
 _arguments "${_arguments_options[@]}" : \
 '--format=[The format to which \`uv.lock\` should be exported]:FORMAT:((requirements.txt\:"Export in \`requirements.txt\` format"
 pylock.toml\:"Export in \`pylock.toml\` format"))' \
-'(--all-packages)--package=[Export the dependencies for a specific package in the workspace]:PACKAGE:_default' \
+'(--all-packages)*--package=[Export the dependencies for specific packages in the workspace]:PACKAGE:_default' \
 '(--all-packages)*--prune=[Prune the given package from the dependency tree]:PACKAGE:_default' \
 '(--all-extras --only-group)*--extra=[Include optional dependencies from the specified extra name]:EXTRA:_default' \
 '*--no-extra=[Exclude the specified optional dependencies, if \`--all-extras\` is supplied]:NO_EXTRA:_default' \
@@ -1957,6 +1957,7 @@ _arguments "${_arguments_options[@]}" : \
 '*-c+[Constrain versions using the given requirements files]:CONSTRAINTS:_default' \
 '*--constraints=[Constrain versions using the given requirements files]:CONSTRAINTS:_default' \
 '*--overrides=[Override versions using the given requirements files]:OVERRIDES:_default' \
+'*--excludes=[Exclude packages from resolution using the given requirements files]:EXCLUDES:_default' \
 '*-b+[Constrain build dependencies using the given requirements files when building source distributions]:BUILD_CONSTRAINTS:_default' \
 '*--build-constraints=[Constrain build dependencies using the given requirements files when building source distributions]:BUILD_CONSTRAINTS:_default' \
 '*--index=[The URLs to use when resolving dependencies, in addition to the default index]:INDEX:_default' \
@@ -2275,7 +2276,7 @@ never\:"Disables colored output"))' \
 '--show-version-specifiers[Whether to display the version specifier(s) used to install each tool]' \
 '--show-with[Whether to display the additional requirements installed with each tool]' \
 '--show-extras[Whether to display the extra requirements installed with each tool]' \
-'--show-python[Whether to display the Python version associated with run each tool]' \
+'--show-python[Whether to display the Python version associated with each tool]' \
 '--no-python-downloads[]' \
 '-n[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
 '--no-cache[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
@@ -2956,6 +2957,7 @@ _arguments "${_arguments_options[@]}" : \
 '*-c+[Constrain versions using the given requirements files]:CONSTRAINTS:_default' \
 '*--constraints=[Constrain versions using the given requirements files]:CONSTRAINTS:_default' \
 '*--overrides=[Override versions using the given requirements files]:OVERRIDES:_default' \
+'*--excludes=[Exclude packages from resolution using the given requirements files]:EXCLUDES:_default' \
 '*-b+[Constrain build dependencies using the given requirements files when building source distributions]:BUILD_CONSTRAINTS:_default' \
 '*--build-constraints=[Constrain build dependencies using the given requirements files when building source distributions]:BUILD_CONSTRAINTS:_default' \
 '(--all-extras)*--extra=[Include optional dependencies from the specified extra name; may be provided more than once]:EXTRA:_default' \
@@ -3410,6 +3412,7 @@ _arguments "${_arguments_options[@]}" : \
 '*-c+[Constrain versions using the given requirements files]:CONSTRAINTS:_default' \
 '*--constraints=[Constrain versions using the given requirements files]:CONSTRAINTS:_default' \
 '*--overrides=[Override versions using the given requirements files]:OVERRIDES:_default' \
+'*--excludes=[Exclude packages from resolution using the given requirements files]:EXCLUDES:_default' \
 '*-b+[Constrain build dependencies using the given requirements files when building source distributions]:BUILD_CONSTRAINTS:_default' \
 '*--build-constraints=[Constrain build dependencies using the given requirements files when building source distributions]:BUILD_CONSTRAINTS:_default' \
 '(--all-extras)*--extra=[Include optional dependencies from the specified extra name; may be provided more than once]:EXTRA:_default' \
@@ -4902,6 +4905,52 @@ never\:"Disables colored output"))' \
 '--help[Display the concise help for this command]' \
 && ret=0
 ;;
+(size)
+_arguments "${_arguments_options[@]}" : \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--python-preference=[]:PYTHON_PREFERENCE:((only-managed\:"Only use managed Python installations; never use system Python installations"
+managed\:"Prefer managed Python installations over system Python installations"
+system\:"Prefer system Python installations over managed Python installations"
+only-system\:"Only use system Python installations; never use managed Python installations"))' \
+'--python-fetch=[Deprecated version of \[\`Self\:\:python_downloads\`\]]:PYTHON_FETCH:((automatic\:"Automatically download managed Python installations when needed"
+manual\:"Do not automatically download managed Python installations; require explicit installation"
+never\:"Do not ever allow Python downloads"))' \
+'(--no-color)--color=[Control the use of color in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'*--allow-insecure-host=[Allow insecure connections to a host]:ALLOW_INSECURE_HOST:_default' \
+'*--preview-features=[Enable experimental preview features]:PREVIEW_FEATURES:_default' \
+'--directory=[Change to the given directory prior to running the command]:DIRECTORY:_files' \
+'--project=[Run the command within the given project directory]:PROJECT:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'-H[Display the cache size in human-readable format (e.g., \`1.2 GiB\` instead of raw bytes)]' \
+'--human[Display the cache size in human-readable format (e.g., \`1.2 GiB\` instead of raw bytes)]' \
+'-n[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
+'--no-cache[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
+'(--python-preference)--managed-python[Require use of uv-managed Python versions]' \
+'(--python-preference)--no-managed-python[Disable use of uv-managed Python versions]' \
+'--allow-python-downloads[Allow automatically downloading Python when required. \[env\: "UV_PYTHON_DOWNLOADS=auto"\]]' \
+'--no-python-downloads[Disable automatic downloads of Python. \[env\: "UV_PYTHON_DOWNLOADS=never"\]]' \
+'(-v --verbose)*-q[Use quiet output]' \
+'(-v --verbose)*--quiet[Use quiet output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access]' \
+'--no-offline[]' \
+'--preview[Whether to enable all experimental preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'--no-progress[Hide all progress outputs]' \
+'--no-installer-metadata[Skip writing \`uv\` installer metadata files (e.g., \`INSTALLER\`, \`REQUESTED\`, and \`direct_url.json\`) to site-packages \`.dist-info\` directories]' \
+'--no-config[Avoid discovering configuration files (\`pyproject.toml\`, \`uv.toml\`)]' \
+'-h[Display the concise help for this command]' \
+'--help[Display the concise help for this command]' \
+&& ret=0
+;;
         esac
     ;;
 esac
@@ -5329,6 +5378,7 @@ _uv__cache_commands() {
 'clean:Clear the cache, removing all entries or those linked to specific packages' \
 'prune:Prune all unreachable objects from the cache' \
 'dir:Show the cache directory' \
+'size:Show the cache size' \
     )
     _describe -t commands 'uv cache commands' commands "$@"
 }
@@ -5346,6 +5396,11 @@ _uv__cache__dir_commands() {
 _uv__cache__prune_commands() {
     local commands; commands=()
     _describe -t commands 'uv cache prune commands' commands "$@"
+}
+(( $+functions[_uv__cache__size_commands] )) ||
+_uv__cache__size_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv cache size commands' commands "$@"
 }
 (( $+functions[_uv__clean_commands] )) ||
 _uv__clean_commands() {

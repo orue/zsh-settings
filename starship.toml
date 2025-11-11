@@ -22,7 +22,7 @@ $rust\
 $line_break\
 $character"""
 
-palette = "catppuccin_frappe"
+palette = "rose_pine_moon"
 add_newline = true
 
 [directory]
@@ -104,30 +104,53 @@ detect_files = ["Cargo.toml", "Cargo.lock"]
 success_symbol = "[➜](bold fg:green)"
 error_symbol = "[✗](bold fg:red)"
 
-[palettes.catppuccin_frappe]
-rosewater = "#f2d5cf"
-flamingo = "#eebebe"
-pink = "#f4b8e4"
-mauve = "#ca9ee6"
-red = "#e78284"
-maroon = "#ea999c"
-peach = "#ef9f76"
-yellow = "#e5c890"
-green = "#a6d189"
-teal = "#81c8be"
-sky = "#99d1db"
-sapphire = "#85c1dc"
-blue = "#8caaee"
-lavender = "#babbf1"
-text = "#c6d0f5"
-subtext1 = "#b5bfe2"
-subtext0 = "#a5adce"
-overlay2 = "#949cbb"
-overlay1 = "#838ba7"
-overlay0 = "#737994"
-surface2 = "#626880"
-surface1 = "#51576d"
-surface0 = "#414559"
-base = "#303446"
-mantle = "#292c3c"
-crust = "#232634"
+[palettes.rose_pine_moon]
+# Rose Pine Moon - cozy, warm, muted tones
+# Base colors
+base = "#232136"
+surface = "#2a273f"
+overlay = "#393552"
+crust = "#232136"
+mantle = "#232136"
+
+# Text colors
+text = "#e0def4"
+subtle = "#908caa"
+muted = "#6e6a86"
+subtext0 = "#908caa"
+subtext1 = "#6e6a86"
+
+# Highlight backgrounds
+highlight_low = "#2a283e"
+highlight_med = "#44415a"
+highlight_high = "#56526e"
+surface0 = "#2a273f"
+surface1 = "#393552"
+surface2 = "#44415a"
+overlay0 = "#56526e"
+overlay1 = "#6e6a86"
+overlay2 = "#908caa"
+
+# Rose Pine Moon accent colors
+love = "#eb6f92"      # pink/red
+gold = "#f6c177"      # gold/yellow
+rose = "#ea9a97"      # soft pink
+pine = "#3e8fb0"      # teal
+foam = "#9ccfd8"      # cyan
+iris = "#c4a7e7"      # purple
+
+# Mapped for compatibility
+mauve = "#c4a7e7"     # iris
+blue = "#3e8fb0"      # pine
+lavender = "#c4a7e7"  # iris
+teal = "#3e8fb0"      # pine
+sky = "#9ccfd8"       # foam
+sapphire = "#9ccfd8"  # foam
+red = "#eb6f92"       # love
+yellow = "#f6c177"    # gold
+green = "#9ccfd8"     # foam
+peach = "#ea9a97"     # rose
+pink = "#ea9a97"      # rose
+rosewater = "#e0def4" # text
+flamingo = "#eb6f92"  # love
+maroon = "#eb6f92"    # love
