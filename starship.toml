@@ -1,11 +1,15 @@
-command_timeout = 2000
+command_timeout = 1000
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
 [░▒▓](mauve)\
-[  ](bg:lavender fg:crust)\
+[  ](bg:lavender fg:crust)\
 [](bg:blue fg:lavender)\
+$username\
+@\
+$hostname\
+[](fg:blue bg:lavender)\
 $directory\
 [](fg:blue bg:teal)\
 $git_branch\
@@ -19,17 +23,33 @@ $c\
 $php\
 $rust\
 [](fg:lavender)\
+$cmd_duration\
 $line_break\
 $character"""
 
 palette = "rose_pine_moon"
 add_newline = true
 
+[username]
+show_always = true
+style_user = "fg:crust bg:blue"
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = false
+style = "fg:crust bg:blue"
+format = "[$hostname]($style)"
+
+[cmd_duration]
+min_time = 500
+style = "fg:yellow"
+format = "took [$duration]($style) "
+
 [directory]
 style = "fg:crust bg:blue"
 format = "[ $path ]($style)"
 truncation_length = 5
-truncate_to_repo = false 
+truncate_to_repo = false
 truncation_symbol = "…/"
 
 [git_branch]
