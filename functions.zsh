@@ -269,28 +269,31 @@ function tree() {
 active-repos() {
     local search_dir="${1:-$HOME}"
     local days="${2:-30}"
-    local author_email=$(git config --global user.email)
+    local author_email
+    author_email=$(git config --global user.email)
     
     echo "Searching for repos with commits in last $days days..."
     echo "Author: $author_email"
     echo ""
     
     find "$search_dir" -name .git -type d -prune 2>/dev/null | while read -r git_dir; do
-        repo_dir=$(dirname "$git_dir")
-        
-        # Change to repo directory
-        cd "$repo_dir" || continue
-        
-        # Check for commits by you in the specified time period
-        commit_count=$(git log --author="$author_email" --since="$days days ago" --oneline 2>/dev/null | wc -l)
-        
-        if [ "$commit_count" -gt 0 ]; then
-            # Get the last commit date
-            last_commit=$(git log --author="$author_email" -1 --format="%ar" 2>/dev/null)
-            echo "📁 $repo_dir"
-            echo "   └─ $commit_count commit(s), last: $last_commit"
-            echo ""
-        fi
+        (
+            repo_dir=$(dirname "$git_dir")
+            
+            # Change to repo directory in a subshell
+            cd "$repo_dir" || exit
+            
+            # Check for commits by you in the specified time period
+            commit_count=$(git log --author="$author_email" --since="$days days ago" --oneline 2>/dev/null | wc -l)
+            
+            if [ "$commit_count" -gt 0 ]; then
+                # Get the last commit date
+                last_commit=$(git log --author="$author_email" -1 --format="%ar" 2>/dev/null)
+                echo "📁 $repo_dir"
+                echo "   └─ $commit_count commit(s), last: $last_commit"
+                echo ""
+            fi
+        )
     done
 }
 
@@ -322,4 +325,29 @@ function update() {
 # by preserving the HOME environment variable
 function svim() {
     sudo HOME=$HOME nvim "$@"
+}
+
+# Get local IP address (more robustly)
+# Tries to find the primary active interface
+function localip() {
+    # Get the default route interface
+    local interface=$(route -n get default | grep 'interface' | awk '{print $2}')
+    if [[ -n "$interface" ]]; then
+        ipconfig getifaddr "$interface"
+    else
+        # Fallback for Wi-Fi and Ethernet if route fails
+        ipconfig getifaddr en0 || ipconfig getifaddr en1
+    fi
+}
+
+# Quick system stats overview
+function sys-stats() {
+    echo "--- System Stats ---"
+    # CPU Usage
+    echo "CPU: $(top -l 1 -s 0 | grep 'CPU usage')"
+    # Memory Usage
+    echo "MEM: $(top -l 1 -s 0 | grep 'PhysMem')"
+    # Disk Usage
+    echo "DSK: $(df -h / | awk 'NR==2 {print $4 " free / " $2 " total"}')"
+    echo "--------------------"
 }

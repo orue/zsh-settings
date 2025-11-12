@@ -15,19 +15,19 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias hc='read "?Clear history? (y/N): " && [[ $REPLY =~ ^[Yy]$ ]] && echo "" > $HISTFILE && reload'
-alias edit-hosts='sudo nvim /etc/hosts'
+alias edit-hosts='svim /etc/hosts'
 
 # System Info
 alias df='df -h'                                          # Human-readable disk usage
 alias du='du -h'                                          # Human-readable directory sizes
-alias mem='top -l 1 -s 0 | grep PhysMem'                 # Memory usage
-alias cpu='top -l 1 -s 0 | grep "CPU usage"'             # CPU usage
+alias stats='sys-stats'                                   # System stats overview
 
 # ============================================================================
 # EDITOR
 # ============================================================================
 alias vim='nvim'
 alias -s {txt,md,json,yaml,yml}='nvim'                   # Open these file types with nvim
+
 
 # ============================================================================
 # FILE OPERATIONS
@@ -63,7 +63,6 @@ alias egrep='egrep --color=auto'
 # NETWORK & CONNECTIVITY
 # ============================================================================
 alias ping='ping -c 5'
-alias localip='ipconfig getifaddr en0'
 alias publicip='curl -s ifconfig.me'
 alias ipinfo='curl -s ipinfo.io | jq'
 alias openports='sudo lsof -i -P -n | grep LISTEN'
