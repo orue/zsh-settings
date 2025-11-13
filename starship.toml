@@ -1,156 +1,111 @@
+# A simpler Starship prompt inspired by robbyrussell, with language modules and Catppuccin Mocha colors (no background)
 command_timeout = 2000
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = """
-[░▒▓](mauve)\
-[  ](bg:lavender fg:crust)\
-[](bg:blue fg:lavender)\
-$directory\
-[](fg:blue bg:teal)\
-$git_branch\
-$git_status\
-[](fg:teal bg:lavender)\
-$nodejs\
-$golang\
-$lua\
-$python\
-$c\
-$php\
-$rust\
-[](fg:lavender)\
-$line_break\
-$character"""
+format = """$directory$git_branch$git_status$nodejs$golang$lua$python$c$php$rust$line_break$character"""
 
-palette = "rose_pine_moon"
 add_newline = true
+palette = "catppuccin_mocha"
 
 [directory]
-style = "fg:crust bg:blue"
-format = "[ $path ]($style)"
 truncation_length = 5
-truncate_to_repo = false 
+truncate_to_repo = false
 truncation_symbol = "…/"
+style = "bold blue"
 
 [git_branch]
 symbol = ""
-style = "bg:teal"
-format = '[[ $symbol $branch ](fg:crust bg:teal)]($style)'
+style = "bold green"
 
 [git_status]
-style = "bg:teal"
-format = '[[($all_status$ahead_behind )](fg:crust bg:teal)]($style)'
 conflicted = "🏳"
 ahead = "⇡${count}"
 behind = "⇣${count}"
 diverged = "⇕⇡${ahead_count}⇣${behind_count}"
-up_to_date = ""
 untracked = "?${count}"
 stashed = "📦"
 modified = "!${count}"
 staged = "+${count}"
 renamed = "»${count}"
 deleted = "✘${count}"
+style = "bold red"
 
 [nodejs]
 symbol = "󰎙"
-style = "bg:lavender"
-format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+format = '[[ $symbol ($version) ](fg:lavender)]($style)'
 detect_files = ["package.json", ".node-version"]
 detect_folders = ["node_modules"]
 
 [golang]
 symbol = "󰟓"
-style = "bg:lavender"
-format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+format = '[[ $symbol ($version) ](fg:lavender)]($style)'
 detect_extensions = ["go"]
 detect_files = ["go.mod", "go.sum", "go.work"]
 
 [lua]
 symbol = "󰢱"
-style = "bg:lavender"
-format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+format = '[[ $symbol ($version) ](fg:lavender)]($style)'
 detect_extensions = ["lua"]
 detect_files = [".lua-version"]
 
 [python]
 symbol = "󰌠"
-style = "bg:lavender"
-format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)[[(\($virtualenv\))](fg:crust bg:lavender)]($style)'
+format = '[[ $symbol ($version) ](fg:lavender)]($style)[[(\($virtualenv\))](fg:lavender)]($style)'
 detect_extensions = ["py"]
-detect_files = ["requirements.txt", "pyproject.toml", "Pipfile", ".python-version", "setup.py"]
+detect_files = [
+  "requirements.txt",
+  "pyproject.toml",
+  "Pipfile",
+  ".python-version",
+  "setup.py",
+]
 
 [c]
 symbol = ""
-style = "bg:lavender"
-format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+format = '[[ $symbol ($version) ](fg:lavender)]($style)'
 detect_extensions = ["c", "h"]
 
 [php]
 symbol = ""
-style = "bg:lavender"
-format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+format = '[[ $symbol ($version) ](fg:lavender)]($style)'
 detect_extensions = ["php"]
 detect_files = ["composer.json"]
 
 [rust]
 symbol = ""
-style = "bg:lavender"
-format = '[[ $symbol ($version) ](fg:crust bg:lavender)]($style)'
+format = '[[ $symbol ($version) ](fg:lavender)]($style)'
 detect_extensions = ["rs"]
 detect_files = ["Cargo.toml", "Cargo.lock"]
 
 [character]
-success_symbol = "[➜](bold fg:green)"
-error_symbol = "[✗](bold fg:red)"
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
 
-[palettes.rose_pine_moon]
-# Rose Pine Moon - cozy, warm, muted tones
-# Base colors
-base = "#232136"
-surface = "#2a273f"
-overlay = "#393552"
-crust = "#232136"
-mantle = "#232136"
-
-# Text colors
-text = "#e0def4"
-subtle = "#908caa"
-muted = "#6e6a86"
-subtext0 = "#908caa"
-subtext1 = "#6e6a86"
-
-# Highlight backgrounds
-highlight_low = "#2a283e"
-highlight_med = "#44415a"
-highlight_high = "#56526e"
-surface0 = "#2a273f"
-surface1 = "#393552"
-surface2 = "#44415a"
-overlay0 = "#56526e"
-overlay1 = "#6e6a86"
-overlay2 = "#908caa"
-
-# Rose Pine Moon accent colors
-love = "#eb6f92"      # pink/red
-gold = "#f6c177"      # gold/yellow
-rose = "#ea9a97"      # soft pink
-pine = "#3e8fb0"      # teal
-foam = "#9ccfd8"      # cyan
-iris = "#c4a7e7"      # purple
-
-# Mapped for compatibility
-mauve = "#c4a7e7"     # iris
-blue = "#3e8fb0"      # pine
-lavender = "#c4a7e7"  # iris
-teal = "#3e8fb0"      # pine
-sky = "#9ccfd8"       # foam
-sapphire = "#9ccfd8"  # foam
-red = "#eb6f92"       # love
-yellow = "#f6c177"    # gold
-green = "#9ccfd8"     # foam
-peach = "#ea9a97"     # rose
-pink = "#ea9a97"      # rose
-rosewater = "#e0def4" # text
-flamingo = "#eb6f92"  # love
-maroon = "#eb6f92"    # love
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
