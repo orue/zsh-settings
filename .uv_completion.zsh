@@ -637,6 +637,8 @@ symlink\:"Symbolically link packages from the wheel into the \`site-packages\` d
 '(--dev --optional --package --workspace)--script=[Add the dependency to the specified Python script, rather than to a project]:SCRIPT:_files' \
 '-p+[The Python interpreter to use for resolving and syncing.]:PYTHON:_default' \
 '--python=[The Python interpreter to use for resolving and syncing.]:PYTHON:_default' \
+'(--frozen --no-sync --only-install-package)*--no-install-package=[Do not install the given package(s)]:NO_INSTALL_PACKAGE:_default' \
+'(--frozen --no-sync --no-install-package)*--only-install-package=[Only install the given package(s)]:ONLY_INSTALL_PACKAGE:_default' \
 '--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
 '--python-preference=[]:PYTHON_PREFERENCE:((only-managed\:"Only use managed Python installations; never use system Python installations"
 managed\:"Prefer managed Python installations over system Python installations"
@@ -682,9 +684,12 @@ never\:"Disables colored output"))' \
 '(--offline)--no-refresh[]' \
 '--workspace[Add the dependency as a workspace member]' \
 '--no-workspace[Don'\''t add the dependency as a workspace member]' \
-'(--frozen --no-sync)--no-install-project[Do not install the current project]' \
-'(--frozen --no-sync)--no-install-workspace[Do not install any workspace members, including the current project]' \
-'(--frozen --no-sync)--no-install-local[Do not install local path dependencies]' \
+'(--frozen --no-sync --only-install-project)--no-install-project[Do not install the current project]' \
+'(--frozen --no-sync --no-install-project)--only-install-project[Only install the current project]' \
+'(--frozen --no-sync --only-install-workspace)--no-install-workspace[Do not install any workspace members, including the current project]' \
+'(--frozen --no-sync --no-install-workspace)--only-install-workspace[Only install workspace members, including the current project]' \
+'(--frozen --no-sync --only-install-local)--no-install-local[Do not install local path dependencies]' \
+'(--frozen --no-sync --no-install-local)--only-install-local[Only install local path dependencies]' \
 '-n[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
 '--no-cache[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
 '(--python-preference)--managed-python[Require use of uv-managed Python versions]' \
@@ -827,7 +832,7 @@ never\:"Disables colored output"))' \
 ;;
 (version)
 _arguments "${_arguments_options[@]}" : \
-'*--bump=[Update the project version using the given semantics]:BUMP:((major\:"Increase the major version (e.g., 1.2.3 => 2.0.0)"
+'*--bump=[Update the project version using the given semantics]:BUMP[=VALUE]:((major\:"Increase the major version (e.g., 1.2.3 => 2.0.0)"
 minor\:"Increase the minor version (e.g., 1.2.3 => 1.3.0)"
 patch\:"Increase the patch version (e.g., 1.2.3 => 1.2.4)"
 stable\:"Move from a pre-release to stable version (e.g., 1.2.3b4.post5.dev6 => 1.2.3)"
@@ -956,7 +961,8 @@ json\:"Display the result in JSON format"))' \
 '(--only-group --only-dev)*--group=[Include dependencies from the specified dependency group]:GROUP:_default' \
 '*--no-group=[Disable the specified dependency group]:NO_GROUP:_default' \
 '(--group --dev --all-groups)*--only-group=[Only include dependencies from the specified dependency group]:ONLY_GROUP:_default' \
-'*--no-install-package=[Do not install the given package(s)]:NO_INSTALL_PACKAGE:_default' \
+'(--only-install-package)*--no-install-package=[Do not install the given package(s)]:NO_INSTALL_PACKAGE:_default' \
+'(--no-install-package)*--only-install-package=[Only install the given package(s)]:ONLY_INSTALL_PACKAGE:_default' \
 '*--index=[The URLs to use when resolving dependencies, in addition to the default index]:INDEX:_default' \
 '--default-index=[The URL of the default package index (by default\: <https\://pypi.org/simple>)]:DEFAULT_INDEX:_default' \
 '-i+[(Deprecated\: use \`--default-index\` instead) The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL:_default' \
@@ -1073,9 +1079,12 @@ never\:"Disables colored output"))' \
 '--exact[Perform an exact sync, removing extraneous packages]' \
 '--active[Sync dependencies to the active virtual environment]' \
 '--no-active[Prefer project'\''s virtual environment over an active environment]' \
-'--no-install-project[Do not install the current project]' \
-'--no-install-workspace[Do not install any workspace members, including the root project]' \
-'--no-install-local[Do not install local path dependencies]' \
+'(--only-install-project)--no-install-project[Do not install the current project]' \
+'(--no-install-project)--only-install-project[Only install the current project]' \
+'(--only-install-workspace)--no-install-workspace[Do not install any workspace members, including the root project]' \
+'(--no-install-workspace)--only-install-workspace[Only install workspace members, including the root project]' \
+'(--only-install-local)--no-install-local[Do not install local path dependencies]' \
+'(--no-install-local)--only-install-local[Only install local path dependencies]' \
 '(--frozen -U --upgrade)--locked[Assert that the \`uv.lock\` will remain unchanged]' \
 '(--locked -U --upgrade --no-sources)--frozen[Sync without updating the \`uv.lock\` file]' \
 '--dry-run[Perform a dry run, without writing the lockfile or modifying the project environment]' \
@@ -1241,7 +1250,8 @@ pylock.toml\:"Export in \`pylock.toml\` format"))' \
 '(--group --dev --all-groups)*--only-group=[Only include dependencies from the specified dependency group]:ONLY_GROUP:_default' \
 '-o+[Write the exported requirements to the given file]:OUTPUT_FILE:_files' \
 '--output-file=[Write the exported requirements to the given file]:OUTPUT_FILE:_files' \
-'*--no-emit-package=[Do not emit the given package(s)]:NO_EMIT_PACKAGE:_default' \
+'(--only-emit-package)*--no-emit-package=[Do not emit the given package(s)]:NO_EMIT_PACKAGE:_default' \
+'(--no-emit-package)*--only-emit-package=[Only emit the given package(s)]:ONLY_EMIT_PACKAGE:_default' \
 '*--index=[The URLs to use when resolving dependencies, in addition to the default index]:INDEX:_default' \
 '--default-index=[The URL of the default package index (by default\: <https\://pypi.org/simple>)]:DEFAULT_INDEX:_default' \
 '-i+[(Deprecated\: use \`--default-index\` instead) The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL:_default' \
@@ -1314,9 +1324,12 @@ never\:"Disables colored output"))' \
 '--no-editable[Export any editable dependencies, including the project and any workspace members, as non-editable]' \
 '--hashes[Include hashes for all dependencies]' \
 '--no-hashes[Omit hashes in the generated output]' \
-'--no-emit-project[Do not emit the current project]' \
-'--no-emit-workspace[Do not emit any workspace members, including the root project]' \
-'--no-emit-local[Do not include local path dependencies in the exported requirements]' \
+'(--only-emit-project)--no-emit-project[Do not emit the current project]' \
+'(--no-emit-project)--only-emit-project[Only emit the current project]' \
+'(--only-emit-workspace)--no-emit-workspace[Do not emit any workspace members, including the root project]' \
+'(--no-emit-workspace)--only-emit-workspace[Only emit workspace members, including the root project]' \
+'(--only-emit-local)--no-emit-local[Do not include local path dependencies in the exported requirements]' \
+'(--no-emit-local)--only-emit-local[Only include local path dependencies in the exported requirements]' \
 '(--frozen -U --upgrade)--locked[Assert that the \`uv.lock\` will remain unchanged]' \
 '(--locked -U --upgrade --no-sources)--frozen[Do not update the \`uv.lock\` before exporting]' \
 '--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via \`--find-links\`]' \
@@ -4302,6 +4315,151 @@ never\:"Disables colored output"))' \
 '*::files -- Paths to the files to upload. Accepts glob expressions:_default' \
 && ret=0
 ;;
+(workspace)
+_arguments "${_arguments_options[@]}" : \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--python-preference=[]:PYTHON_PREFERENCE:((only-managed\:"Only use managed Python installations; never use system Python installations"
+managed\:"Prefer managed Python installations over system Python installations"
+system\:"Prefer system Python installations over managed Python installations"
+only-system\:"Only use system Python installations; never use managed Python installations"))' \
+'--python-fetch=[Deprecated version of \[\`Self\:\:python_downloads\`\]]:PYTHON_FETCH:((automatic\:"Automatically download managed Python installations when needed"
+manual\:"Do not automatically download managed Python installations; require explicit installation"
+never\:"Do not ever allow Python downloads"))' \
+'(--no-color)--color=[Control the use of color in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'*--allow-insecure-host=[Allow insecure connections to a host]:ALLOW_INSECURE_HOST:_default' \
+'*--preview-features=[Enable experimental preview features]:PREVIEW_FEATURES:_default' \
+'--directory=[Change to the given directory prior to running the command]:DIRECTORY:_files' \
+'--project=[Run the command within the given project directory]:PROJECT:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'-n[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
+'--no-cache[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
+'(--python-preference)--managed-python[Require use of uv-managed Python versions]' \
+'(--python-preference)--no-managed-python[Disable use of uv-managed Python versions]' \
+'--allow-python-downloads[Allow automatically downloading Python when required. \[env\: "UV_PYTHON_DOWNLOADS=auto"\]]' \
+'--no-python-downloads[Disable automatic downloads of Python. \[env\: "UV_PYTHON_DOWNLOADS=never"\]]' \
+'(-v --verbose)*-q[Use quiet output]' \
+'(-v --verbose)*--quiet[Use quiet output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access]' \
+'--no-offline[]' \
+'--preview[Whether to enable all experimental preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'--no-progress[Hide all progress outputs]' \
+'--no-installer-metadata[Skip writing \`uv\` installer metadata files (e.g., \`INSTALLER\`, \`REQUESTED\`, and \`direct_url.json\`) to site-packages \`.dist-info\` directories]' \
+'--no-config[Avoid discovering configuration files (\`pyproject.toml\`, \`uv.toml\`)]' \
+'-h[Display the concise help for this command]' \
+'--help[Display the concise help for this command]' \
+":: :_uv__workspace_commands" \
+"*::: :->workspace" \
+&& ret=0
+
+    case $state in
+    (workspace)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-workspace-command-$line[1]:"
+        case $line[1] in
+            (metadata)
+_arguments "${_arguments_options[@]}" : \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--python-preference=[]:PYTHON_PREFERENCE:((only-managed\:"Only use managed Python installations; never use system Python installations"
+managed\:"Prefer managed Python installations over system Python installations"
+system\:"Prefer system Python installations over managed Python installations"
+only-system\:"Only use system Python installations; never use managed Python installations"))' \
+'--python-fetch=[Deprecated version of \[\`Self\:\:python_downloads\`\]]:PYTHON_FETCH:((automatic\:"Automatically download managed Python installations when needed"
+manual\:"Do not automatically download managed Python installations; require explicit installation"
+never\:"Do not ever allow Python downloads"))' \
+'(--no-color)--color=[Control the use of color in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'*--allow-insecure-host=[Allow insecure connections to a host]:ALLOW_INSECURE_HOST:_default' \
+'*--preview-features=[Enable experimental preview features]:PREVIEW_FEATURES:_default' \
+'--directory=[Change to the given directory prior to running the command]:DIRECTORY:_files' \
+'--project=[Run the command within the given project directory]:PROJECT:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'-n[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
+'--no-cache[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
+'(--python-preference)--managed-python[Require use of uv-managed Python versions]' \
+'(--python-preference)--no-managed-python[Disable use of uv-managed Python versions]' \
+'--allow-python-downloads[Allow automatically downloading Python when required. \[env\: "UV_PYTHON_DOWNLOADS=auto"\]]' \
+'--no-python-downloads[Disable automatic downloads of Python. \[env\: "UV_PYTHON_DOWNLOADS=never"\]]' \
+'(-v --verbose)*-q[Use quiet output]' \
+'(-v --verbose)*--quiet[Use quiet output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access]' \
+'--no-offline[]' \
+'--preview[Whether to enable all experimental preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'--no-progress[Hide all progress outputs]' \
+'--no-installer-metadata[Skip writing \`uv\` installer metadata files (e.g., \`INSTALLER\`, \`REQUESTED\`, and \`direct_url.json\`) to site-packages \`.dist-info\` directories]' \
+'--no-config[Avoid discovering configuration files (\`pyproject.toml\`, \`uv.toml\`)]' \
+'-h[Display the concise help for this command]' \
+'--help[Display the concise help for this command]' \
+&& ret=0
+;;
+(dir)
+_arguments "${_arguments_options[@]}" : \
+'--package=[Display the path to a specific package in the workspace]:PACKAGE:_default' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--python-preference=[]:PYTHON_PREFERENCE:((only-managed\:"Only use managed Python installations; never use system Python installations"
+managed\:"Prefer managed Python installations over system Python installations"
+system\:"Prefer system Python installations over managed Python installations"
+only-system\:"Only use system Python installations; never use managed Python installations"))' \
+'--python-fetch=[Deprecated version of \[\`Self\:\:python_downloads\`\]]:PYTHON_FETCH:((automatic\:"Automatically download managed Python installations when needed"
+manual\:"Do not automatically download managed Python installations; require explicit installation"
+never\:"Do not ever allow Python downloads"))' \
+'(--no-color)--color=[Control the use of color in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'*--allow-insecure-host=[Allow insecure connections to a host]:ALLOW_INSECURE_HOST:_default' \
+'*--preview-features=[Enable experimental preview features]:PREVIEW_FEATURES:_default' \
+'--directory=[Change to the given directory prior to running the command]:DIRECTORY:_files' \
+'--project=[Run the command within the given project directory]:PROJECT:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'-n[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
+'--no-cache[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
+'(--python-preference)--managed-python[Require use of uv-managed Python versions]' \
+'(--python-preference)--no-managed-python[Disable use of uv-managed Python versions]' \
+'--allow-python-downloads[Allow automatically downloading Python when required. \[env\: "UV_PYTHON_DOWNLOADS=auto"\]]' \
+'--no-python-downloads[Disable automatic downloads of Python. \[env\: "UV_PYTHON_DOWNLOADS=never"\]]' \
+'(-v --verbose)*-q[Use quiet output]' \
+'(-v --verbose)*--quiet[Use quiet output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access]' \
+'--no-offline[]' \
+'--preview[Whether to enable all experimental preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'--no-progress[Hide all progress outputs]' \
+'--no-installer-metadata[Skip writing \`uv\` installer metadata files (e.g., \`INSTALLER\`, \`REQUESTED\`, and \`direct_url.json\`) to site-packages \`.dist-info\` directories]' \
+'--no-config[Avoid discovering configuration files (\`pyproject.toml\`, \`uv.toml\`)]' \
+'-h[Display the concise help for this command]' \
+'--help[Display the concise help for this command]' \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
 (build-backend)
 _arguments "${_arguments_options[@]}" : \
 '--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
@@ -5269,6 +5427,7 @@ _uv_commands() {
 'venv:Create a virtual environment' \
 'build:Build Python packages into source distributions and wheels' \
 'publish:Upload distributions to an index' \
+'workspace:Inspect uv workspaces' \
 'build-backend:The implementation of the build backend' \
 'cache:Manage uv'\''s cache' \
 'self:Manage the uv executable' \
@@ -5657,6 +5816,24 @@ _uv__venv_commands() {
 _uv__version_commands() {
     local commands; commands=()
     _describe -t commands 'uv version commands' commands "$@"
+}
+(( $+functions[_uv__workspace_commands] )) ||
+_uv__workspace_commands() {
+    local commands; commands=(
+'metadata:View metadata about the current workspace' \
+'dir:Display the path of a workspace member' \
+    )
+    _describe -t commands 'uv workspace commands' commands "$@"
+}
+(( $+functions[_uv__workspace__dir_commands] )) ||
+_uv__workspace__dir_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv workspace dir commands' commands "$@"
+}
+(( $+functions[_uv__workspace__metadata_commands] )) ||
+_uv__workspace__metadata_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv workspace metadata commands' commands "$@"
 }
 
 if [ "$funcstack[1]" = "_uv" ]; then
