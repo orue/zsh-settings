@@ -26,6 +26,7 @@ BREW_PREFIX="${HOMEBREW_PREFIX:-/opt/homebrew}"
 [[ -d "$BREW_PREFIX/bin" ]] && path=("$BREW_PREFIX/bin" $path)
 [[ -d "$BREW_PREFIX/opt/libpq/bin" ]] && path=("$BREW_PREFIX/opt/libpq/bin" $path)
 [[ -d "$BREW_PREFIX/opt/curl/bin" ]] && path=("$BREW_PREFIX/opt/curl/bin" $path)
+[[ -d "$BREW_PREFIX/sbin" ]] && path=("$BREW_PREFIX/sbin" $path)
 [[ -d "$HOME/.local/bin" ]] && path=("$HOME/.local/bin" $path)
 [[ -d "$HOME/.docker/bin" ]] && path=("$HOME/.docker/bin" $path)
 
