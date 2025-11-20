@@ -1,12 +1,6 @@
 #!/usr/bin/env zsh
 
 # ============================================================================
-# PATH Configuration
-# ============================================================================
-# Use typeset -U to automatically prevent PATH duplicates
-typeset -U path
-
-# ============================================================================
 # Essential exports
 # ============================================================================
 export TERM="xterm-256color"
@@ -42,8 +36,9 @@ BREW_PREFIX="${HOMEBREW_PREFIX:-/opt/homebrew}"
 # Go
 export GOROOT="$BREW_PREFIX/opt/go/libexec"
 export GOPATH="$HOME/go"
+export GOBIN="$GOPATH/bin"
 [[ -d "$GOROOT/bin" ]] && path=("$GOROOT/bin" $path)
-[[ -d "$GOPATH/bin" ]] && path=("$GOPATH/bin" $path)
+path=("$GOBIN" $path)
 
 # NVM
 export NVM_DIR="$HOME/.nvm"

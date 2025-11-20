@@ -1,30 +1,19 @@
 #!/usr/bin/env zsh
 
+# Kiro CLI pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+
+# ============================================================================
+# PATH Configuration
+# ============================================================================
+# Use typeset -U to automatically prevent PATH duplicates.
+# This makes the `path` array the source of truth for the $PATH variable.
+typeset -U path
+
 # ============================================================================
 # PROFILING (Uncomment to measure startup time)
 # ============================================================================
 # zmodload zsh/zprof
-
-# ============================================================================
-# PRE-HOOKS
-# ============================================================================
-# Kiro CLI pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
-
-
-# ============================================================================
-# ENVIRONMENT SETUP
-# ============================================================================
-# Don't check for new mail
-MAILCHECK=0
-
-# Brew - Cached for faster startup (supports both Apple Silicon and Intel Macs)
-# Check common brew locations and add to PATH if found
-if [[ -x /opt/homebrew/bin/brew ]]; then
-  export PATH="/opt/homebrew/bin:$PATH"
-elif [[ -x /usr/local/bin/brew ]]; then
-  export PATH="/usr/local/bin:$PATH"
-fi
 
 # Cache brew shellenv output
 if command -v brew &>/dev/null; then
