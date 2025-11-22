@@ -5,3 +5,4 @@ plugins/
 .zcompcache/
 .claude/
 **.DS_Store
+.uv_completion.zsh
