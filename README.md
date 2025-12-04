@@ -11,6 +11,7 @@ A comprehensive, optimized ZSH configuration tailored for **developers and DevOp
 ## 🌟 Key Features
 
 ### Development Productivity
+
 - ⚡ **Optimized Startup**: ~100-200ms with intelligent caching strategies
 - 🎨 **Starship Prompt**: Fast, customizable prompt with transient mode
 - 🔧 **Smart Tool Management**: Auto-switching for Node versions (NVM) and Python virtual environments
@@ -18,18 +19,21 @@ A comprehensive, optimized ZSH configuration tailored for **developers and DevOp
 - 🎯 **40+ Productivity Aliases**: Optimized shortcuts for common workflows
 
 ### DevOps & Container Management
+
 - 🐳 **Docker Aliases**: Quick shortcuts for containers, images, and compose operations
 - ☸️ **Kubernetes Support**: kubectl shortcuts and pod management commands
 - 🔍 **System Monitoring**: Modern replacements for netstat, disk usage analysis, process search
 - 📊 **Performance Tools**: Network analysis, system stats, port inspection
 
 ### Safety & Reliability
+
 - 🔒 **Smart History Filtering**: Prevents accidental storage of sensitive commands
 - ✅ **Error Resilience**: Function existence checks prevent startup failures
 - 🛡️ **Safe File Operations**: Interactive cp/mv/rm by default
 - 🔧 **Robust Plugin Management**: Automatic GitHub plugin installation and updates
 
 ### Code Quality
+
 - 🚀 **Plugin System**: Automatic plugin downloading from GitHub
 - 📝 **Comprehensive Documentation**: Detailed inline comments and OPTIMIZATION_SUMMARY.md
 - 🎨 **Semantic Color System**: Consistent, maintainable color scheme throughout
@@ -38,12 +42,14 @@ A comprehensive, optimized ZSH configuration tailored for **developers and DevOp
 ## 📦 What's Included
 
 ### Shells & Scripting
+
 - NVM lazy-loading with auto-switching on `.nvmrc` changes
 - Python venv auto-activation (supports both `venv/` and `.venv/`)
 - Conda lazy-loading
 - Go environment configuration with security checks
 
 ### Aliases & Shortcuts
+
 ```
 Navigation:    notes, docs, desk, dev, github, conf
 Docker:        d, dlc, dx, dip, dls, dps, dc, dcup, dcd
@@ -56,6 +62,7 @@ Dev:           nvim, vim (alias to neovim)
 ```
 
 ### Utility Functions
+
 ```
 fzf_edit              # Fuzzy find and edit files
 svim <file>           # Edit files with sudo + nvim config
@@ -91,7 +98,7 @@ brew bundle install --file=~/.config/zsh/Brewfile
 echo 'ZDOTDIR=$HOME/.config/zsh' > ~/.zshenv
 
 # 3. Clone this repository
-git clone https://github.com/yourusername/zsh-config.git ~/.config/zsh
+git clone https://github.com/orue/zsh-config.git ~/.config/zsh
 
 # 4. Reload shell
 exec zsh
@@ -122,7 +129,9 @@ brew install sqlite libpq
 ### Environment Auto-Switching
 
 #### Node.js Version Management
+
 When you enter a directory with `.nvmrc` or `.node-version`:
+
 ```bash
 cd my-project
 # → Activating v18.16.0
@@ -130,7 +139,9 @@ npm install
 ```
 
 #### Python Virtual Environment
+
 When you enter a directory with `venv/` or `.venv/`:
+
 ```bash
 cd my-python-project
 # → Activating virtual environment (my-python-project)
@@ -209,14 +220,14 @@ go-clean-deps        # Clean build cache
 
 This configuration is optimized for startup speed and responsiveness:
 
-| Optimization | Strategy | Impact |
-|--------------|----------|--------|
-| Completion Caching | 20-hour rebuild cycle | ~50ms faster startup |
-| Command Caching | Cache fzf, uv, uvx completions | ~30ms faster on cold start |
-| Lazy Loading | NVM and Conda load on-demand | Skip init if not used |
-| PATH Deduplication | Automatic removal of duplicates | Cleaner environment |
-| Function Consolidation | Minimal plugin count | Better maintainability |
-| Conditional Loading | Load only if command exists | Fail-safe startup |
+| Optimization           | Strategy                        | Impact                     |
+| ---------------------- | ------------------------------- | -------------------------- |
+| Completion Caching     | 20-hour rebuild cycle           | ~50ms faster startup       |
+| Command Caching        | Cache fzf, uv, uvx completions  | ~30ms faster on cold start |
+| Lazy Loading           | NVM and Conda load on-demand    | Skip init if not used      |
+| PATH Deduplication     | Automatic removal of duplicates | Cleaner environment        |
+| Function Consolidation | Minimal plugin count            | Better maintainability     |
+| Conditional Loading    | Load only if command exists     | Fail-safe startup          |
 
 **Expected Startup Time:** 100-200ms (cold shell)
 
@@ -297,16 +308,19 @@ exec zsh
 ## 🔄 Updating
 
 ### Update Plugins
+
 ```bash
 zsh-update-plugins
 ```
 
 ### Update Homebrew Packages
+
 ```bash
 brew update && brew upgrade
 ```
 
 ### Update This Configuration
+
 ```bash
 cd ~/.config/zsh
 git pull
@@ -341,11 +355,13 @@ Edit `~/.config/zsh/colors.zsh` to change the color scheme. Currently uses Catpp
 ## 📋 Requirements
 
 ### Supported Platforms
+
 - ✅ macOS 10.14+ (Intel & Apple Silicon)
 - ✅ Linux (Ubuntu, Fedora, Arch, etc.)
 - ❌ Windows (WSL untested, may work)
 
 ### Required Versions
+
 - ZSH 5.0+
 - Homebrew (macOS)
 - Git 2.0+
