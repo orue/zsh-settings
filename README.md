@@ -292,7 +292,6 @@ exec zsh
 ## 📖 Documentation
 
 - **README.md** - This guide with all features and usage examples
-- **CONTRIBUTING.md** - Guidelines for contributors
 - **CHANGELOG.md** - Detailed version history and changes
 - **Inline Comments** - Every function and alias is documented
 - **File Headers** - Each configuration file explains its purpose
@@ -341,16 +340,6 @@ See [Starship documentation](https://starship.rs/) for options.
 
 Edit `~/.config/zsh/colors.zsh` to change the color scheme. Currently uses Catppuccin Frappe.
 
-## 🤝 Contributing
-
-Contributions welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
 ## 📋 Requirements
 
 ### Supported Platforms
@@ -367,20 +356,12 @@ Contributions welcome! Please:
 
 This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
 
-## 🙏 Credits
+## 🔗 Built With
 
-Built with inspiration from:
 - [Starship](https://starship.rs/) - Cross-shell prompt
 - [EZA](https://github.com/eza-community/eza) - Modern ls replacement
 - [FZF](https://github.com/junegunn/fzf) - Fuzzy finder
-- ZSH Plugin Authors
-
-## 📞 Support
-
-Found a bug or have a suggestion?
-
-- **Issues:** [GitHub Issues](https://github.com/yourusername/zsh-config/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/yourusername/zsh-config/discussions)
+- [ZSH](https://www.zsh.org/) - Shell
 
 ---
 
