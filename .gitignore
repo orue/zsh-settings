@@ -1,34 +1,32 @@
-# ZSH Session & History
+# ZSH Session & History (User-specific)
 .zsh_sessions/
 .zsh_history
 .zcompdump*
 .zcompcache/
 
-# Generated Completions
+# Auto-generated Files
 .uv_completion.zsh
 .uvx_completion.zsh
 .fzf_env.zsh
 .brew_env.zsh
 
-# Plugins (auto-managed)
+# Auto-managed Plugins
 plugins/
 !plugins/.gitkeep
 
-# System Files
+# System & Editor Files
 *.DS_Store
 .DS_Store
+.vscode/
+.idea/
 *.swp
 *.swo
 *~
-.vscode/
-.idea/
 
-# Local Configuration
+# Local User Configuration
 user-aliases.zsh.local
 *.local
 .env
 
-# IDE
+# IDE & Tools
 .claude/
-.vscode/
-.idea/
