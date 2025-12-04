@@ -41,6 +41,8 @@ export GOBIN="$GOPATH/bin"
 export GOPROXY="https://proxy.golang.org,direct"         # Official Go module proxy
 export GOSUMDB="sum.golang.org"                           # Go checksum database
 export CGO_ENABLED=1                                       # Enable C bindings (needed for some packages)
+export GOTELEMETRY=local                                   # Participate in telemetry with local reporting
+export GOTOOLCHAIN=auto                                    # Auto-select appropriate Go toolchain version
 [[ -d "$GOROOT/bin" ]] && path=("$GOROOT/bin" $path)
 path=("$GOBIN" $path)
 

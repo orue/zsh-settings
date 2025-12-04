@@ -234,3 +234,87 @@ go-info() {
   echo "Active workspace:"
   pwd
 }
+
+# ============================================================================
+# Diagnostic and Maintenance Functions
+# ============================================================================
+
+# Comprehensive environment diagnostic report
+go-diagnose() {
+  echo "Go Environment Diagnostic Report"
+  echo "=================================="
+  echo ""
+  echo "System Info:"
+  echo "  OS: $(uname -s)"
+  echo "  Arch: $(uname -m)"
+  echo ""
+
+  echo "Go Installation:"
+  go version
+  echo "  GOROOT: $(go env GOROOT)"
+  echo "  GOPATH: $(go env GOPATH)"
+  echo "  GOBIN: $(go env GOBIN)"
+  echo "  GOOS: $(go env GOOS)"
+  echo "  GOARCH: $(go env GOARCH)"
+  echo "  GOARM64: $(go env GOARM64)"
+  echo ""
+
+  echo "Module Configuration:"
+  echo "  GOPROXY: $(go env GOPROXY)"
+  echo "  GOSUMDB: $(go env GOSUMDB)"
+  echo "  GOTELEMETRY: $(go env GOTELEMETRY)"
+  echo "  CGO_ENABLED: $(go env CGO_ENABLED)"
+  echo ""
+
+  echo "Essential Tools:"
+  command -v golangci-lint &>/dev/null && echo "  ✓ golangci-lint installed" || echo "  ✗ golangci-lint NOT installed"
+  command -v govulncheck &>/dev/null && echo "  ✓ govulncheck installed" || echo "  ✗ govulncheck NOT installed"
+  command -v air &>/dev/null && echo "  ✓ air (live reload) installed" || echo "  ✗ air NOT installed"
+  command -v goimports &>/dev/null && echo "  ✓ goimports installed" || echo "  ✗ goimports NOT installed"
+  echo ""
+
+  echo "Build Cache:"
+  local cache_dir=$(go env GOCACHE)
+  [[ -d "$cache_dir" ]] && echo "  Cache size: $(du -sh "$cache_dir" 2>/dev/null | cut -f1)" || echo "  Cache not yet created"
+}
+
+# Clean Go build artifacts and cache
+go-clean-deps() {
+  echo "Cleaning Go cache and build artifacts..."
+  go clean -cache
+  go clean -modcache
+  go clean -testcache
+  echo "✓ Cache, module cache, and test cache cleaned"
+}
+
+# Quick security vulnerability check
+go-sec() {
+  if ! command -v govulncheck &>/dev/null; then
+    echo "Installing govulncheck..."
+    go install golang.org/x/vuln/cmd/govulncheck@latest
+  fi
+
+  echo "Scanning for security vulnerabilities..."
+  govulncheck ./...
+}
+
+# Format code and organize imports
+go-format() {
+  echo "Formatting Go code..."
+  go fmt ./...
+
+  if command -v goimports &>/dev/null; then
+    echo "Organizing imports..."
+    goimports -w .
+  fi
+
+  if command -v golangci-lint &>/dev/null; then
+    echo "Running linter..."
+    golangci-lint run ./... --timeout=5m
+  else
+    echo "Running go vet..."
+    go vet ./...
+  fi
+
+  echo "✓ Code formatting complete"
+}
