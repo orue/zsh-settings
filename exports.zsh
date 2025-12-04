@@ -38,6 +38,9 @@ BREW_PREFIX="${HOMEBREW_PREFIX:-/opt/homebrew}"
 export GOROOT="$BREW_PREFIX/opt/go/libexec"
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
+export GOPROXY="https://proxy.golang.org,direct"         # Official Go module proxy
+export GOSUMDB="sum.golang.org"                           # Go checksum database
+export CGO_ENABLED=1                                       # Enable C bindings (needed for some packages)
 [[ -d "$GOROOT/bin" ]] && path=("$GOROOT/bin" $path)
 path=("$GOBIN" $path)
 

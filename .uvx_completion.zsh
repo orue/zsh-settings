@@ -148,6 +148,7 @@ never\:"Disables colored output"))' \
 '--binary[]' \
 '(--offline)--refresh[Refresh all cached data]' \
 '(--offline)--no-refresh[]' \
+'--lfs[Whether to use Git LFS when adding a dependency from Git]' \
 '--show-resolution[Whether to show resolver and installer output from any environment modifications]' \
 '-V[Display the uvx version]' \
 '--version[Display the uvx version]' \
