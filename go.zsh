@@ -287,34 +287,3 @@ go-clean-deps() {
   echo "✓ Cache, module cache, and test cache cleaned"
 }
 
-# Quick security vulnerability check
-go-sec() {
-  if ! command -v govulncheck &>/dev/null; then
-    echo "Installing govulncheck..."
-    go install golang.org/x/vuln/cmd/govulncheck@latest
-  fi
-
-  echo "Scanning for security vulnerabilities..."
-  govulncheck ./...
-}
-
-# Format code and organize imports
-go-format() {
-  echo "Formatting Go code..."
-  go fmt ./...
-
-  if command -v goimports &>/dev/null; then
-    echo "Organizing imports..."
-    goimports -w .
-  fi
-
-  if command -v golangci-lint &>/dev/null; then
-    echo "Running linter..."
-    golangci-lint run ./... --timeout=5m
-  else
-    echo "Running go vet..."
-    go vet ./...
-  fi
-
-  echo "✓ Code formatting complete"
-}

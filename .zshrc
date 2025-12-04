@@ -66,22 +66,25 @@ DISABLE_UNTRACKED_FILES_DIRTY=true
 # ============================================================================
 # COMPLETION SYSTEM
 # ============================================================================
-# Docker completions
-fpath=(/Users/orue/.docker/completions $fpath)
+# Docker completions (lazy-load to reduce startup)
+[[ -d /Users/orue/.docker/completions ]] && fpath=(/Users/orue/.docker/completions $fpath)
 
-# Optimized completion initialization (only rebuild dump if older than a day)
+# Optimized completion initialization
 autoload -Uz compinit
-# Run full compinit if dump is >20 hours old, otherwise skip checks with -C
+# Strategy: Only rebuild dump if older than 20 hours
+# This balances performance with keeping completions fresh
 if [[ -n ${ZDOTDIR}/.zcompdump(#qNmh+20) ]]; then
   compinit
 else
   compinit -C
 fi
 
-# Completion styling
+# Completion styling and performance options
 zstyle ':completion:*' menu select
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
 zmodload zsh/complist
-_comp_options+=(globdots)  # Include hidden files
+_comp_options+=(globdots)  # Include hidden files in completion
 
 # ============================================================================
 # COLORS
@@ -114,22 +117,45 @@ zsh_add_file "transient-prompt.zsh"
 # Consolidated chpwd hook for better performance
 autoload -U add-zsh-hook
 _chpwd_hook() {
-  check_nvm       # Auto-switch Node versions
-  python_venv     # Auto-activate Python virtual environments
+  # Auto-switch Node versions
+  if [[ $(type -w check_nvm) == *function* ]]; then
+    check_nvm || true
+  fi
+
+  # Auto-activate Python virtual environments
+  if [[ $(type -w python_venv) == *function* ]]; then
+    python_venv || true
+  fi
 }
 add-zsh-hook chpwd _chpwd_hook
 
 # Initialize environment checkers
-check_nvm
-python_venv
+[[ $(type -w check_nvm) == *function* ]] && check_nvm || true
+[[ $(type -w python_venv) == *function* ]] && python_venv || true
 
 # ============================================================================
 # PLUGINS (zsh-syntax-highlighting MUST be last)
 # ============================================================================
-zsh_add_plugin "zsh-users/zsh-autosuggestions"
-zsh_add_plugin "zsh-users/zsh-history-substring-search"
-zsh_add_plugin "hlissner/zsh-autopair"
-zsh_add_plugin "zsh-users/zsh-syntax-highlighting"  # MUST be last for performance
+# Plugin loading strategy:
+# - Critical plugins (autosuggestions, autopair) load immediately
+# - Syntax highlighting loads last (required for UX)
+# - Optional: Uncomment ENABLE_ASYNC_PLUGINS=true below for zsh-defer based async loading
+#   (requires: git clone https://github.com/romkatv/zsh-defer ~/.config/zsh/plugins/zsh-defer)
+
+if [[ "${ENABLE_ASYNC_PLUGINS:-false}" == "true" ]]; then
+  # Async plugin loading strategy (optional - disabled by default)
+  zsh_add_plugin "romkatv/zsh-defer"
+  zsh_add_plugin "zsh-users/zsh-autosuggestions"
+  zsh_add_plugin "zsh-users/zsh-history-substring-search"
+  zsh defer zsh_add_plugin "hlissner/zsh-autopair"
+  zsh defer zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
+else
+  # Standard synchronous loading (recommended for most users)
+  zsh_add_plugin "zsh-users/zsh-autosuggestions"
+  zsh_add_plugin "zsh-users/zsh-history-substring-search"
+  zsh_add_plugin "hlissner/zsh-autopair"
+  zsh_add_plugin "zsh-users/zsh-syntax-highlighting"  # MUST be last for performance
+fi
 
 # ============================================================================
 # PROMPT INITIALIZATION

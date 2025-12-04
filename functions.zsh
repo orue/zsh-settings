@@ -71,7 +71,7 @@ function reload() {
 # Supports multiple file selection with -m flag
 function fzf_edit() {
     if ! command -v fzf &> /dev/null; then
-        echo "${Red}Error: fzf is not installed${RESET}"
+        echo "${error_color}Error: fzf is not installed${RESET}"
         return 1
     fi
 
@@ -91,7 +91,7 @@ function fzf_edit() {
 function nvim_clean() {
     local config_dir="$HOME/.config/nvim"
     if [[ -d "$config_dir" ]]; then
-        echo "${Yellow}Warning: This will delete all nvim configuration!${RESET}"
+        echo "${warning_color}Warning: This will delete all nvim configuration!${RESET}"
         echo "Directories to be removed:"
         echo "  - $config_dir"
         echo "  - $HOME/.local/share/nvim"
@@ -105,12 +105,12 @@ function nvim_clean() {
             rm -rf "$HOME/.local/share/nvim"
             rm -rf "$HOME/.local/state/nvim"
             rm -rf "$HOME/.local/cache/nvim"
-            echo "${Green}nvim config cleaned.${RESET}"
+            echo "${success_color}nvim config cleaned.${RESET}"
         else
             echo "Cancelled."
         fi
     else
-        echo "${Red}nvim config directory does not exist.${RESET}"
+        echo "${error_color}nvim config directory does not exist.${RESET}"
     fi
 }
 
@@ -142,7 +142,7 @@ function zsh_add_plugin() {
     # Clone plugin if it doesn't exist
     if [[ ! -d "$plugin_dir" ]]; then
         git clone --depth 1 "https://github.com/$repo.git" "$plugin_dir" || {
-            echo "${Red}Error: Failed to clone $repo${RESET}"
+            echo "${error_color}Error: Failed to clone $repo${RESET}"
             return 1
         }
     fi
@@ -152,7 +152,7 @@ function zsh_add_plugin() {
     if [[ -n "$plugin_file" ]]; then
         builtin source "$plugin_file"
     else
-        echo "${Red}Error: Plugin file not found for $plugin_name${RESET}"
+        echo "${error_color}Error: Plugin file not found for $plugin_name${RESET}"
         return 1
     fi
 }
@@ -174,12 +174,12 @@ function zsh_add_completion() {
             fpath+=("${completion_file[1]:h}")
             zsh_add_file "plugins/$plugin_name/$plugin_name.plugin.zsh"
         else
-            echo "${Red}Error: Completion file not found for $plugin_name${RESET}"
+            echo "${error_color}Error: Completion file not found for $plugin_name${RESET}"
         fi
     else
         # Clone the plugin repository
         git clone --depth 1 "https://github.com/$repo.git" "$plugin_dir" || {
-            echo "${Red}Error: Failed to clone $repo${RESET}"
+            echo "${error_color}Error: Failed to clone $repo${RESET}"
             return 1
         }
 
@@ -188,7 +188,7 @@ function zsh_add_completion() {
         if [[ -f "$completion_file[1]" ]]; then
             fpath+=("${completion_file[1]:h}")
         else
-            echo "${Red}Error: Completion file not found for $plugin_name after cloning${RESET}"
+            echo "${error_color}Error: Completion file not found for $plugin_name after cloning${RESET}"
         fi
 
         # Regenerate completion dump if it exists
@@ -205,11 +205,11 @@ function zsh_add_completion() {
 # Create archive from given directory
 function mkarchive() {
     if [[ -z "$1" ]]; then
-        echo "${Yellow}Usage: mkarchive <directory>${RESET}"
+        echo "${warning_color}Usage: mkarchive <directory>${RESET}"
         return 1
     fi
     if [[ ! -d "$1" ]]; then
-        echo "${Red}Error: '$1' is not a directory${RESET}"
+        echo "${error_color}Error: '$1' is not a directory${RESET}"
         return 1
     fi
     tar -czvf "$1.tar.gz" "$1"
@@ -218,8 +218,8 @@ function mkarchive() {
 # Extract archive
 function extract() {
     if [[ -z "$1" ]]; then
-        echo "${Yellow}Usage: extract <archive_file>${RESET}"
-        echo "${Yellow}Supported formats: tar.bz2, tar.gz, bz2, rar, gz, tar, tbz2, tgz, zip, Z, 7z${RESET}"
+        echo "${warning_color}Usage: extract <archive_file>${RESET}"
+        echo "${info_color}Supported formats: tar.bz2, tar.gz, bz2, rar, gz, tar, tbz2, tgz, zip, Z, 7z${RESET}"
         return 1
     fi
     if [[ -f "$1" ]]; then
@@ -235,10 +235,10 @@ function extract() {
         *.zip) unzip "$1" ;;
         *.Z) uncompress "$1" ;;
         *.7z) 7z x "$1" ;;
-        *) echo "${Red}Error: '$1' cannot be extracted via extract()${RESET}" ;;
+        *) echo "${error_color}Error: '$1' cannot be extracted via extract()${RESET}" ;;
         esac
     else
-        echo "${Red}Error: '$1' is not a valid file${RESET}"
+        echo "${error_color}Error: '$1' is not a valid file${RESET}"
     fi
 }
 
@@ -246,11 +246,11 @@ function extract() {
 function list_aliases() {
     local filter="$1"
     if [[ -z "$filter" ]]; then
-        alias | sort | awk -F'=' -v yellow="$Yellow" -v reset="$RESET" \
-            '{printf "%s%-20s%s %s\n", yellow, $1, reset, $2}'
+        alias | sort | awk -F'=' -v info="$info_color" -v reset="$RESET" \
+            '{printf "%s%-20s%s %s\n", info, $1, reset, $2}'
     else
-        alias | grep -i "$filter" | sort | awk -F'=' -v yellow="$Yellow" -v reset="$RESET" \
-            '{printf "%s%-20s%s %s\n", yellow, $1, reset, $2}'
+        alias | grep -i "$filter" | sort | awk -F'=' -v info="$info_color" -v reset="$RESET" \
+            '{printf "%s%-20s%s %s\n", info, $1, reset, $2}'
     fi
 }
 
@@ -299,23 +299,16 @@ active-repos() {
 
 # Full system update
 function update() {
-    echo "🍺 Updating Homebrew..."
-    brew update || { echo "❌ brew update failed"; return 1; }
+    echo "Updating Homebrew..."
+    brew update || { echo "Error: brew update failed"; return 1; }
+    brew upgrade || { echo "Error: brew upgrade failed"; return 1; }
+    brew upgrade --cask || { echo "Error: brew upgrade --cask failed"; return 1; }
 
-    echo "\n📦 Upgrading formulae..."
-    brew upgrade || { echo "❌ brew upgrade failed"; return 1; }
-
-    echo "\n🎯 Upgrading casks..."
-    brew upgrade --cask || { echo "❌ brew upgrade --cask failed"; return 1; }
-
-    echo "\n🧹 Cleaning up..."
+    echo "Cleaning up..."
     brew autoremove
     brew cleanup
 
-    echo "\n🩺 Running diagnostics..."
-    brew doctor
-
-    echo "\n✅ Update complete!"
+    echo "Update complete!"
 }
 
 # Edit files with sudo while preserving nvim configuration

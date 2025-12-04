@@ -10,11 +10,9 @@ alias zshconf='cd $ZDOTDIR && nvim .'
 # ============================================================================
 # TERMINAL & SYSTEM
 # ============================================================================
-alias cls='clear'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias hc='read "?Clear history? (y/N): " && [[ $REPLY =~ ^[Yy]$ ]] && echo "" > $HISTFILE && reload'
 alias edit-hosts='svim /etc/hosts'
 
 # System Info
@@ -44,7 +42,6 @@ alias cdpwd='echo cd $(pwd) | pbcopy'
 # EZA (Modern ls replacement)
 # ============================================================================
 alias ls='eza --icons=always -F -H --group-directories-first --git -1'
-alias l='eza --icons --color-scale size --no-user --no-permissions --group-directories-first --git -l'
 alias ll='eza -aghlH --group-directories-first --git --git-repos --icons=always --sort=type --ignore-glob=.DS_Store'
 alias la='eza -a --icons --group-directories-first --git'
 alias lt='eza --tree --level=2 --icons --group-directories-first'
@@ -69,10 +66,38 @@ alias openports='sudo lsof -i -P -n | grep LISTEN'
 alias ports='sudo lsof -iTCP -sTCP:LISTEN -n -P'
 
 # ============================================================================
+# DEVOPS & CONTAINERS
+# ============================================================================
+alias d='docker'
+alias dlc='docker ps -l'                                   # Last container
+alias dx='docker exec -it'                                 # Quick exec
+alias dip='docker inspect'                                 # Container info
+alias dls='docker image ls'                                # List images
+alias dps='docker ps'                                      # Running containers
+alias dc='docker compose'                                  # Docker compose
+alias dcup='docker compose up -d'                          # Compose up (detached)
+alias dcd='docker compose down'                            # Compose down
+alias k='kubectl'                                          # Kubernetes shorthand
+alias kgp='kubectl get pods'                               # Get pods
+alias kdesc='kubectl describe'                             # Describe resource
+alias ss='ss -tulanp'                                      # Modern netstat
+alias usage='du -sh * | sort -h'                           # Disk usage sorted
+alias psgrep='ps aux | grep'                               # Process search
+
+# ============================================================================
+# PYTHON & UV
+# ============================================================================
+alias uv='uv'                                              # Python package manager
+alias uvs='uv sync'                                        # Sync dependencies
+alias uvr='uv run'                                         # Run command in venv
+alias uvi='uv pip install'                                 # Install packages
+alias uvl='uv lock'                                        # Lock dependencies
+alias uvp='uv python'                                      # Python version manager
+alias uvx='uvx'                                            # Run tools without install
+
+# ============================================================================
 # UTILITIES
 # ============================================================================
-alias gpass='LC_ALL=C tr -dc "A-Za-z0-9!@#$%^&*()" < /dev/urandom | head -c 20; echo'
-alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'
 
 # ============================================================================
 # macOS SPECIFIC

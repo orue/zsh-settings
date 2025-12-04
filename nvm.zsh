@@ -91,7 +91,7 @@ check_nvm() {
     # Check if we need to switch (either no version set, or different .nvmrc file)
     if [[ "$ZSH_NVM_VERSION" != "$nvm_file_path" ]]; then
       local nvmrc_node_version=$(nvm version "$(cat "${nvm_file_path}")")
-      printf "Activating  ${node_color}%'s\n" $nvmrc_node_version
+      printf "Activating  ${node_color}%s\n" $nvmrc_node_version
       export ZSH_NVM_VERSION="$nvm_file_path"
       nvm use --silent
       debug_log "ZSH_NVM_VERSION=$ZSH_NVM_VERSION"
