@@ -291,8 +291,6 @@ exec zsh
 
 ## 📖 Documentation
 
-- **README.md** - This guide with all features and usage examples
-- **CHANGELOG.md** - Detailed version history and changes
 - **Inline Comments** - Every function and alias is documented
 - **File Headers** - Each configuration file explains its purpose
 
