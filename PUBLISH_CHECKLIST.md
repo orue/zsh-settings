@@ -8,7 +8,6 @@ Complete checklist for publishing this ZSH configuration as a public repository.
 - [x] **CONTRIBUTING.md** - Guidelines for contributors
 - [x] **LICENSE** - MIT License
 - [x] **CHANGELOG.md** - Detailed version history and optimizations
-- [x] **OPTIMIZATION_SUMMARY.md** - Deep dive into all 12 optimizations
 - [x] **PUBLISH_CHECKLIST.md** - This file
 
 ## 🔒 Security & Privacy ✅
@@ -99,7 +98,7 @@ Complete checklist for publishing this ZSH configuration as a public repository.
 - [ ] Replace `https://github.com/yourusername/zsh-config.git` with actual repo URL
 - [ ] Update GitHub Issues URL
 - [ ] Update GitHub Discussions URL
-- [ ] Verify all links work
+- [ ] Verify all links work (README, CONTRIBUTING, CHANGELOG)
 
 ### Assets
 - [ ] Screenshot (`img/terminal-img.jpg`) - optional
@@ -113,6 +112,7 @@ Complete checklist for publishing this ZSH configuration as a public repository.
 - [ ] README is engaging and clear
 - [ ] Installation instructions work end-to-end
 - [ ] All features documented
+- [ ] CHANGELOG provides complete history
 
 ## 📊 Repository Statistics
 
@@ -221,7 +221,7 @@ git status
 # Should be clean
 
 # Verify all documentation files exist
-ls -la README.md CONTRIBUTING.md CHANGELOG.md LICENSE OPTIMIZATION_SUMMARY.md
+ls -la README.md CONTRIBUTING.md CHANGELOG.md LICENSE
 
 # Test one more time
 exec zsh

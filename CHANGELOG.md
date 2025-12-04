@@ -34,10 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Documentation
 - Comprehensive README.md for public release
-- OPTIMIZATION_SUMMARY.md (detailed breakdown of all optimizations)
 - CONTRIBUTING.md (contribution guidelines)
+- CHANGELOG.md (this file - detailed breakdown of all optimizations)
 - LICENSE (MIT)
-- CHANGELOG.md (this file)
 
 ### Changed
 

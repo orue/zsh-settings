@@ -130,7 +130,7 @@ grep -r "myfunction" ~/.config/zsh/*.zsh
 
 1. **Update Documentation**
    - README.md if user-facing
-   - OPTIMIZATION_SUMMARY.md if optimization-related
+   - CHANGELOG.md if notable change
    - Inline comments in code
 
 2. **Test Your Changes**
@@ -205,7 +205,7 @@ function my_function() {
 ```
 
 2. Add tests in your PR description
-3. Update OPTIMIZATION_SUMMARY.md if it's a significant addition
+3. Update CHANGELOG.md if it's a significant addition
 
 ### Adding a Go Tool
 
@@ -284,14 +284,14 @@ function robust_function() {
 
 - Avoid heavy operations in startup path
 - Use lazy-loading when appropriate
-- Cache when possible (see OPTIMIZATION_SUMMARY.md)
+- Cache when possible
 - Test startup time: `time zsh -i -c exit`
 
 ## Questions?
 
 - Open a GitHub Discussion
 - Check existing PRs and issues
-- Review OPTIMIZATION_SUMMARY.md for context
+- Review CHANGELOG.md for context
 - Ask in comments on related issues
 
 ## Recognition

@@ -198,7 +198,6 @@ go-clean-deps        # Clean build cache
 ├── starship.toml               # Starship prompt configuration
 ├── Brewfile                    # Homebrew package definitions
 ├── README.md                   # This file
-├── OPTIMIZATION_SUMMARY.md     # Detailed optimization documentation
 └── plugins/                    # Auto-managed ZSH plugins
     ├── zsh-autosuggestions/    # Command suggestions from history
     ├── zsh-history-substring-search/  # Search history with arrow keys
@@ -292,7 +291,9 @@ exec zsh
 
 ## 📖 Documentation
 
-- **OPTIMIZATION_SUMMARY.md** - Detailed breakdown of all 12 optimizations (High/Medium/Low priority)
+- **README.md** - This guide with all features and usage examples
+- **CONTRIBUTING.md** - Guidelines for contributors
+- **CHANGELOG.md** - Detailed version history and changes
 - **Inline Comments** - Every function and alias is documented
 - **File Headers** - Each configuration file explains its purpose
 
