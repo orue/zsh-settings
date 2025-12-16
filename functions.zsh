@@ -344,3 +344,11 @@ function sys-stats() {
     echo "DSK: $(df -h / | awk 'NR==2 {print $4 " free / " $2 " total"}')"
     echo "--------------------"
 }
+
+# Fetch gitignore templates from Toptal's gitignore API
+# Usage: gi <template> [<template>...]
+# Example: gi python,node,macos
+# Fetches and outputs gitignore content for specified language/framework templates
+function gi() {
+    curl -sLw "\n" "https://www.toptal.com/developers/gitignore/api/$@"
+}
