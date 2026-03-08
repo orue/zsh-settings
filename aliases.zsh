@@ -107,4 +107,3 @@ alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'  
 alias showfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder'  # Show hidden files
 alias hidefiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder'   # Hide hidden files
 
-
