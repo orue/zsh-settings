@@ -107,7 +107,7 @@ zsh_add_file "exports.zsh"
 zsh_add_file "aliases.zsh"
 zsh_add_file "user-aliases.zsh"
 zsh_add_file "go.zsh"
-#zsh_add_file "nvm.zsh"
+zsh_add_file "nvm.zsh"
 zsh_add_file "python-venv.zsh"
 zsh_add_file "transient-prompt.zsh"
 
