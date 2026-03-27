@@ -64,3 +64,15 @@ export OBSIDIAN_PATH="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Document
 export DEV_PATH="$HOME/dev"
 export GITHUB_PATH="$HOME/dev/GitHub/orue"
 
+# Ollama Server
+export OLLAMA_HOST=http://10.0.0.21:11434
+
+# bun completions
+[ -s "/Users/orue/.bun/_bun" ] && source "/Users/orue/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/orue/.antigravity/antigravity/bin:$PATH"
