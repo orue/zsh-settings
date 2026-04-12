@@ -67,6 +67,11 @@ export GITHUB_PATH="$HOME/dev/GitHub/orue"
 # Ollama Server
 export OLLAMA_HOST=http://10.0.0.21:11434
 
+# Claude Code with Ollama
+export ANTHROPIC_BASE_URL="http://10.0.0.21:11434"
+export ANTHROPIC_AUTH_TOKEN="ollama"
+export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
+
 # bun completions
 [ -s "/Users/orue/.bun/_bun" ] && source "/Users/orue/.bun/_bun"
 
